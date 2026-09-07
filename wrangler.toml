@@ -1,0 +1,9 @@
+name = "calafiori-fixtures"
+main = "worker.js"
+compatibility_date = "2026-09-07"
+
+[vars]
+CORS_ORIGIN = "https://naomibai.github.io"
+
+[observability]
+enabled = true

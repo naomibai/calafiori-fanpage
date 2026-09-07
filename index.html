@@ -362,9 +362,9 @@
             <div id="video-carousel" class="flex gap-6 overflow-x-auto hide-scrollbar snap-x snap-mandatory py-4 px-2">
                 
                 <!-- Video Item 1 -->
-                <div class="min-w-[280px] w-[280px] md:min-w-[340px] md:w-[340px] snap-center cursor-pointer group/video flex-shrink-0" onclick="openVideoModal('Arsenal Welcome Interview', 'I am really happy to be here. I think it is the best project for me... it is a dream come true to play in the Premier League. The facilities here are amazing and I cant wait to train with my new teammates under Mikel Arteta.', 'https://placehold.co/640x360/222/FFF?text=Arsenal+Intro')">
+                <div class="min-w-[280px] w-[280px] md:min-w-[340px] md:w-[340px] snap-center cursor-pointer group/video flex-shrink-0" onclick="openVideoModal('Arsenal Welcome Interview', '中文采访稿将在自动转写后显示。', 'assets/video/interviews/interview-1.mp4')">
                     <div class="relative overflow-hidden mb-4 rounded-sm shadow-sm">
-                        <img src="https://placehold.co/640x360/222/FFF?text=Arsenal+Intro" alt="Video 1" class="w-full h-48 md:h-56 object-cover transform group-hover/video:scale-105 transition duration-700">
+                        <video src="assets/video/interviews/interview-1.mp4" muted playsinline preload="metadata" aria-label="Arsenal Welcome Interview" class="w-full h-48 md:h-56 object-cover transform group-hover/video:scale-105 transition duration-700"></video>
                         <div class="absolute inset-0 bg-black/10 flex items-center justify-center group-hover/video:bg-black/30 transition duration-300">
                             <i class="fas fa-play text-white text-3xl opacity-90 drop-shadow-lg"></i>
                         </div>
@@ -374,9 +374,9 @@
                 </div>
 
                 <!-- Video Item 2 -->
-                <div class="min-w-[280px] w-[280px] md:min-w-[340px] md:w-[340px] snap-center cursor-pointer group/video flex-shrink-0" onclick="openVideoModal('Euro 2024 Post Match', 'It was a tough game but we showed character. Representing Italy at this stage is an honor. We played well defensively and took our chances. I want to thank the fans for their amazing support throughout the tournament.', 'https://placehold.co/640x360/111/FFF?text=Euro+2024')">
+                <div class="min-w-[280px] w-[280px] md:min-w-[340px] md:w-[340px] snap-center cursor-pointer group/video flex-shrink-0" onclick="openVideoModal('Euro 2024 Post Match', '中文采访稿将在自动转写后显示。', 'assets/video/interviews/interview-2.mp4')">
                     <div class="relative overflow-hidden mb-4 rounded-sm shadow-sm">
-                        <img src="https://placehold.co/640x360/111/FFF?text=Euro+2024" alt="Video 2" class="w-full h-48 md:h-56 object-cover transform group-hover/video:scale-105 transition duration-700">
+                        <video src="assets/video/interviews/interview-2.mp4" muted playsinline preload="metadata" aria-label="Euro 2024 Post Match" class="w-full h-48 md:h-56 object-cover transform group-hover/video:scale-105 transition duration-700"></video>
                         <div class="absolute inset-0 bg-black/10 flex items-center justify-center group-hover/video:bg-black/30 transition duration-300">
                             <i class="fas fa-play text-white text-3xl opacity-90 drop-shadow-lg"></i>
                         </div>
@@ -441,7 +441,7 @@
                 </div>
 
                 <!-- Right Schedule Column -->
-                <div class="w-full lg:w-2/3 flex flex-col md:flex-row gap-12 lg:gap-20 mt-8 lg:mt-0">
+                <div id="schedule" class="w-full lg:w-2/3 flex flex-col md:flex-row gap-12 lg:gap-20 mt-8 lg:mt-0">
                     
                     <!-- Arsenal Schedule -->
                     <div class="flex-1">
@@ -501,7 +501,7 @@
         <div class="max-w-6xl w-full bg-white shadow-2xl flex flex-col md:flex-row h-auto max-h-[90vh] overflow-hidden rounded-sm">
             <!-- Video Area -->
             <div class="w-full md:w-3/5 bg-gray-900 relative flex items-center justify-center min-h-[300px]">
-                <img id="modal-video-img" src="" alt="Video Thumbnail" class="w-full h-full object-cover opacity-50">
+                <video id="modal-video-player" controls playsinline class="w-full h-full object-contain opacity-90" aria-label="Interview video"></video>
                 <div class="absolute inset-0 flex items-center justify-center cursor-pointer hover:bg-black/20 transition duration-300">
                     <i class="fas fa-play text-white text-5xl opacity-90 drop-shadow-lg"></i>
                 </div>
@@ -594,12 +594,10 @@
             document.getElementById('modal-video-title').innerText = title;
             document.getElementById('modal-video-transcript').innerText = transcript;
             
-            const imgEl = document.getElementById('modal-video-img');
-            imgEl.src = imgUrl;
-            // Handle image load error in modal
-            imgEl.onerror = function() {
-                this.src = 'https://placehold.co/640x360/333/FFF?text=Video+Not+Found';
-            };
+            const videoEl = document.getElementById('modal-video-player');
+            videoEl.pause();
+            videoEl.src = imgUrl;
+            videoEl.load();
             
             const modal = document.getElementById('video-modal');
             modal.style.display = 'flex';
@@ -617,6 +615,10 @@
             
             videoModal.style.display = 'none';
             videoModal.classList.add('hidden');
+            const videoEl = document.getElementById('modal-video-player');
+            videoEl.pause();
+            videoEl.removeAttribute('src');
+            videoEl.load();
             
             document.body.style.overflow = 'auto'; // Restore scrolling
         }
@@ -645,24 +647,21 @@
             }
         });
 
-        // 真实 2026-2027 赛季前几个月的部分赛程数据示例 (请注意：这是模拟2026年的数据)
-        // 日期使用 ISO 格式，便于系统解析比对
-        const fixturesData = {
+        // Set this after deploying the Node.js service, for example:
+        // const SCHEDULE_API_URL = 'https://your-service.onrender.com/api/fixtures';
+        const SCHEDULE_API_URL = '';
+
+        // Fallback data keeps the page useful before the backend URL is configured.
+        const fallbackFixturesData = {
             arsenal: [
-                { date: "2026-08-15T15:00:00", comp: "Premier League", opp: "Nottingham Forest" }, // 过去的比赛
-                { date: "2026-08-22T17:30:00", comp: "Premier League", opp: "Aston Villa" },     // 过去的比赛
-                { date: "2026-08-29T15:00:00", comp: "Premier League", opp: "Brighton" },        // 过去的比赛
-                { date: "2026-09-12T15:00:00", comp: "Premier League", opp: "Tottenham Hotspur" },
-                { date: "2026-09-19T20:00:00", comp: "Champions League", opp: "Atalanta" },
-                { date: "2026-09-22T16:30:00", comp: "Premier League", opp: "Manchester City" },
-                { date: "2026-09-26T15:00:00", comp: "Premier League", opp: "Leicester City" },
-                { date: "2026-10-03T15:00:00", comp: "Premier League", opp: "Southampton" }
+                { date: "2026-09-10T03:00:00+08:00", comp: "Champions League", opp: "Napoli" },
+                { date: "2026-09-13T03:00:00+08:00", comp: "Premier League", opp: "Sunderland" },
+                { date: "2026-09-16T03:00:00+08:00", comp: "Champions League", opp: "Ipswich Town" }
             ],
             italy: [
-                { date: "2026-09-06T20:45:00", comp: "Nations League", opp: "France" },   // 过去的比赛 (假设今天之后)
-                { date: "2026-09-09T20:45:00", comp: "Nations League", opp: "Israel" },
-                { date: "2026-10-10T20:45:00", comp: "Nations League", opp: "Belgium" },
-                { date: "2026-10-14T20:45:00", comp: "Nations League", opp: "Israel" }
+                { date: "2026-09-25T02:45:00+08:00", comp: "Nations League", opp: "Belgium" },
+                { date: "2026-09-28T02:45:00+08:00", comp: "Nations League", opp: "Türkiye" },
+                { date: "2026-10-02T02:45:00+08:00", comp: "Nations League", opp: "France" }
             ]
         };
 
@@ -674,8 +673,8 @@
             return date.toLocaleDateString('en-US', options); 
         }
 
-        // 核心渲染逻辑：只显示未来的比赛
-        function renderUpcomingFixtures() {
+        // Render the API response while keeping the existing schedule layout.
+        function renderUpcomingFixtures(fixturesData) {
             // 获取用户当前的系统时间
             const now = new Date();
             
@@ -722,8 +721,23 @@
             renderTeam('italy', 'italy-fixtures');
         }
 
-        // 当网页的 DOM 结构加载完毕后，立刻执行渲染赛程的函数
-        document.addEventListener('DOMContentLoaded', renderUpcomingFixtures);
+        async function loadUpcomingFixtures() {
+            if (!SCHEDULE_API_URL) {
+                renderUpcomingFixtures(fallbackFixturesData);
+                return;
+            }
+
+            try {
+                const response = await fetch(SCHEDULE_API_URL);
+                if (!response.ok) throw new Error(`Schedule API returned ${response.status}`);
+                renderUpcomingFixtures(await response.json());
+            } catch (error) {
+                console.error('Unable to load live fixtures:', error);
+                renderUpcomingFixtures(fallbackFixturesData);
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', loadUpcomingFixtures);
 
     </script>
 </body>
