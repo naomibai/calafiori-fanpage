@@ -386,9 +386,9 @@
                 </div>
 
                 <!-- Video Item 3 -->
-                <div class="min-w-[280px] w-[280px] md:min-w-[340px] md:w-[340px] snap-center cursor-pointer group/video flex-shrink-0" onclick="openVideoModal('Bologna Farewell', 'Bologna will always hold a special place in my heart. The coach, the staff, the fans... they believed in me. We achieved something historic with Champions League qualification.', 'https://placehold.co/640x360/333/FFF?text=Bologna+Farewell')">
+                <div class="min-w-[280px] w-[280px] md:min-w-[340px] md:w-[340px] snap-center cursor-pointer group/video flex-shrink-0" onclick="openVideoModal('Bologna Farewell', 'Bologna will always hold a special place in my heart. The coach, the staff, the fans... they believed in me. We achieved something historic with Champions League qualification.', 'assets/video/interviews/interview-3.mp4')">
                     <div class="relative overflow-hidden mb-4 rounded-sm shadow-sm">
-                        <img src="https://placehold.co/640x360/333/FFF?text=Bologna+Farewell" alt="Video 3" class="w-full h-48 md:h-56 object-cover transform group-hover/video:scale-105 transition duration-700">
+                        <video src="assets/video/interviews/interview-3.mp4" poster="https://placehold.co/640x360/333/FFF?text=Bologna+Farewell" muted playsinline preload="metadata" aria-label="Bologna Farewell" class="w-full h-48 md:h-56 object-cover transform group-hover/video:scale-105 transition duration-700"></video>
                         <div class="absolute inset-0 bg-black/10 flex items-center justify-center group-hover/video:bg-black/30 transition duration-300">
                             <i class="fas fa-play text-white text-3xl opacity-90 drop-shadow-lg"></i>
                         </div>
@@ -398,9 +398,9 @@
                 </div>
                 
                 <!-- Video Item 4 -->
-                <div class="min-w-[280px] w-[280px] md:min-w-[340px] md:w-[340px] snap-center cursor-pointer group/video flex-shrink-0" onclick="openVideoModal('Style & Life', 'Fashion is a big part of my life off the pitch. I like to keep things simple but elegant. Music also helps me focus before games...', 'https://placehold.co/640x360/444/FFF?text=Life+Style')">
+                <div class="min-w-[280px] w-[280px] md:min-w-[340px] md:w-[340px] snap-center cursor-pointer group/video flex-shrink-0" onclick="openVideoModal('Style & Life', 'Fashion is a big part of my life off the pitch. I like to keep things simple but elegant. Music also helps me focus before games...', 'assets/video/interviews/interview-4.mp4')">
                     <div class="relative overflow-hidden mb-4 rounded-sm shadow-sm">
-                        <img src="https://placehold.co/640x360/444/FFF?text=Life+Style" alt="Video 4" class="w-full h-48 md:h-56 object-cover transform group-hover/video:scale-105 transition duration-700">
+                        <video src="assets/video/interviews/interview-4.mp4" poster="https://placehold.co/640x360/444/FFF?text=Life+Style" muted playsinline preload="metadata" aria-label="Style & Life" class="w-full h-48 md:h-56 object-cover transform group-hover/video:scale-105 transition duration-700"></video>
                         <div class="absolute inset-0 bg-black/10 flex items-center justify-center group-hover/video:bg-black/30 transition duration-300">
                             <i class="fas fa-play text-white text-3xl opacity-90 drop-shadow-lg"></i>
                         </div>
@@ -502,7 +502,7 @@
             <!-- Video Area -->
             <div class="w-full md:w-3/5 bg-gray-900 relative flex items-center justify-center min-h-[300px]">
                 <video id="modal-video-player" controls playsinline class="w-full h-full object-contain opacity-90" aria-label="Interview video"></video>
-                <div class="absolute inset-0 flex items-center justify-center cursor-pointer hover:bg-black/20 transition duration-300">
+                <div id="modal-video-overlay" class="absolute inset-0 flex items-center justify-center cursor-pointer hover:bg-black/20 transition duration-300" onclick="toggleModalVideo()">
                     <i class="fas fa-play text-white text-5xl opacity-90 drop-shadow-lg"></i>
                 </div>
             </div>
@@ -593,16 +593,30 @@
         function openVideoModal(title, transcript, imgUrl) {
             document.getElementById('modal-video-title').innerText = title;
             document.getElementById('modal-video-transcript').innerText = transcript;
-            
+
             const videoEl = document.getElementById('modal-video-player');
             videoEl.pause();
             videoEl.src = imgUrl;
             videoEl.load();
-            
+            document.getElementById('modal-video-overlay').classList.remove('hidden');
+
             const modal = document.getElementById('video-modal');
             modal.style.display = 'flex';
             modal.classList.remove('hidden');
             document.body.style.overflow = 'hidden';
+        }
+
+        // Play/pause when the big overlay button is clicked
+        function toggleModalVideo() {
+            const videoEl = document.getElementById('modal-video-player');
+            const overlay = document.getElementById('modal-video-overlay');
+            if (videoEl.paused) {
+                videoEl.play();
+                overlay.classList.add('hidden');
+            } else {
+                videoEl.pause();
+                overlay.classList.remove('hidden');
+            }
         }
 
         // Close all modals
