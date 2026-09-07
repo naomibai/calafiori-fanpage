@@ -76,6 +76,72 @@ function getCacheTTL(matches) {
     return 24 * 60 * 60;
 }
 
+function arrayBufferToBase64(buffer) {
+    const bytes = new Uint8Array(buffer);
+    let binary = '';
+    const chunkSize = 0x8000;
+    for (let i = 0; i < bytes.length; i += chunkSize) {
+        binary += String.fromCharCode.apply(null, bytes.subarray(i, i + chunkSize));
+    }
+    return btoa(binary);
+}
+
+async function handleTranscribe(request, env) {
+    const start = Date.now();
+
+    const token = env.TRANSCRIBE_TOKEN;
+    if (!token) {
+        return jsonResponse({ error: 'TRANSCRIBE_TOKEN is not configured' }, 500, request, env);
+    }
+    // Plain string compare is fine here: this endpoint is only called by the local CLI script.
+    if (request.headers.get('Authorization') !== `Bearer ${token}`) {
+        return jsonResponse({ error: 'Unauthorized' }, 401, request, env);
+    }
+
+    const contentLength = Number(request.headers.get('content-length') || 0);
+    if (!contentLength || contentLength > 10 * 1024 * 1024) {
+        return jsonResponse({ error: 'Audio too large (max 10 MB)' }, 413, request, env);
+    }
+    const contentType = (request.headers.get('content-type') || '').toLowerCase();
+    if (!contentType.startsWith('audio/')) {
+        return jsonResponse({ error: 'Content-Type must be audio/*' }, 415, request, env);
+    }
+    if (!env.AI) {
+        return jsonResponse({ error: 'AI binding is not configured (add [ai] to wrangler.toml)' }, 500, request, env);
+    }
+
+    try {
+        const audioBuffer = await request.arrayBuffer();
+        if (!audioBuffer.byteLength) {
+            return jsonResponse({ error: 'Empty audio body' }, 400, request, env);
+        }
+        if (audioBuffer.byteLength > 10 * 1024 * 1024) {
+            return jsonResponse({ error: 'Audio too large (max 10 MB)' }, 413, request, env);
+        }
+
+        // whisper-large-v3-turbo 要求 audio 为 base64 字符串（数字数组是旧版 @cf/openai/whisper 的格式）
+        const result = await env.AI.run('@cf/openai/whisper-large-v3-turbo', {
+            audio: arrayBufferToBase64(audioBuffer)
+        });
+
+        if (!result || typeof result.text !== 'string' || !result.text.trim()) {
+            return jsonResponse({ error: 'No speech detected' }, 422, request, env);
+        }
+        return jsonResponse({
+            ok: true,
+            text: result.text,
+            wordCount: result.word_count || 0,
+            durationMs: Date.now() - start
+        }, 200, request, env);
+    } catch (error) {
+        console.error('Transcription failed:', error);
+        return jsonResponse({
+            error: 'Transcription failed',
+            diagnostic: error instanceof Error ? error.message.slice(0, 300) : 'Unknown upstream error'
+        }, 502, request, env);
+    }
+}
+
 async function getFixtures(request, env, ctx) {
     const cache = caches.default;
     const cacheKey = new Request(new URL('/api/fixtures', request.url).toString(), request);
@@ -118,21 +184,24 @@ export default {
         if (url.pathname === '/health') {
             return jsonResponse({ ok: true }, 200, request, env);
         }
-        if (url.pathname !== '/api/fixtures' || request.method !== 'GET') {
-            return jsonResponse({ error: 'Not found' }, 404, request, env);
+        if (url.pathname === '/api/transcribe' && request.method === 'POST') {
+            return handleTranscribe(request, env);
         }
-        if (!env.API_FOOTBALL_KEY) {
-            return jsonResponse({ error: 'API_FOOTBALL_KEY is not configured' }, 500, request, env);
-        }
+        if (url.pathname === '/api/fixtures' && request.method === 'GET') {
+            if (!env.API_FOOTBALL_KEY) {
+                return jsonResponse({ error: 'API_FOOTBALL_KEY is not configured' }, 500, request, env);
+            }
 
-        try {
-            return await getFixtures(request, env, ctx);
-        } catch (error) {
-            console.error(error);
-            return jsonResponse({
-                error: 'Unable to load fixtures from API-Football',
-                diagnostic: error instanceof Error ? error.message : 'Unknown upstream error'
-            }, 502, request, env);
+            try {
+                return await getFixtures(request, env, ctx);
+            } catch (error) {
+                console.error(error);
+                return jsonResponse({
+                    error: 'Unable to load fixtures from API-Football',
+                    diagnostic: error instanceof Error ? error.message : 'Unknown upstream error'
+                }, 502, request, env);
+            }
         }
+        return jsonResponse({ error: 'Not found' }, 404, request, env);
     }
 };
