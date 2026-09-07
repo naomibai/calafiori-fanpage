@@ -1,0 +1,730 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="referrer" content="no-referrer">
+    <title>Riccardo Calafiori | Vogue Style Fanpage</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        serif: ['"Playfair Display"', 'serif'],
+                        sans: ['"Inter"', 'sans-serif'],
+                    },
+                    colors: {
+                        vogueBlack: '#1a1a1a',
+                        vogueGray: '#f7f7f7',
+                        vogueRed: '#e60000',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #ffffff;
+            color: #1a1a1a;
+            scroll-behavior: smooth;
+        }
+        
+        /* Custom scrollbar for carousel */
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        /* Career Slices Animation */
+        .slice-container {
+            display: flex;
+            height: 60vh;
+            min-height: 400px;
+            width: 100%;
+            overflow: hidden;
+        }
+        .slice {
+            flex: 1;
+            transition: all 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+            position: relative;
+            cursor: pointer;
+            border-right: 1px solid #fff;
+            filter: grayscale(80%);
+            background-size: cover;
+            background-position: center;
+        }
+        .slice:last-child {
+            border-right: none;
+        }
+        .slice:hover {
+            flex: 3;
+            filter: grayscale(0%);
+        }
+        .slice-content {
+            position: absolute;
+            bottom: 2rem;
+            left: 2rem;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            transition-delay: 0.2s;
+            color: white;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+        }
+        .slice:hover .slice-content {
+            opacity: 1;
+        }
+        .slice-title {
+            writing-mode: vertical-rl;
+            text-orientation: mixed;
+            transform: rotate(180deg);
+            position: absolute;
+            top: 2rem;
+            left: 50%;
+            transform: translateX(-50%) rotate(180deg);
+            font-size: 1.5rem;
+            letter-spacing: 0.2em;
+            transition: opacity 0.3s ease;
+            color: white;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+        }
+        .slice:hover .slice-title {
+            opacity: 0;
+        }
+
+        @media (max-width: 768px) {
+            .slice-container {
+                flex-direction: column;
+                height: 80vh;
+            }
+            .slice {
+                border-right: none;
+                border-bottom: 1px solid #fff;
+            }
+            .slice-title {
+                writing-mode: horizontal-tb;
+                transform: none;
+                top: 50%;
+                left: 2rem;
+                transform: translateY(-50%);
+            }
+            .slice:hover .slice-title {
+                display: none;
+            }
+        }
+
+        /* Modal Overlay */
+        .modal-overlay {
+            backdrop-filter: blur(5px);
+            background-color: rgba(255, 255, 255, 0.95);
+        }
+
+        /* Add a subtle fade-in animation for images */
+        img {
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* Sticker Heads Layout */
+        .stickers-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+            padding: 2rem 0;
+            background-color: transparent; /* Assuming paper texture is handled via images or outer container if needed later */
+        }
+
+        .sticker-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .sticker-wrapper:hover {
+            transform: scale(1.05);
+        }
+
+        .sticker-img {
+            width: 150px; /* Adjust size as needed based on provided images */
+            height: auto;
+            object-fit: contain;
+            filter: drop-shadow(2px 4px 6px rgba(0,0,0,0.1));
+            transition: filter 0.3s ease;
+        }
+        
+        .sticker-wrapper:hover .sticker-img {
+             filter: drop-shadow(4px 8px 12px rgba(0,0,0,0.15));
+        }
+
+        .sticker-label {
+            margin-top: 1rem;
+            font-family: 'Playfair Display', serif;
+            font-size: 1.1rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: #333;
+            opacity: 0.7;
+            transition: opacity 0.3s ease;
+        }
+
+        .sticker-wrapper:hover .sticker-label {
+            opacity: 1;
+        }
+
+        @media (max-width: 768px) {
+            .stickers-container {
+                gap: 1.5rem;
+            }
+            .sticker-img {
+                width: 100px;
+            }
+            .sticker-label {
+                font-size: 0.9rem;
+            }
+        }
+        
+        /* 纸张纹理背景，提升拼贴画质感 */
+        .paper-bg {
+            background-color: #f4f4f0;
+            background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100' height='100' filter='url(%23noise)' opacity='0.08'/%3E%3C/svg%3E");
+        }
+
+        /* 悬浮小物件样式 */
+        .trinket {
+            position: absolute;
+            z-index: 20;
+            filter: grayscale(80%) opacity(0.7); /* 默认暗淡半透明 */
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* 带弹性的过渡 */
+            cursor: pointer;
+        }
+
+        .trinket:hover {
+            filter: grayscale(0%) opacity(1) drop-shadow(0px 10px 15px rgba(0,0,0,0.3)); /* 点亮并增加阴影 */
+            transform: scale(1.15) translateY(-5px); /* 放大并上浮 */
+        }
+        
+        /* 手写体标注样式 */
+        .handwriting {
+            font-family: 'Caveat', cursive, sans-serif; /* 假设引入了手写体，没有则回退 */
+            color: #d13030; /* 类似红笔圈注的颜色 */
+            position: absolute;
+            white-space: nowrap;
+            opacity: 0; /* 默认隐藏标注 */
+            transition: opacity 0.3s ease;
+            pointer-events: none; /* 防止遮挡图片点击 */
+        }
+        
+        .trinket:hover + .handwriting {
+            opacity: 1; /* 鼠标悬停时显示标注 */
+        }
+
+    </style>
+    <!-- 引入一种手写字体用于标注 -->
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600&display=swap" rel="stylesheet">
+</head>
+<body class="font-sans antialiased overflow-x-hidden">
+
+    <!-- Header: Editorial Style -->
+    <header class="w-full pt-8 pb-4 px-6 fixed top-0 bg-white/95 backdrop-blur-md z-40 border-b border-black">
+        <div class="max-w-7xl mx-auto flex flex-col items-center">
+            <h1 class="text-4xl md:text-6xl font-serif tracking-[0.15em] uppercase text-center cursor-pointer hover:text-gray-600 transition-colors">
+                Calafiori
+            </h1>
+            <nav class="mt-6 w-full flex justify-center space-x-6 md:space-x-12 text-[10px] md:text-xs font-semibold tracking-[0.2em] uppercase border-t border-gray-200 pt-4">
+                <a href="#hero" class="hover:text-gray-500 transition-colors">Home</a>
+                <a href="#career" class="hover:text-gray-500 transition-colors">Clubs</a>
+                <a href="#interviews" class="hover:text-gray-500 transition-colors">Video</a>
+                <a href="#fixtures" class="hover:text-gray-500 transition-colors">Schedule</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="hero" class="mt-[160px] w-full px-4 md:px-12 pb-16">
+        <div class="max-w-6xl mx-auto flex flex-col items-center relative">
+            
+            <!-- Category Tag like in reference -->
+            <div class="w-full text-left mb-4">
+                <span class="text-xs font-sans tracking-[0.2em] uppercase text-gray-500">Feature Profile</span>
+            </div>
+
+            <!-- 主图与悬浮小物件容器 -->
+            <div class="w-full relative group mx-auto" style="max-width: 900px;"> 
+                
+                <!-- 预留小物件 1: 左上角 (例如：标志性发带) -->
+                <img src="assets/images/trinkets/head%20bound.png" alt="Hairband" class="trinket top-[-5%] left-[-5%] md:top-[10%] md:left-[-10%] w-[80px] md:w-[120px]">
+                <span class="handwriting top-[5%] left-[-8%] md:top-[20%] md:left-[-12%] text-lg md:text-xl -rotate-12">Signature Look</span>
+
+                <!-- 预留小物件 2: 右上角 (例如：护腿板/球鞋) -->
+                <img src="assets/images/trinkets/sin%20guards.png" alt="Shin guards" class="trinket top-[5%] right-[-5%] md:top-[15%] md:right-[-12%] w-[100px] md:w-[150px]">
+                <span class="handwriting top-[15%] right-[-10%] md:top-[25%] md:right-[-15%] text-lg md:text-xl rotate-6">Match Essentials</span>
+                
+                <!-- 预留小物件 3: 左下角 (例如：一本书/耳机，体现生活方式) -->
+                <img src="assets/images/trinkets/headearings.png" alt="Headphones" class="trinket bottom-[10%] left-[-2%] md:bottom-[20%] md:left-[-8%] w-[80px] md:w-[100px]">
+                <span class="handwriting bottom-[5%] left-[2%] md:bottom-[15%] md:left-[-5%] text-lg md:text-xl -rotate-6">Pre-match vibe</span>
+
+                <!-- 预留小物件 4: 右下角 (例如：某项荣誉奖牌) -->
+                <img src="assets/images/trinkets/mendal.png" alt="Medal" class="trinket bottom-[-5%] right-[5%] md:bottom-[10%] md:right-[-8%] w-[90px] md:w-[110px]">
+                <span class="handwriting bottom-[-10%] right-[0%] md:bottom-[5%] md:right-[-5%] text-lg md:text-xl rotate-12">Glory days</span>
+
+                <!-- User provided image (居中并稍微缩小以留出边距放物件) -->
+                <img src="assets/images/hero.jpg" alt="Riccardo Calafiori" class="w-full object-cover shadow-lg h-[60vh] md:h-[75vh] object-top bg-gray-100 border-8 border-white" onerror="this.src='https://placehold.co/900x700/f0f0f0/333?text=Riccardo+Calafiori'">
+                
+                <!-- Overlay text -->
+                <div class="absolute bottom-2 left-2 right-2 p-6 md:p-8 bg-gradient-to-t from-black/90 via-black/40 to-transparent text-white pointer-events-none">
+                    <h2 class="font-serif italic text-3xl md:text-5xl lg:text-6xl mb-2 drop-shadow-md">The Art of Defending</h2>
+                    <p class="text-sm md:text-base font-sans tracking-[0.2em] uppercase mt-2 opacity-90 drop-shadow-md">Riccardo Calafiori</p>
+                </div>
+            </div>
+            
+            <!-- Editorial quote text -->
+            <div class="mt-16 text-center max-w-3xl px-4 flex flex-col items-center">
+                <div class="w-12 h-[1px] bg-black mb-8"></div>
+                <h3 class="text-xl md:text-3xl font-serif leading-relaxed text-gray-800">
+                    "Style, anticipation, and an undeniable presence on the pitch. A modern defender redefining the Italian art of the backline."
+                </h3>
+                <div class="w-12 h-[1px] bg-black mt-8 mb-4"></div>
+                <p class="text-[10px] font-sans tracking-[0.2em] uppercase text-gray-400">Written by Fanpage Editorial</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 1: Career Eras (Stickers) -->
+    <section id="career" class="w-full border-t border-gray-200 py-16 paper-bg shadow-inner">
+        <div class="max-w-7xl mx-auto px-4 md:px-12 mb-8 flex flex-col justify-center items-center text-center">
+            <h3 class="text-sm md:text-base tracking-[0.2em] uppercase font-bold text-gray-800 mb-2 font-serif">The Eras</h3>
+            <span class="text-[10px] text-gray-500 tracking-widest uppercase">Select an era to explore the gallery</span>
+            <div class="w-8 h-[1px] bg-gray-300 mt-6"></div>
+        </div>
+
+        <div class="w-full max-w-7xl mx-auto px-4 md:px-12">
+            <div class="stickers-container">
+                <!-- Roma -->
+                <div class="sticker-wrapper" onclick="openGallery('roma')">
+                    <img src="assets/images/gallery/roma/cover.png" alt="Roma Era" class="sticker-img" onerror="this.src='https://placehold.co/150x150/f0f0f0/333?text=Roma'">
+                    <span class="sticker-label">Roma</span>
+                </div>
+                
+                <!-- Basel -->
+                <div class="sticker-wrapper" onclick="openGallery('basel')">
+                    <img src="assets/images/gallery/basel/cover.png" alt="Basel Era" class="sticker-img" onerror="this.src='https://placehold.co/150x150/f0f0f0/333?text=Basel'">
+                    <span class="sticker-label">Basel</span>
+                </div>
+
+                <!-- Bologna -->
+                <div class="sticker-wrapper" onclick="openGallery('bologna')">
+                    <img src="assets/images/gallery/bologna/cover.png" alt="Bologna Era" class="sticker-img" onerror="this.src='https://placehold.co/150x150/f0f0f0/333?text=Bologna'">
+                    <span class="sticker-label">Bologna</span>
+                </div>
+
+                <!-- Arsenal -->
+                <div class="sticker-wrapper" onclick="openGallery('arsenal')">
+                    <img src="assets/images/gallery/arsenal/cover.png" alt="Arsenal Era" class="sticker-img" onerror="this.src='https://placehold.co/150x150/f0f0f0/333?text=Arsenal'">
+                    <span class="sticker-label">Arsenal</span>
+                </div>
+
+                <!-- Italy (Azzurri) -->
+                <div class="sticker-wrapper" onclick="openGallery('italy')">
+                    <img src="assets/images/gallery/italy/cover.png" alt="Italy Era" class="sticker-img" onerror="this.src='https://placehold.co/150x150/f0f0f0/333?text=Italy'">
+                    <span class="sticker-label">Azzurri</span>
+                </div>
+            </div>
+            <p class="text-center mt-12 text-[10px] text-gray-400 font-sans tracking-[0.1em] uppercase">*Gallery assets supplied by the fanpage</p>
+        </div>
+    </section>
+
+    <!-- Section 2: Interviews Carousel -->
+    <section id="interviews" class="w-full border-t border-gray-200 py-16 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 md:px-12 mb-12 border-b border-gray-200 pb-4">
+            <h3 class="text-xs md:text-sm tracking-[0.2em] uppercase font-bold text-gray-800">MÁS VIDEOS / Interviews</h3>
+        </div>
+
+        <div class="max-w-7xl mx-auto px-4 md:px-12 relative group">
+            <!-- Carousel Controls -->
+            <button onclick="scrollCarousel(-1)" class="absolute -left-2 md:-left-4 top-1/2 -translate-y-1/2 z-10 bg-white border border-gray-200 w-10 h-10 rounded-full shadow-sm hover:bg-black hover:text-white hover:border-black transition-all flex items-center justify-center cursor-pointer">
+                <i class="fas fa-chevron-left text-sm"></i>
+            </button>
+            
+            <div id="video-carousel" class="flex gap-6 overflow-x-auto hide-scrollbar snap-x snap-mandatory py-4 px-2">
+                
+                <!-- Video Item 1 -->
+                <div class="min-w-[280px] w-[280px] md:min-w-[340px] md:w-[340px] snap-center cursor-pointer group/video flex-shrink-0" onclick="openVideoModal('Arsenal Welcome Interview', 'I am really happy to be here. I think it is the best project for me... it is a dream come true to play in the Premier League. The facilities here are amazing and I cant wait to train with my new teammates under Mikel Arteta.', 'https://placehold.co/640x360/222/FFF?text=Arsenal+Intro')">
+                    <div class="relative overflow-hidden mb-4 rounded-sm shadow-sm">
+                        <img src="https://placehold.co/640x360/222/FFF?text=Arsenal+Intro" alt="Video 1" class="w-full h-48 md:h-56 object-cover transform group-hover/video:scale-105 transition duration-700">
+                        <div class="absolute inset-0 bg-black/10 flex items-center justify-center group-hover/video:bg-black/30 transition duration-300">
+                            <i class="fas fa-play text-white text-3xl opacity-90 drop-shadow-lg"></i>
+                        </div>
+                    </div>
+                    <p class="text-[10px] font-bold tracking-[0.15em] uppercase text-red-600 mb-2">Exclusive</p>
+                    <h4 class="font-serif text-lg leading-snug group-hover/video:text-gray-500 transition duration-300">RICCARDO CALAFIORI: FIRST WORDS AS A GUNNER</h4>
+                </div>
+
+                <!-- Video Item 2 -->
+                <div class="min-w-[280px] w-[280px] md:min-w-[340px] md:w-[340px] snap-center cursor-pointer group/video flex-shrink-0" onclick="openVideoModal('Euro 2024 Post Match', 'It was a tough game but we showed character. Representing Italy at this stage is an honor. We played well defensively and took our chances. I want to thank the fans for their amazing support throughout the tournament.', 'https://placehold.co/640x360/111/FFF?text=Euro+2024')">
+                    <div class="relative overflow-hidden mb-4 rounded-sm shadow-sm">
+                        <img src="https://placehold.co/640x360/111/FFF?text=Euro+2024" alt="Video 2" class="w-full h-48 md:h-56 object-cover transform group-hover/video:scale-105 transition duration-700">
+                        <div class="absolute inset-0 bg-black/10 flex items-center justify-center group-hover/video:bg-black/30 transition duration-300">
+                            <i class="fas fa-play text-white text-3xl opacity-90 drop-shadow-lg"></i>
+                        </div>
+                    </div>
+                    <p class="text-[10px] font-bold tracking-[0.15em] uppercase text-blue-600 mb-2">Azzurri</p>
+                    <h4 class="font-serif text-lg leading-snug group-hover/video:text-gray-500 transition duration-300">POST MATCH THOUGHTS: EURO 2024 CAMPAIGN</h4>
+                </div>
+
+                <!-- Video Item 3 -->
+                <div class="min-w-[280px] w-[280px] md:min-w-[340px] md:w-[340px] snap-center cursor-pointer group/video flex-shrink-0" onclick="openVideoModal('Bologna Farewell', 'Bologna will always hold a special place in my heart. The coach, the staff, the fans... they believed in me. We achieved something historic with Champions League qualification.', 'https://placehold.co/640x360/333/FFF?text=Bologna+Farewell')">
+                    <div class="relative overflow-hidden mb-4 rounded-sm shadow-sm">
+                        <img src="https://placehold.co/640x360/333/FFF?text=Bologna+Farewell" alt="Video 3" class="w-full h-48 md:h-56 object-cover transform group-hover/video:scale-105 transition duration-700">
+                        <div class="absolute inset-0 bg-black/10 flex items-center justify-center group-hover/video:bg-black/30 transition duration-300">
+                            <i class="fas fa-play text-white text-3xl opacity-90 drop-shadow-lg"></i>
+                        </div>
+                    </div>
+                    <p class="text-[10px] font-bold tracking-[0.15em] uppercase text-gray-500 mb-2">Serie A</p>
+                    <h4 class="font-serif text-lg leading-snug group-hover/video:text-gray-500 transition duration-300">FAREWELL TO BOLOGNA: AN EMOTIONAL GOODBYE</h4>
+                </div>
+                
+                <!-- Video Item 4 -->
+                <div class="min-w-[280px] w-[280px] md:min-w-[340px] md:w-[340px] snap-center cursor-pointer group/video flex-shrink-0" onclick="openVideoModal('Style & Life', 'Fashion is a big part of my life off the pitch. I like to keep things simple but elegant. Music also helps me focus before games...', 'https://placehold.co/640x360/444/FFF?text=Life+Style')">
+                    <div class="relative overflow-hidden mb-4 rounded-sm shadow-sm">
+                        <img src="https://placehold.co/640x360/444/FFF?text=Life+Style" alt="Video 4" class="w-full h-48 md:h-56 object-cover transform group-hover/video:scale-105 transition duration-700">
+                        <div class="absolute inset-0 bg-black/10 flex items-center justify-center group-hover/video:bg-black/30 transition duration-300">
+                            <i class="fas fa-play text-white text-3xl opacity-90 drop-shadow-lg"></i>
+                        </div>
+                    </div>
+                    <p class="text-[10px] font-bold tracking-[0.15em] uppercase text-gray-800 mb-2">Lifestyle</p>
+                    <h4 class="font-serif text-lg leading-snug group-hover/video:text-gray-500 transition duration-300">OFF THE PITCH: STYLE, LIFE AND FOOTBALL</h4>
+                </div>
+
+            </div>
+
+            <button onclick="scrollCarousel(1)" class="absolute -right-2 md:-right-4 top-1/2 -translate-y-1/2 z-10 bg-white border border-gray-200 w-10 h-10 rounded-full shadow-sm hover:bg-black hover:text-white hover:border-black transition-all flex items-center justify-center cursor-pointer">
+                <i class="fas fa-chevron-right text-sm"></i>
+            </button>
+        </div>
+    </section>
+
+    <!-- Section 3: Schedule Tracking -->
+    <section id="fixtures" class="w-full border-t border-gray-200 py-24 relative overflow-hidden bg-white">
+        
+        <!-- Large background typography matching reference -->
+        <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-[15rem] md:text-[25rem] font-sans font-bold text-gray-50 opacity-60 select-none z-0 tracking-tighter pointer-events-none">
+            2026
+        </div>
+        
+        <div class="max-w-7xl mx-auto px-4 md:px-12 relative z-10">
+            
+            <div class="flex flex-col lg:flex-row justify-between items-start gap-16">
+                
+                <!-- Left Title Column -->
+                <div class="w-full lg:w-1/3">
+                    <p class="text-[10px] font-bold tracking-[0.2em] uppercase text-gray-400 mb-4">Tracking</p>
+                    <h3 class="text-2xl md:text-4xl font-serif uppercase tracking-widest mb-8 border-b border-gray-200 pb-6 leading-tight text-gray-900">
+                        Next Time: <br>On The Pitch
+                    </h3>
+                    <p class="text-xs text-gray-500 font-sans leading-relaxed text-justify max-w-sm">
+                        Tracking Riccardo's upcoming fixtures across the Premier League, European competitions, and International duties with the Azzurri. The path to greatness is paved match by match.
+                    </p>
+                </div>
+
+                <!-- Right Schedule Column -->
+                <div class="w-full lg:w-2/3 flex flex-col md:flex-row gap-12 lg:gap-20 mt-8 lg:mt-0">
+                    
+                    <!-- Arsenal Schedule -->
+                    <div class="flex-1">
+                        <h4 class="text-xs font-bold tracking-[0.2em] uppercase mb-8 pb-2 border-b-2 border-red-600 inline-block text-gray-900">
+                            Arsenal FC
+                        </h4>
+                        <ul id="arsenal-fixtures" class="space-y-6">
+                            <!-- Injected by JavaScript -->
+                        </ul>
+                    </div>
+
+                    <!-- Italy Schedule -->
+                    <div class="flex-1">
+                        <h4 class="text-xs font-bold tracking-[0.2em] uppercase mb-8 pb-2 border-b-2 border-blue-600 inline-block text-gray-900">
+                            Italy (Azzurri)
+                        </h4>
+                        <ul id="italy-fixtures" class="space-y-6">
+                            <!-- Injected by JavaScript -->
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="w-full border-t border-gray-200 py-12 px-6 bg-white">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center text-[9px] tracking-[0.2em] uppercase text-gray-400">
+            <p>® 2026 CALAFIORI FANPAGE. NOT AFFILIATED WITH ARSENAL FC OR FIGC.</p>
+            <p class="mt-6 md:mt-0">DESIGN INSPIRED BY EDITORIAL LAYOUTS.</p>
+        </div>
+    </footer>
+
+
+    <!-- Gallery Modal (For Club Slices) -->
+    <div id="gallery-modal" class="fixed inset-0 z-50 modal-overlay hidden flex-col pt-24 px-4 md:px-12 pb-12 overflow-y-auto">
+        <button onclick="closeModals()" class="absolute top-6 right-6 md:top-10 md:right-10 text-2xl text-gray-400 hover:text-black transition z-50 cursor-pointer">
+            <i class="fas fa-times"></i>
+        </button>
+        <div class="max-w-6xl mx-auto w-full">
+            <p class="text-center text-xs tracking-[0.2em] uppercase text-gray-500 mb-4">Gallery View</p>
+            <h2 id="gallery-title" class="text-3xl md:text-5xl font-serif uppercase tracking-widest mb-12 text-center border-b border-gray-200 pb-8">CLUB NAME</h2>
+            
+            <div id="gallery-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-10">
+                <!-- JS will inject images here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Video & Transcript Modal -->
+    <div id="video-modal" class="fixed inset-0 z-50 modal-overlay hidden items-center justify-center p-4 md:p-12">
+        <button onclick="closeModals()" class="absolute top-6 right-6 md:top-10 md:right-10 text-2xl text-gray-400 hover:text-black transition z-50 cursor-pointer">
+            <i class="fas fa-times"></i>
+        </button>
+        
+        <div class="max-w-6xl w-full bg-white shadow-2xl flex flex-col md:flex-row h-auto max-h-[90vh] overflow-hidden rounded-sm">
+            <!-- Video Area -->
+            <div class="w-full md:w-3/5 bg-gray-900 relative flex items-center justify-center min-h-[300px]">
+                <img id="modal-video-img" src="" alt="Video Thumbnail" class="w-full h-full object-cover opacity-50">
+                <div class="absolute inset-0 flex items-center justify-center cursor-pointer hover:bg-black/20 transition duration-300">
+                    <i class="fas fa-play text-white text-5xl opacity-90 drop-shadow-lg"></i>
+                </div>
+            </div>
+            
+            <!-- Transcript Area -->
+            <div class="w-full md:w-2/5 p-8 md:p-12 overflow-y-auto bg-gray-50">
+                <p class="text-[10px] font-bold tracking-[0.2em] uppercase text-gray-400 mb-6 border-b border-gray-200 pb-2">Transcript</p>
+                <h3 id="modal-video-title" class="text-2xl md:text-3xl font-serif mb-8 leading-tight text-gray-900">Title</h3>
+                
+                <div class="font-sans text-sm leading-loose text-gray-600 space-y-4 text-justify">
+                    <p id="modal-video-transcript" class="first-letter:text-6xl first-letter:font-serif first-letter:float-left first-letter:mr-3 first-letter:leading-none first-letter:text-black">
+                        Transcript goes here.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Data for club galleries
+        const clubData = {
+            roma: {
+                title: "AS ROMA ERA",
+                images: [
+                    "assets/images/gallery/roma/cover.png"
+                ]
+            },
+            basel: {
+                title: "FC BASEL ERA",
+                images: [
+                    "assets/images/gallery/basel/cover.png"
+                ]
+            },
+            bologna: {
+                title: "BOLOGNA FC ERA",
+                images: [
+                    "assets/images/gallery/bologna/cover.png"
+                ]
+            },
+            arsenal: {
+                title: "ARSENAL ERA",
+                images: [
+                    "assets/images/gallery/arsenal/cover.png"
+                ]
+            },
+            italy: {
+                title: "AZZURRI ERA",
+                images: [
+                    "assets/images/gallery/italy/cover.png"
+                ]
+            }
+        };
+
+        // Open Club Gallery Modal
+        function openGallery(clubId) {
+            const modal = document.getElementById('gallery-modal');
+            const title = document.getElementById('gallery-title');
+            const grid = document.getElementById('gallery-grid');
+            
+            const data = clubData[clubId];
+            if(!data) return;
+
+            title.innerText = data.title;
+            
+            // Clear existing grid
+            grid.innerHTML = '';
+            
+            // Populate grid with images
+            data.images.forEach((imgUrl, index) => {
+                const imgContainer = document.createElement('div');
+                // Make the middle image span differently for editorial layout
+                const isFeatured = index === 1; 
+                imgContainer.className = `w-full overflow-hidden bg-gray-100 ${isFeatured ? 'md:col-span-2 lg:col-span-1 lg:row-span-2' : ''}`;
+                
+                imgContainer.innerHTML = `
+                    <img src="${imgUrl}" alt="${data.title} photo" class="w-full h-full object-cover grayscale hover:grayscale-0 transition duration-500 cursor-crosshair ${isFeatured ? 'min-h-[400px] md:min-h-[600px]' : 'h-64 md:h-[400px]'} shadow-sm">
+                `;
+                grid.appendChild(imgContainer);
+            });
+            
+            // Ensure modal uses flex display when visible
+            modal.style.display = 'flex';
+            modal.classList.remove('hidden');
+            document.body.style.overflow = 'hidden'; // Prevent background scrolling
+        }
+
+        // Open Video Modal
+        function openVideoModal(title, transcript, imgUrl) {
+            document.getElementById('modal-video-title').innerText = title;
+            document.getElementById('modal-video-transcript').innerText = transcript;
+            
+            const imgEl = document.getElementById('modal-video-img');
+            imgEl.src = imgUrl;
+            // Handle image load error in modal
+            imgEl.onerror = function() {
+                this.src = 'https://placehold.co/640x360/333/FFF?text=Video+Not+Found';
+            };
+            
+            const modal = document.getElementById('video-modal');
+            modal.style.display = 'flex';
+            modal.classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        }
+
+        // Close all modals
+        function closeModals() {
+            const galleryModal = document.getElementById('gallery-modal');
+            const videoModal = document.getElementById('video-modal');
+            
+            galleryModal.style.display = 'none';
+            galleryModal.classList.add('hidden');
+            
+            videoModal.style.display = 'none';
+            videoModal.classList.add('hidden');
+            
+            document.body.style.overflow = 'auto'; // Restore scrolling
+        }
+
+        // Carousel scrolling logic
+        function scrollCarousel(direction) {
+            const carousel = document.getElementById('video-carousel');
+            if(!carousel) return;
+            
+            // Get width of one item + gap
+            const item = carousel.querySelector('div');
+            if(!item) return;
+            
+            const scrollAmount = item.offsetWidth + 24; // width + 1.5rem (gap-6)
+            
+            carousel.scrollBy({
+                left: direction * scrollAmount,
+                behavior: 'smooth'
+            });
+        }
+
+        // Escape key to close modals
+        document.addEventListener('keydown', function(event) {
+            if (event.key === "Escape") {
+                closeModals();
+            }
+        });
+
+        // 真实 2026-2027 赛季前几个月的部分赛程数据示例 (请注意：这是模拟2026年的数据)
+        // 日期使用 ISO 格式，便于系统解析比对
+        const fixturesData = {
+            arsenal: [
+                { date: "2026-08-15T15:00:00", comp: "Premier League", opp: "Nottingham Forest" }, // 过去的比赛
+                { date: "2026-08-22T17:30:00", comp: "Premier League", opp: "Aston Villa" },     // 过去的比赛
+                { date: "2026-08-29T15:00:00", comp: "Premier League", opp: "Brighton" },        // 过去的比赛
+                { date: "2026-09-12T15:00:00", comp: "Premier League", opp: "Tottenham Hotspur" },
+                { date: "2026-09-19T20:00:00", comp: "Champions League", opp: "Atalanta" },
+                { date: "2026-09-22T16:30:00", comp: "Premier League", opp: "Manchester City" },
+                { date: "2026-09-26T15:00:00", comp: "Premier League", opp: "Leicester City" },
+                { date: "2026-10-03T15:00:00", comp: "Premier League", opp: "Southampton" }
+            ],
+            italy: [
+                { date: "2026-09-06T20:45:00", comp: "Nations League", opp: "France" },   // 过去的比赛 (假设今天之后)
+                { date: "2026-09-09T20:45:00", comp: "Nations League", opp: "Israel" },
+                { date: "2026-10-10T20:45:00", comp: "Nations League", opp: "Belgium" },
+                { date: "2026-10-14T20:45:00", comp: "Nations League", opp: "Israel" }
+            ]
+        };
+
+        // 格式化日期为 "Sep 15" 这种简短格式，匹配设计图
+        function formatFixtureDate(dateString) {
+            const date = new Date(dateString);
+            const options = { month: 'short', day: 'numeric' };
+            // 这里强制使用 'en-US' 避免浏览器语言环境导致格式变化
+            return date.toLocaleDateString('en-US', options); 
+        }
+
+        // 核心渲染逻辑：只显示未来的比赛
+        function renderUpcomingFixtures() {
+            // 获取用户当前的系统时间
+            const now = new Date();
+            
+            // 封装一个供两支球队重复调用的渲染函数
+            const renderTeam = (teamKey, containerId) => {
+                const container = document.getElementById(containerId);
+                container.innerHTML = ''; // 清空 HTML 中预留的占位符
+                
+                // 1. 过滤：只保留开赛时间晚于“当前时间”的比赛
+                // 2. 排序：按时间先后顺序排列 (以防数据源乱序)
+                // 3. 截取：只取接下来的 3 场比赛
+                const upcoming = fixturesData[teamKey]
+                    .filter(fixture => new Date(fixture.date) > now)
+                    .sort((a, b) => new Date(a.date) - new Date(b.date))
+                    .slice(0, 3);
+                
+                // 如果没有未来比赛了 (赛季结束等情况)
+                if(upcoming.length === 0) {
+                    container.innerHTML = '<li class="text-sm text-gray-400 font-sans tracking-wider py-4">No upcoming fixtures scheduled.</li>';
+                    return;
+                }
+
+                // 循环生成 HTML 结构并插入页面
+                upcoming.forEach(fixture => {
+                    const li = document.createElement('li');
+                    li.className = "border-b border-gray-100 pb-4 group hover:border-gray-900 transition-colors duration-300";
+                    li.innerHTML = `
+                        <div class="flex justify-between items-baseline">
+                            <div>
+                                <p class="text-[10px] tracking-widest text-gray-400 uppercase mb-1">${fixture.comp}</p>
+                                <h5 class="font-serif text-xl text-gray-800 group-hover:text-black transition-colors">vs ${fixture.opp}</h5>
+                            </div>
+                            <div class="text-right">
+                                <p class="font-serif text-xl text-gray-800">${formatFixtureDate(fixture.date)}</p>
+                            </div>
+                        </div>
+                    `;
+                    container.appendChild(li);
+                });
+            };
+
+            // 分别渲染阿森纳和意大利的赛程
+            renderTeam('arsenal', 'arsenal-fixtures');
+            renderTeam('italy', 'italy-fixtures');
+        }
+
+        // 当网页的 DOM 结构加载完毕后，立刻执行渲染赛程的函数
+        document.addEventListener('DOMContentLoaded', renderUpcomingFixtures);
+
+    </script>
+</body>
+</html>
