@@ -129,8 +129,12 @@ function regenerateIndexHtml(videos) {
 
 const DEEPSEEK_SYSTEM_PROMPT = `你是卡拉菲奥里（Riccardo Calafiori）粉丝网站的编辑助理。我会给你一段采访录音的转写文本（可能是意大利语或英语，请自动识别语言），你需要输出一个严格的 JSON 对象（不要输出任何其他文字，确保可以被 JSON.parse 直接解析），包含以下三个字段：
 
-1. "title"：英文杂志风标题，全大写，戏剧化、有冲击力，符合 Vogue 风格。示例风格："FIRST WORDS AS A GUNNER"、"THE ART OF DEFENDING"、"FAREWELL TO BOLOGNA: AN EMOTIONAL GOODBYE"。长度控制在 6 到 12 个英文单词，不要加引号或句号。
-2. "translation"：采访的完整中文翻译。要求：忠实原文、准确流畅、符合中文阅读习惯；保留采访的问答结构，如果原文有提问者，用「问：」和「答：」区分说话人；不同段落之间用空行分隔；不要删减或概括任何内容，也不要添加原文没有的内容。
+1. "title"：英文杂志风标题，全大写，戏剧化、有冲击力，符合 Vogue 风格。示例风格："FIRST WORDS AS A GUNNER"、"THE ART OF DEFENDING"、"FAREWELL TO BOLOGNA: AN EMOTIONAL GOODBYE"。长度控制在 6 到 12 个英文单词，不要加引号或句号。标题必须准确概括这段视频的核心内容，不要泛泛而谈。
+2. "translation"：整理并翻译成自然流畅的中文采访稿。注意：语音转写往往没有标点、不区分说话人，且充满口误、重复和闲聊碎句。你的任务是把转写整理成一篇通顺可读的访谈记录，而不是逐字直译。要求：
+   - 说话人标注：转写文本完全没有说话人信息，你必须根据内容判断每一段话是谁说的，并在每一段前面标注说话人（如「主持人：」「加布里埃尔：」「里卡多：」）。判断依据：主持人是节目的组织者（介绍规则、引导流程、提问）；加布里埃尔是巴西球员（科林蒂安球迷，谈论巴西、弗拉门戈、科林蒂安）；里卡多·卡拉菲奥里是意大利球员（罗马球迷，谈论意大利、罗马、巴塞尔）。一问一答的对话必须按说话人拆开，不要连成一段。确实无法判断时合并为一段。
+   - 合并同一说话人的零散短句，删除无意义的重复和语气填充（例如连续说两次"下雨了"合并为一次），修复明显的转写错误（如明显的人名、球队名听写错误），但不要改变原意。
+   - 保持对话的幽默感和语气，玩笑要译得自然、中文读者能看懂，不要翻译得生硬刻板。
+   - 不同段落之间用空行分隔。
 3. "originalTranscript"：清理后的原始转写文本（修复明显错词、去除重复语气词，保留原语言，意大利语或英语均可），可以为空字符串。
 
 如果转写文本质量很差或明显是同一句话的重复，请在 translation 中如实地给出可读的整理版本，而不是照抄错误。`;
@@ -383,11 +387,55 @@ async function regenerate() {
     console.log(`✓ 已根据 videos.json 重建 index.html（共 ${videos.length} 张卡片）`);
 }
 
+// 用已保存的转写原文重新生成标题和中文稿（不重新转写）
+async function retranslate(key) {
+    const videos = readVideosJson();
+    const entry = videos.find(video => video.key === key);
+    if (!entry) {
+        throw new UserError(`videos.json 中没有键 "${key}"`);
+    }
+    const { DEEPSEEK_API_KEY } = process.env;
+    if (!DEEPSEEK_API_KEY) {
+        throw new UserError('请在 .env 中配置: DEEPSEEK_API_KEY（参见 .env.example）');
+    }
+    const source = entry.originalTranscript || entry.transcript;
+    if (!source || source.trim().length < 10) {
+        throw new UserError('该视频没有可用的转写原文（originalTranscript 为空），请先运行完整处理流程');
+    }
+
+    info(`[重翻译] 使用已保存的转写原文（${source.length} 字符）重新生成标题和中文稿…`);
+    tmpDir = mkdtempSync(path.join(os.tmpdir(), 'calafiori-video-'));
+    const generated = await generateContent(DEEPSEEK_API_KEY, source, tmpDir);
+    if (generated.finishReason === 'length') info('  ⚠ 警告: 翻译可能被截断，可在 videos.json 中手动补充');
+
+    entry.title = generated.title;
+    entry.transcript = generated.translation;
+    if (generated.originalTranscript) entry.originalTranscript = generated.originalTranscript;
+
+    writeVideosJson(videos);
+    regenerateIndexHtml(videos);
+
+    console.log(`
+✓ 完成！${key}
+标题: ${generated.title}
+中文稿: ${generated.translation.length} 字
+下一步:
+  1) 双击打开 index.html 本地预览
+  2) git add . && git commit -m "retranslate ${key}" && git push`);
+}
+
 async function main() {
     const arg = process.argv[2];
     try {
         if (arg === '--regenerate') {
             await regenerate();
+            return;
+        }
+        if (arg === '--retranslate') {
+            if (!process.argv[3]) {
+                throw new UserError('用法: npm run video -- --retranslate interview-1.mp4');
+            }
+            await retranslate(path.basename(process.argv[3]));
             return;
         }
         await processVideo(arg);
