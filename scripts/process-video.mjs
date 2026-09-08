@@ -75,10 +75,11 @@ function escapeHtml(value) {
         .replace(/'/g, '&#39;');
 }
 
-// 标签优先从文件名推导：<名称> interview-N.mp4 → 显示 <名称>
+// 标签优先从文件名推导：去掉 .mp4 和末尾的 " interview-N"，剩余部分即标签
+// 例："Arsenal interview-1.mp4" → Arsenal；"Azzurri.mp4" → Azzurri
 function deriveLabel(video) {
-    const match = video.key.match(/^(.+?)\s+interview-\d+\.mp4$/i);
-    return match ? match[1] : video.label;
+    const base = video.key.replace(/\.mp4$/i, '').replace(/\s+interview-\d+$/i, '').trim();
+    return base || video.label;
 }
 
 function buildCardsHtml(videos) {

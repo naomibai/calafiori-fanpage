@@ -30,14 +30,18 @@
       }
     },
     {
-      "key": "interview-3.mp4",
-      "label": "Serie A",
-      "labelColor": "gray",
-      "poster": "https://placehold.co/640x360/333/FFF?text=Bologna+Farewell",
-      "title": "FAREWELL TO BOLOGNA: AN EMOTIONAL GOODBYE",
-      "transcript": "Bologna will always hold a special place in my heart. The coach, the staff, the fans... they believed in me. We achieved something historic with Champions League qualification.",
-      "originalTranscript": "",
-      "meta": {}
+      "key": "Azzurri.mp4",
+      "label": "Azzurri",
+      "labelColor": "blue",
+      "poster": "assets/video/interviews/Azzurri.jpg",
+      "title": "ITALIA-GERMANIA: A CLASH OF TITANS",
+      "transcript": "主持人：借用格拉维纳主席的话，意大利对德国是一场不言而喻的比赛。明天的对决对你们来说有什么意义？\n\n里卡多：主席说得很好，你也说得很好。我之前就说过，这永远不会是一场普通的比赛。意大利对德国就是那场终极对决，我很高兴能第一次体验这种感觉。所以我们既开心又充满期待。\n\n主持人：明天你们将回到米兰，你十一月对法国时不在，但那里的气氛会一样棒。球迷和圣西罗球场能给你们带来多大的推动力？\n\n里卡多：是的，我当时不在，所以有点遗憾。我想并希望他们能给我们巨大的支持，因为当球迷站在你这边，感受到他们的热情时，这真的能改变比赛。\n\n主持人：我们最需要注意什么？德国的优势在哪里？\n\n里卡多：我不知道，他们是一支有很多优点的球队，但我觉得我们更聪明的地方在于找到他们的弱点，并据此打出我们自己的比赛。\n\n主持人：你是2002年出生的，2006年你还很小，但对多特蒙德半决赛有什么印象吗？\n\n里卡多：半决赛没有，我只记得世界杯夺冠后的庆祝。但我很清楚记得巴洛特利在欧洲杯上的那场比赛。就像我之前说的，这是一场不同于其他的比赛，和他们交手总是很愉快。",
+      "originalTranscript": "Prendo in prestito le parole del presidente Gravina, Italia-Germania è una partita che si commenta da sola. Che valore ha per voi la sfida di domani? Ha detto benissimo il presidente, ha detto benissimo tu. Secondo me l'ho già detto in precedenza non sarà mai una sfida come le altre. Italia-Germania è la partita e sono felicissimo di poter provare questa esperienza, questa emozione per la prima volta. Quindi contenti e carichi per domani. Domani si torna a Milano, tu a novembre non c'eri contro la Francia, però l'atmosfera sarà la stessa fantastica. Che spinta possono darvi i tifosi e lo stadio San Siro? Sì appunto non c'ero, quindi sono rimasto male da una parte. Penso e spero che ci danno una grossa mano perché comunque fa la differenza quando il pubblico è dalla tua parte e quando si sente il calore dei nostri tifosi. A cosa dovremmo fare attenzione soprattutto, i punti di forza della Germania? Non lo so, è una squadra che ha tanti punti di forza e secondo me dovremmo essere più bravi noi a capire dove invece sono un po' più deboli e fare la nostra partita in questo senso. Allora tu sei del 2002, nel 2006 eri molto piccolo però hai qualche ricordo della semifinale di Dortmund? Nella semifinale no, mi ricordo i festeggiamenti solo dopo la vittoria del Mondiale e mi ricordo invece bene quella di Balotelli ovviamente agli europei. Come ho detto prima è una partita diversa dalle altre, è sempre bello giocare contro di loro.",
+      "meta": {
+        "processedAt": "2026-09-08T09:48:53.566Z",
+        "audioBytes": 741841,
+        "transcribeMs": 9240
+      }
     },
     {
       "key": "interview-4.mp4",
