@@ -75,10 +75,17 @@ function escapeHtml(value) {
         .replace(/'/g, '&#39;');
 }
 
+// 标签优先从文件名推导：<名称> interview-N.mp4 → 显示 <名称>
+function deriveLabel(video) {
+    const match = video.key.match(/^(.+?)\s+interview-\d+\.mp4$/i);
+    return match ? match[1] : video.label;
+}
+
 function buildCardsHtml(videos) {
     return videos.map((video, index) => {
         const colorClass = LABEL_COLORS[video.labelColor] || LABEL_COLORS.gray;
         const posterAttr = video.poster ? ` poster="${escapeHtml(video.poster)}"` : '';
+        const label = deriveLabel(video);
         return `<!-- Video Item ${index + 1} -->
 <div class="min-w-[280px] w-[280px] md:min-w-[340px] md:w-[340px] snap-center cursor-pointer group/video flex-shrink-0" onclick="openVideoModal('${escapeHtml(video.key)}')">
     <div class="relative overflow-hidden mb-4 rounded-sm shadow-sm">
@@ -87,7 +94,7 @@ function buildCardsHtml(videos) {
             <i class="fas fa-play text-white text-3xl opacity-90 drop-shadow-lg"></i>
         </div>
     </div>
-    <p class="text-[10px] font-bold tracking-[0.15em] uppercase ${colorClass} mb-2">${escapeHtml(video.label)}</p>
+    <p class="text-[10px] font-bold tracking-[0.15em] uppercase ${colorClass} mb-2">${escapeHtml(label)}</p>
     <h4 class="font-serif text-lg leading-snug group-hover/video:text-gray-500 transition duration-300">${escapeHtml(video.title)}</h4>
 </div>`;
     }).join('\n\n');
