@@ -18,7 +18,7 @@ const VIDEOS_JSON = path.join(ROOT, 'assets', 'video', 'videos.json');
 const INDEX_HTML = path.join(ROOT, 'index.html');
 const INTERVIEWS_DIR = path.join(ROOT, 'assets', 'video', 'interviews');
 const DEEPSEEK_URL = 'https://api.deepseek.com/chat/completions';
-const MAX_AUDIO_BYTES = 10 * 1024 * 1024;
+const MAX_AUDIO_BYTES = 25 * 1024 * 1024;
 
 const LABEL_COLORS = { red: 'text-red-600', blue: 'text-blue-600', gray: 'text-gray-500', dark: 'text-gray-800' };
 const MARKERS = {
@@ -193,25 +193,24 @@ async function callDeepSeek(apiKey, transcript, extraUserNote = '') {
     };
 }
 
-async function generateContent(apiKey, transcript, tmpDir) {
+// 请求 DeepSeek 并解析 JSON，带一次纠正重试
+async function requestAndParse(apiKey, transcript, extraUserNote = '') {
     let result;
     try {
-        result = await callDeepSeek(apiKey, transcript);
+        result = await callDeepSeek(apiKey, transcript, extraUserNote);
     } catch (firstError) {
-        info('  DeepSeek 第一次请求失败，重试中…');
+        info('  DeepSeek 请求失败，重试中…');
         await new Promise(resolve => setTimeout(resolve, 3000));
-        result = await callDeepSeek(apiKey, transcript);
+        result = await callDeepSeek(apiKey, transcript, extraUserNote);
     }
 
-    let parsed;
     try {
-        parsed = parseDeepSeekJson(result.content);
+        return { parsed: parseDeepSeekJson(result.content), finishReason: result.finishReason };
     } catch (firstParseError) {
         info('  DeepSeek 返回格式异常，带纠正指令重试一次…');
-        const retry = await callDeepSeek(apiKey, transcript, '\n\n（上次输出无法解析，这次请只输出一个 JSON 对象，不要使用代码块）');
+        const retry = await callDeepSeek(apiKey, transcript, extraUserNote + '\n\n（上次输出无法解析，这次请只输出一个 JSON 对象，不要使用代码块）');
         try {
-            parsed = parseDeepSeekJson(retry.content);
-            result = retry;
+            return { parsed: parseDeepSeekJson(retry.content), finishReason: retry.finishReason };
         } catch (secondParseError) {
             const dumpPath = path.join(tmpDir, 'deepseek-raw.txt');
             writeFileSync(dumpPath, retry.content, 'utf8');
@@ -221,7 +220,9 @@ async function generateContent(apiKey, transcript, tmpDir) {
             );
         }
     }
+}
 
+function normalizeGenerated(parsed, finishReason) {
     const title = String(parsed.title || '')
         .trim()
         .replace(/^['"]+|['"]+$/g, '')
@@ -235,7 +236,52 @@ async function generateContent(apiKey, transcript, tmpDir) {
     if (!translation && !originalTranscript) throw new UserError('DeepSeek 未生成文稿');
     if (!translation) info('  ⚠ 警告: 中文翻译为空，暂用原文代替');
 
-    return { title, translation: translation || originalTranscript, originalTranscript, finishReason: result.finishReason };
+    return { title, translation: translation || originalTranscript, originalTranscript, finishReason };
+}
+
+// 按句子边界把长文稿切成约 4500 字符的片段
+const LONG_TRANSCRIPT_THRESHOLD = 6000;
+const CHUNK_TARGET = 4500;
+
+function splitTranscript(text) {
+    const sentences = text.match(/[^.!?。！？…\n]+[.!?。！？…]*[\n\s]*/g) || [text];
+    const chunks = [];
+    let current = '';
+    for (const sentence of sentences) {
+        if (current && current.length + sentence.length > CHUNK_TARGET) {
+            chunks.push(current);
+            current = '';
+        }
+        current += sentence;
+    }
+    if (current.trim()) chunks.push(current);
+    return chunks;
+}
+
+async function generateContent(apiKey, transcript, tmpDir) {
+    const chunks = transcript.length > LONG_TRANSCRIPT_THRESHOLD ? splitTranscript(transcript) : [transcript];
+
+    if (chunks.length === 1) {
+        const { parsed, finishReason } = await requestAndParse(apiKey, transcript);
+        return normalizeGenerated(parsed, finishReason);
+    }
+
+    // 长文稿分段翻译，避免超出 DeepSeek 单次输出上限
+    info(`  文稿较长（${transcript.length} 字符），分 ${chunks.length} 段翻译…`);
+    const translations = [];
+    let title = '';
+    let finishReason = null;
+    for (let i = 0; i < chunks.length; i++) {
+        const note = i === 0
+            ? `\n\n（这是采访转写的第 1/${chunks.length} 部分，请翻译本部分内容，并在 "title" 中给出整篇的标题。）`
+            : `\n\n（这是采访转写的第 ${i + 1}/${chunks.length} 部分，请翻译本部分内容，"title" 输出空字符串。）`;
+        const { parsed, finishReason: fr } = await requestAndParse(apiKey, chunks[i], note);
+        finishReason = fr;
+        if (parsed.title && !title) title = parsed.title;
+        if (parsed.translation) translations.push(parsed.translation);
+        info(`  第 ${i + 1}/${chunks.length} 段完成`);
+    }
+    return normalizeGenerated({ title, translation: translations.join('\n\n'), originalTranscript: '' }, finishReason);
 }
 
 // ---------- 各处理步骤 ----------
@@ -285,7 +331,7 @@ function extractAudio(inputPath, key) {
     tmpDir = mkdtempSync(path.join(os.tmpdir(), 'calafiori-video-'));
     const outMp3 = path.join(tmpDir, key + '.mp3');
     try {
-        execFileSync(ffmpegPath, ['-y', '-i', inputPath, '-vn', '-ac', '1', '-ar', '16000', '-b:a', '64k', '-f', 'mp3', outMp3], {
+        execFileSync(ffmpegPath, ['-y', '-i', inputPath, '-vn', '-ac', '1', '-ar', '16000', '-b:a', '32k', '-f', 'mp3', outMp3], {
             maxBuffer: 10 * 1024 * 1024,
             stdio: ['ignore', 'ignore', 'pipe']
         });
@@ -367,7 +413,11 @@ async function processVideo(arg) {
 
     entry.title = generated.title;
     entry.transcript = generated.translation;
-    entry.originalTranscript = generated.originalTranscript;
+    if (generated.originalTranscript) {
+        entry.originalTranscript = generated.originalTranscript;
+    } else {
+        entry.originalTranscript = text; // 长视频分段翻译时保留原始转写，供 --retranslate 使用
+    }
     if (poster) entry.poster = poster;
     entry.meta = {
         processedAt: new Date().toISOString(),

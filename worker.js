@@ -99,8 +99,8 @@ async function handleTranscribe(request, env) {
     }
 
     const contentLength = Number(request.headers.get('content-length') || 0);
-    if (!contentLength || contentLength > 10 * 1024 * 1024) {
-        return jsonResponse({ error: 'Audio too large (max 10 MB)' }, 413, request, env);
+    if (!contentLength || contentLength > 25 * 1024 * 1024) {
+        return jsonResponse({ error: 'Audio too large (max 25 MB)' }, 413, request, env);
     }
     const contentType = (request.headers.get('content-type') || '').toLowerCase();
     if (!contentType.startsWith('audio/')) {
@@ -115,8 +115,8 @@ async function handleTranscribe(request, env) {
         if (!audioBuffer.byteLength) {
             return jsonResponse({ error: 'Empty audio body' }, 400, request, env);
         }
-        if (audioBuffer.byteLength > 10 * 1024 * 1024) {
-            return jsonResponse({ error: 'Audio too large (max 10 MB)' }, 413, request, env);
+        if (audioBuffer.byteLength > 25 * 1024 * 1024) {
+            return jsonResponse({ error: 'Audio too large (max 25 MB)' }, 413, request, env);
         }
 
         // whisper-large-v3-turbo 要求 audio 为 base64 字符串（数字数组是旧版 @cf/openai/whisper 的格式）
