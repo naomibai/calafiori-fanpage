@@ -491,6 +491,19 @@
         </div>
     </div>
 
+    <!-- Image Lightbox (Full-size view & save) -->
+    <div id="image-lightbox" class="fixed inset-0 z-[60] hidden flex-col items-center justify-center bg-black/90 p-4" onclick="closeLightbox()">
+        <button onclick="event.stopPropagation(); closeLightbox();" class="absolute top-4 right-4 md:top-6 md:right-6 text-2xl text-white/70 hover:text-white transition z-10 cursor-pointer" aria-label="Close">
+            <i class="fas fa-times"></i>
+        </button>
+        <img id="lightbox-image" src="" alt="Full view" class="max-w-full max-h-[80vh] w-auto h-auto object-contain shadow-2xl" onclick="event.stopPropagation()">
+        <div class="mt-5 flex items-center gap-4" onclick="event.stopPropagation()">
+            <a id="lightbox-download" href="#" download class="text-xs md:text-sm font-sans tracking-[0.2em] uppercase text-white/70 hover:text-white border border-white/40 hover:border-white px-5 py-2 transition cursor-pointer">
+                <i class="fas fa-download mr-2"></i>保存图片
+            </a>
+        </div>
+    </div>
+
     <!-- Video & Transcript Modal -->
     <div id="video-modal" class="fixed inset-0 z-50 modal-overlay hidden items-center justify-center p-4 md:p-12">
         <button onclick="closeModals()" class="absolute top-6 right-6 md:top-10 md:right-10 text-2xl text-gray-400 hover:text-black transition z-50 cursor-pointer">
@@ -597,6 +610,7 @@ window.VIDEO_DATA = {
             },
             arsenal: {
                 title: "ARSENAL ERA",
+                fullView: true,
                 images: [
                     "assets/images/gallery/arsenal/cover.png",
                     "assets/images/gallery/arsenal/arsenal-01.jpg",
@@ -644,27 +658,61 @@ window.VIDEO_DATA = {
             if(!data) return;
 
             title.innerText = data.title;
-            
+
             // Clear existing grid
             grid.innerHTML = '';
-            
-            // Populate grid with images
-            data.images.forEach((imgUrl, index) => {
-                const imgContainer = document.createElement('div');
-                // Make the middle image span differently for editorial layout
-                const isFeatured = index === 1; 
-                imgContainer.className = `w-full overflow-hidden bg-gray-100 ${isFeatured ? 'md:col-span-2 lg:col-span-1 lg:row-span-2' : ''}`;
-                
-                imgContainer.innerHTML = `
-                    <img src="${imgUrl}" alt="${data.title} photo" class="w-full h-full object-cover grayscale hover:grayscale-0 transition duration-500 cursor-crosshair ${isFeatured ? 'min-h-[400px] md:min-h-[600px]' : 'h-64 md:h-[400px]'} shadow-sm">
-                `;
-                grid.appendChild(imgContainer);
-            });
+
+            if (data.fullView) {
+                // 完整展示模式：按原图比例显示，不裁剪；点击图片打开大图
+                grid.className = 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-10 items-start';
+                data.images.forEach((imgUrl) => {
+                    const imgContainer = document.createElement('div');
+                    imgContainer.className = 'w-full bg-gray-100 shadow-sm';
+                    imgContainer.innerHTML = `
+                        <img src="${imgUrl}" alt="${data.title} photo" loading="lazy" onclick="openLightbox('${imgUrl}')" class="w-full h-auto object-contain grayscale hover:grayscale-0 transition duration-500 cursor-pointer">
+                    `;
+                    grid.appendChild(imgContainer);
+                });
+            } else {
+                // 原有布局：裁剪为统一尺寸的编辑风网格
+                grid.className = 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-10';
+                data.images.forEach((imgUrl, index) => {
+                    const imgContainer = document.createElement('div');
+                    // Make the middle image span differently for editorial layout
+                    const isFeatured = index === 1;
+                    imgContainer.className = `w-full overflow-hidden bg-gray-100 ${isFeatured ? 'md:col-span-2 lg:col-span-1 lg:row-span-2' : ''}`;
+
+                    imgContainer.innerHTML = `
+                        <img src="${imgUrl}" alt="${data.title} photo" class="w-full h-full object-cover grayscale hover:grayscale-0 transition duration-500 cursor-crosshair ${isFeatured ? 'min-h-[400px] md:min-h-[600px]' : 'h-64 md:h-[400px]'} shadow-sm">
+                    `;
+                    grid.appendChild(imgContainer);
+                });
+            }
             
             // Ensure modal uses flex display when visible
             modal.style.display = 'flex';
             modal.classList.remove('hidden');
             document.body.style.overflow = 'hidden'; // Prevent background scrolling
+        }
+
+        // Open lightbox with full-size image (supports right-click / long-press save)
+        function openLightbox(imgUrl) {
+            const lightbox = document.getElementById('image-lightbox');
+            const img = document.getElementById('lightbox-image');
+            const link = document.getElementById('lightbox-download');
+            img.src = imgUrl;
+            link.href = imgUrl;
+            link.download = imgUrl.split('/').pop();
+            lightbox.style.display = 'flex';
+            lightbox.classList.remove('hidden');
+        }
+
+        // Close lightbox
+        function closeLightbox() {
+            const lightbox = document.getElementById('image-lightbox');
+            lightbox.style.display = 'none';
+            lightbox.classList.add('hidden');
+            document.getElementById('lightbox-image').removeAttribute('src');
         }
 
         // Open Video Modal
@@ -713,7 +761,9 @@ window.VIDEO_DATA = {
             videoEl.pause();
             videoEl.removeAttribute('src');
             videoEl.load();
-            
+
+            closeLightbox();
+
             document.body.style.overflow = 'auto'; // Restore scrolling
         }
 
