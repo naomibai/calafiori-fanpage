@@ -56,6 +56,20 @@
         "audioBytes": 14812112,
         "transcribeMs": 216007
       }
+    },
+    {
+      "key": "Arsenal interview 3.mp4",
+      "label": "Arsenal",
+      "labelColor": "red",
+      "poster": "assets/video/interviews/Arsenal interview 3.jpg",
+      "title": "BACK TO NAPLES: CALAFIORI'S CHAMPIONS LEAGUE RETURN",
+      "transcript": "主持人：里卡多，你对又一个欧冠赛季有多兴奋？\n里卡多：是的，显然非常兴奋，而且从那不勒斯开始也很棒，那是一座特别的城市，我真的很期待这场比赛。\n\n主持人：你本赛季的状态非常出色，被提名英超月度最佳球员一定很自豪吧？\n里卡多：是的，我们开局很完美，我希望我们能继续保持这样的势头。\n\n主持人：这个赛季我们看到你出现在各种有趣的进攻位置上，带来了进球和助攻。你有多享受这种自由？\n里卡多：是的，我一直很喜欢和队友们一起踢球，尤其是在本赛季初，我们之间的配合令人惊叹，我想你在球场上也能看到，我非常享受。\n\n主持人：那方面需要付出多少努力？因为显然你天然要关注防守端，但也要学习进攻方面。\n里卡多：是的，我想，我不知道，教练和工作人员看到了我内心有这种特质，他们试图帮助我把握时机和跑位。但当然，正如你提到的，我是一名后卫，所以我需要在防守端帮助球队，当我占据这个位置时，总有另一个球员试图帮助我或保护我。\n\n主持人：显然回到意大利对阵那不勒斯，那里的气氛会怎样？\n里卡多：是的，我认为会很棒。尤其是在欧冠之夜，体育场肯定会沸腾，我迫不及待想比赛了。\n\n主持人：过去两年我们在欧冠联赛阶段只输过一次，建立良好状态进入淘汰赛有多重要？\n里卡多：是的，我想你可以从过去两届看到，我们赢了大部分比赛，第一次进入半决赛，上赛季我们打进了决赛，所以这对我们来说非常重要，我们必须继续前进。\n\n主持人：说到势头，显然我们本赛季赢了所有比赛，带着这样的势头开始欧冠有多棒？\n里卡多：是的，这肯定有帮助，我们目前非常自信，尤其是因为我们取得了这些成绩。",
+      "originalTranscript": "Ricky, how excited are you for another season for Champions League? Yeah, obviously pretty excited and also it's a nice start to start in Italy in Naples as a special city and I'm really looking forward to play this game. Your form this season has been superb, you must be really proud to be nominated for the Premier League Player of the Month Award. Yeah, we started in a perfect way I would say and I hope that we can keep going like that. We've seen you popping up in all sorts of interesting attacking positions this season, leading to goals and assists. How much do you enjoy in that freedom? Yeah, I always enjoy a lot to play with my teammates and the way we're playing especially in this beginning of the season it's amazing the flow that we have, I think you can see on the pitch and I enjoy a lot. How much work goes into that side of the game as well? Because obviously naturally you have to worry about the defensive side but also learn the attacking aspects as well. Yeah, I think, I don't know, the boss and the staff saw that I had this thing inside me and they tried to help me as well with the timing of the moments and where to go. But of course as you mentioned I'm a defender so I also need to help the team in that sense and when I'm occupying this position there's always another player who's trying to help me or defend me. Obviously heading back to Italy for this game against Napoli, what can we expect from the atmosphere there? Yeah, I think it will be amazing. Especially for a Champions League night, the stadium will be buzzing for sure and I can't wait to play. We've only lost once in 16 Champions League League phase games over the past couple of years, how important is it to build good form heading into the knockout stages of the tournament? Yeah, I think you could see from the last two editions that we won most of our games and the first time we've been to the semi-final and last season we got to the final so it's really important for us and we have to keep going. Speaking of momentum as well, obviously we've won every game so far this season, how great is that to start the Champions League with that four behind us? Yeah, it's helpful for sure and we are really confident at the moment, especially for these results that we achieved.",
+      "meta": {
+        "processedAt": "2026-09-09T04:36:03.942Z",
+        "audioBytes": 546037,
+        "transcribeMs": 5873
+      }
     }
   ]
 }

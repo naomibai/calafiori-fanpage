@@ -76,9 +76,9 @@ function escapeHtml(value) {
 }
 
 // 标签优先从文件名推导：去掉 .mp4 和末尾的 " interview-N"，剩余部分即标签
-// 例："Arsenal interview-1.mp4" → Arsenal；"Azzurri.mp4" → Azzurri
+// 例："Arsenal interview-1.mp4" → Arsenal；"Arsenal interview 3.mp4" → Arsenal；"Azzurri.mp4" → Azzurri
 function deriveLabel(video) {
-    const base = video.key.replace(/\.mp4$/i, '').replace(/\s+interview-\d+$/i, '').trim();
+    const base = video.key.replace(/\.mp4$/i, '').replace(/\s+interview[- ]?\d+$/i, '').trim();
     return base || video.label;
 }
 
@@ -258,7 +258,7 @@ function splitTranscript(text) {
     return chunks;
 }
 
-async function generateContent(apiKey, transcript, tmpDir) {
+async function generateContent(apiKey, transcript) {
     const chunks = transcript.length > LONG_TRANSCRIPT_THRESHOLD ? splitTranscript(transcript) : [transcript];
 
     if (chunks.length === 1) {
@@ -408,7 +408,7 @@ async function processVideo(arg) {
 
     // [7/7] DeepSeek 生成标题与中文稿
     info('[7/7] DeepSeek 生成英文标题和中文采访稿…');
-    const generated = await generateContent(DEEPSEEK_API_KEY, text, tmpDir);
+    const generated = await generateContent(DEEPSEEK_API_KEY, text);
     if (generated.finishReason === 'length') info('  ⚠ 警告: 翻译可能被截断，可在 videos.json 中手动补充');
 
     entry.title = generated.title;
@@ -463,7 +463,7 @@ async function retranslate(key) {
 
     info(`[重翻译] 使用已保存的转写原文（${source.length} 字符）重新生成标题和中文稿…`);
     tmpDir = mkdtempSync(path.join(os.tmpdir(), 'calafiori-video-'));
-    const generated = await generateContent(DEEPSEEK_API_KEY, source, tmpDir);
+    const generated = await generateContent(DEEPSEEK_API_KEY, source);
     if (generated.finishReason === 'length') info('  ⚠ 警告: 翻译可能被截断，可在 videos.json 中手动补充');
 
     entry.title = generated.title;
