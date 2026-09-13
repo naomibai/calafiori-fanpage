@@ -428,7 +428,18 @@
         </div>
     </section>
 
-    <!-- Section 3: Schedule Tracking -->
+    <!-- Section 3: News / Related Stories -->
+    <section id="news" class="w-full border-t border-gray-200 py-16 bg-gray-50 hidden">
+        <div class="max-w-7xl mx-auto px-4 md:px-12 mb-12 border-b border-gray-200 pb-4">
+            <p class="text-[10px] font-bold tracking-[0.2em] uppercase text-gray-400 mb-2">Newsroom</p>
+            <h3 class="text-xs md:text-sm tracking-[0.2em] uppercase font-bold text-gray-800">PRESS / Related Stories</h3>
+        </div>
+        <div id="news-grid" class="max-w-7xl mx-auto px-4 md:px-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-10 gap-y-10">
+            <!-- Injected by JavaScript -->
+        </div>
+    </section>
+
+    <!-- Section 4: Schedule Tracking -->
     <section id="fixtures" class="w-full border-t border-gray-200 py-24 relative overflow-hidden bg-white">
         
         <!-- Large background typography matching reference -->
@@ -476,6 +487,19 @@
 
                 </div>
             </div>
+        </div>
+    </section>
+
+    <!-- Section 5: Fan Sources (renders only if data/social.json has items) -->
+    <section id="social" class="w-full border-t border-gray-200 py-16 bg-white hidden">
+        <div class="max-w-7xl mx-auto px-4 md:px-12">
+            <p class="text-[10px] font-bold tracking-[0.2em] uppercase text-gray-400 mb-4">Fan Sources</p>
+            <h3 class="text-2xl md:text-4xl font-serif uppercase tracking-widest mb-8 border-b border-gray-200 pb-6 leading-tight text-gray-900">
+                From The Stands
+            </h3>
+            <ul id="social-list" class="space-y-6">
+                <!-- Injected by JavaScript -->
+            </ul>
         </div>
     </section>
 
@@ -918,21 +942,26 @@ window.VIDEO_DATA = {
             }
         });
 
-        // Set this after deploying the Node.js service, for example:
-        // const SCHEDULE_API_URL = 'https://your-service.onrender.com/api/fixtures';
-        const SCHEDULE_API_URL = '';
+        // HTML 转义与数据加载助手（数据由 GitHub Actions 定时抓取并提交到 data/*.json）
+        function esc(s) { return String(s ?? '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;'); }
 
-        // Fallback data keeps the page useful before the backend URL is configured.
+        async function fetchDataJson(path) {
+            const res = await fetch(`${path}?v=${Date.now()}`, { cache: 'no-store' });
+            if (!res.ok) throw new Error(`${path} returned ${res.status}`);
+            return res.json();
+        }
+
+        // Fallback data keeps the page useful if data/fixtures.json is missing.
         const fallbackFixturesData = {
             arsenal: [
-                { date: "2026-09-10T03:00:00+08:00", comp: "Champions League", opp: "Napoli" },
-                { date: "2026-09-13T03:00:00+08:00", comp: "Premier League", opp: "Sunderland" },
-                { date: "2026-09-16T03:00:00+08:00", comp: "Champions League", opp: "Ipswich Town" }
+                { date: "2026-09-10T03:00:00+08:00", comp: "Champions League", opp: "Napoli", isHome: false },
+                { date: "2026-09-13T03:00:00+08:00", comp: "Premier League", opp: "Sunderland", isHome: false },
+                { date: "2026-09-16T03:00:00+08:00", comp: "Champions League", opp: "Ipswich Town", isHome: true }
             ],
             italy: [
-                { date: "2026-09-25T02:45:00+08:00", comp: "Nations League", opp: "Belgium" },
-                { date: "2026-09-28T02:45:00+08:00", comp: "Nations League", opp: "Türkiye" },
-                { date: "2026-10-02T02:45:00+08:00", comp: "Nations League", opp: "France" }
+                { date: "2026-09-25T02:45:00+08:00", comp: "Nations League", opp: "Belgium", isHome: true },
+                { date: "2026-09-28T02:45:00+08:00", comp: "Nations League", opp: "Türkiye", isHome: true },
+                { date: "2026-10-02T02:45:00+08:00", comp: "Nations League", opp: "France", isHome: true }
             ]
         };
 
@@ -941,19 +970,24 @@ window.VIDEO_DATA = {
             const date = new Date(dateString);
             const options = { month: 'short', day: 'numeric' };
             // 这里强制使用 'en-US' 避免浏览器语言环境导致格式变化
-            return date.toLocaleDateString('en-US', options); 
+            return date.toLocaleDateString('en-US', options);
         }
 
-        // Render the API response while keeping the existing schedule layout.
+        // 开球时间（访客本地时区，如 22:00）
+        function formatKickoff(dateString) {
+            return new Date(dateString).toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' });
+        }
+
+        // Render the fixtures data while keeping the existing schedule layout.
         function renderUpcomingFixtures(fixturesData) {
             // 获取用户当前的系统时间
             const now = new Date();
-            
+
             // 封装一个供两支球队重复调用的渲染函数
             const renderTeam = (teamKey, containerId) => {
                 const container = document.getElementById(containerId);
                 container.innerHTML = ''; // 清空 HTML 中预留的占位符
-                
+
                 // 1. 过滤：只保留开赛时间晚于“当前时间”的比赛
                 // 2. 排序：按时间先后顺序排列 (以防数据源乱序)
                 // 3. 截取：只取接下来的 3 场比赛
@@ -961,7 +995,7 @@ window.VIDEO_DATA = {
                     .filter(fixture => new Date(fixture.date) > now)
                     .sort((a, b) => new Date(a.date) - new Date(b.date))
                     .slice(0, 3);
-                
+
                 // 如果没有未来比赛了 (赛季结束等情况)
                 if(upcoming.length === 0) {
                     container.innerHTML = '<li class="text-sm text-gray-400 font-sans tracking-wider py-4">No upcoming fixtures scheduled.</li>';
@@ -972,14 +1006,18 @@ window.VIDEO_DATA = {
                 upcoming.forEach(fixture => {
                     const li = document.createElement('li');
                     li.className = "border-b border-gray-100 pb-4 group hover:border-gray-900 transition-colors duration-300";
+                    const venueLine = fixture.venue ? `<p class="text-[10px] text-gray-400 mt-1 tracking-wider">${esc(fixture.venue)}</p>` : '';
+                    const homeAway = fixture.isHome === false ? '@' : 'vs';
                     li.innerHTML = `
                         <div class="flex justify-between items-baseline">
                             <div>
-                                <p class="text-[10px] tracking-widest text-gray-400 uppercase mb-1">${fixture.comp}</p>
-                                <h5 class="font-serif text-xl text-gray-800 group-hover:text-black transition-colors">vs ${fixture.opp}</h5>
+                                <p class="text-[10px] tracking-widest text-gray-400 uppercase mb-1">${esc(fixture.comp)}</p>
+                                <h5 class="font-serif text-xl text-gray-800 group-hover:text-black transition-colors">${homeAway} ${esc(fixture.opp)}</h5>
+                                ${venueLine}
                             </div>
                             <div class="text-right">
                                 <p class="font-serif text-xl text-gray-800">${formatFixtureDate(fixture.date)}</p>
+                                <p class="text-[10px] tracking-widest text-gray-400 uppercase mt-1">${formatKickoff(fixture.date)}</p>
                             </div>
                         </div>
                     `;
@@ -993,22 +1031,102 @@ window.VIDEO_DATA = {
         }
 
         async function loadUpcomingFixtures() {
-            if (!SCHEDULE_API_URL) {
-                renderUpcomingFixtures(fallbackFixturesData);
-                return;
-            }
-
             try {
-                const response = await fetch(SCHEDULE_API_URL);
-                if (!response.ok) throw new Error(`Schedule API returned ${response.status}`);
-                renderUpcomingFixtures(await response.json());
+                renderUpcomingFixtures(await fetchDataJson('data/fixtures.json'));
             } catch (error) {
-                console.error('Unable to load live fixtures:', error);
+                console.warn('Unable to load fixtures data, using fallback:', error);
                 renderUpcomingFixtures(fallbackFixturesData);
             }
         }
 
-        document.addEventListener('DOMContentLoaded', loadUpcomingFixtures);
+        // ---------- News ----------
+
+        function formatNewsDate(dateString) {
+            const date = new Date(dateString);
+            const now = new Date();
+            const dayMs = 24 * 60 * 60 * 1000;
+            const diffDays = Math.floor((new Date(now.getFullYear(), now.getMonth(), now.getDate()) - new Date(date.getFullYear(), date.getMonth(), date.getDate())) / dayMs);
+            if (diffDays <= 0) return 'Today';
+            if (diffDays === 1) return 'Yesterday';
+            if (diffDays < 7) return `${diffDays} days ago`;
+            return formatFixtureDate(dateString);
+        }
+
+        function renderNews(data) {
+            const items = (data.items || []).slice(0, 12);
+            if (items.length === 0) return;
+            const grid = document.getElementById('news-grid');
+            grid.innerHTML = '';
+            items.forEach(item => {
+                const card = document.createElement('div');
+                const officialBadge = item.sourceType === 'official'
+                    ? '<span class="text-[9px] font-bold tracking-[0.15em] uppercase px-2 py-0.5 border border-red-600 text-red-600">Official</span>'
+                    : '<span class="text-[9px] font-bold tracking-[0.15em] uppercase px-2 py-0.5 border border-gray-300 text-gray-500">Media</span>';
+                const originalLine = item.titleZh
+                    ? `<p class="font-sans text-xs text-gray-500 mt-2 leading-relaxed">${esc(item.title)}</p>`
+                    : '';
+                card.innerHTML = `
+                    <a href="${esc(item.url)}" target="_blank" rel="noopener noreferrer"
+                       class="block group border-b border-gray-100 pb-6 hover:border-gray-900 transition-colors duration-300">
+                        <div class="flex items-center gap-3 mb-3">
+                            <p class="text-[10px] font-bold tracking-[0.15em] uppercase text-gray-400">${esc(item.source)}</p>
+                            ${officialBadge}
+                        </div>
+                        <h5 class="font-serif text-lg leading-snug text-gray-900 group-hover:text-gray-500 transition-colors duration-300">${esc(item.titleZh || item.title)}</h5>
+                        ${originalLine}
+                        <p class="text-[10px] tracking-widest text-gray-400 uppercase mt-3">${formatNewsDate(item.publishedAt)}</p>
+                    </a>
+                `;
+                grid.appendChild(card);
+            });
+            document.getElementById('news').classList.remove('hidden');
+        }
+
+        async function loadNews() {
+            try {
+                renderNews(await fetchDataJson('data/news.json'));
+            } catch (error) {
+                console.warn('Unable to load news data:', error);
+                // 无数据时保持区块隐藏
+            }
+        }
+
+        // ---------- Social (Fan Sources, 手动维护 data/social.json) ----------
+
+        function renderSocial(data) {
+            const items = (data.items || []).filter(item => item.text);
+            if (items.length === 0) return;
+            const list = document.getElementById('social-list');
+            list.innerHTML = '';
+            items.forEach(item => {
+                const li = document.createElement('li');
+                li.className = 'border-b border-gray-100 pb-6';
+                const linkOpen = item.url ? `<a href="${esc(item.url)}" target="_blank" rel="noopener noreferrer">` : '';
+                const linkClose = item.url ? '</a>' : '';
+                li.innerHTML = `
+                    <p class="text-[10px] font-bold tracking-[0.2em] uppercase text-gray-400 mb-2">${esc(item.platform)}${item.date ? ' · ' + esc(item.date) : ''}</p>
+                    ${linkOpen}
+                    <p class="font-serif text-lg leading-relaxed text-gray-800 hover:text-gray-500 transition-colors duration-300">${esc(item.text)}</p>
+                    ${linkClose}
+                `;
+                list.appendChild(li);
+            });
+            document.getElementById('social').classList.remove('hidden');
+        }
+
+        async function loadSocial() {
+            try {
+                renderSocial(await fetchDataJson('data/social.json'));
+            } catch (error) {
+                // 文件不存在（404）视同没有内容，保持区块隐藏
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            loadUpcomingFixtures();
+            loadNews();
+            loadSocial();
+        });
 
     </script>
 </body>

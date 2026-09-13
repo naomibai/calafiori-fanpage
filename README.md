@@ -101,6 +101,47 @@ npm run video -- assets/video/interviews/interview-3.mp4
 - 视频文件需小于 100 MB（GitHub 单文件上限）。
 - 转写端点有 10 MB 音频上限（约 20 分钟音轨），超出会被拒绝。
 
+## 自动数据采集（赛程 + 新闻）
+
+借鉴 F1 粉丝站 piasnews 的模式：**所有数据以静态 JSON 提交在仓库，GitHub Actions 定时抓取 → 提交 → Pages 自动发布，前端运行时读取 JSON**。
+
+### 架构
+
+```
+GitHub Actions (每 6 小时 / 手动触发)
+  ├─ npm run fetch-fixtures → API-Football（season 参数，免费版兼容）→ data/fixtures.json
+  ├─ npm run fetch-news     → Google News RSS → 官方/媒体分类 → DeepSeek 翻译标题 → data/news.json
+  └─ 数据有变化才 commit+push；抓取失败保留旧数据，workflow 保持绿色
+前端 index.html（cache: no-store + ?v= 时间戳）
+  ├─ News 区块（无数据时隐藏）
+  ├─ 赛程区读 data/fixtures.json，失败回退内置 fallback 数据
+  └─ Fan Sources 区块（data/social.json 有内容才显示）
+```
+
+### 首次配置
+
+在 GitHub 仓库设置两个 Secrets（Settings → Secrets and variables → Actions）：
+
+```bash
+gh secret set API_FOOTBALL_KEY --repo naomibai/calafiori-fanpage   # 必需，赛程
+gh secret set DEEPSEEK_API_KEY --repo naomibai/calafiori-fanpage   # 可选，新闻标题中文翻译
+```
+
+然后手动触发一次 Actions → Update Data → Run workflow，验证数据提交。
+
+### 本地干跑
+
+```bash
+npm run fetch-fixtures   # 读取 .env 中的 API_FOOTBALL_KEY，生成 data/fixtures.json
+npm run fetch-news       # 读取 .env 中的 DEEPSEEK_API_KEY（可选），生成 data/news.json
+```
+
+### 数据文件说明
+
+- `data/fixtures.json`：`{version, updatedAt, source, arsenal: [{date, comp, opp, venue, status, isHome, opponentId}], italy: [...]}`，每队最多未来 5 场（页面显示 3 场）。免费版 API-Football 不支持 `next` 参数，脚本用 `season` 参数拉全赛季后本地过滤。
+- `data/news.json`：`{version, updatedAt, items: [{id, url, title, titleZh, source, sourceType: "official"|"media", publishedAt, imageUrl}]}`。官方域名白名单：arsenal.com / figc.it / legaseriea.it。保留 7 天、上限 100 条。链接为 Google News 跳转链接（可正常打开原文）。
+- `data/social.json`（**仅手动维护**，脚本不会写它）：`{version, items: [{id, platform, text, url, date}]}`。创建这个文件并 push 后，页面会出现 "From The Stands" 区块；删除或清空则区块隐藏。
+
 ## 安全注意事项
 
 - `.env` 不要提交到 GitHub。

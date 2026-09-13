@@ -1,0 +1,55 @@
+# 定时抓取赛程（API-Football）与新闻（Google News RSS），提交 data/*.json
+# 说明：
+# - GITHUB_TOKEN 推送的提交不会再次触发 workflow（GitHub 内置防递归），无需 [skip ci]
+# - Pages 部署在 push 到 main 后照常触发，数据自动上线
+# - 脚本在所有预期失败下都 exit 0，保持 workflow 绿色并保留旧数据
+name: Update Data
+
+on:
+  schedule:
+    - cron: '0 */6 * * *'        # 每 6 小时（UTC）
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+concurrency:
+  group: update-data
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Fetch fixtures
+        run: npm run fetch-fixtures
+        env:
+          API_FOOTBALL_KEY: ${{ secrets.API_FOOTBALL_KEY }}
+
+      - name: Fetch news
+        run: npm run fetch-news
+        env:
+          DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
+
+      - name: Commit changed data
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git pull --rebase origin main
+          git add data/
+          if git diff --cached --quiet; then
+            echo "No data changes; skipping commit."
+          else
+            git commit -m "chore: refresh fixtures/news data"
+            git push
+          fi
