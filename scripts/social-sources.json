@@ -10,6 +10,7 @@
     { "handle": "CalafioriFiles", "type": "fan" },
     { "handle": "bIuezoya", "type": "fan", "keywords": ["calafiori"] },
     { "handle": "AFC_A06", "type": "fan", "keywords": ["calafiori"] },
-    { "handle": "afc_cat", "type": "fan", "keywords": ["calafiori"] }
+    { "handle": "afc_cat", "type": "fan", "keywords": ["calafiori"] },
+    { "handle": "OnlyWilo_", "type": "fan", "keywords": ["calafiori"] }
   ]
 }
