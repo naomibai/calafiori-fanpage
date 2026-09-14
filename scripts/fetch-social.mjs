@@ -23,7 +23,6 @@ const RETENTION_DAYS = 7;
 const ITEM_CAP = 60;
 const MAX_POSTS_PER_ACCOUNT = 20; // 只取最近的帖子（7 天窗口一般 10 条以内就够）
 const SCROLLS_PER_ACCOUNT = 3;
-const POST_FETCH_CONCURRENCY = 6; // 并发读取帖子页，大幅缩短耗时
 
 const itemId = (url) => crypto.createHash('sha1').update(url).digest('hex').slice(0, 16);
 
@@ -32,26 +31,6 @@ function readSources() {
         throw new Error(`找不到 ${SOURCES_PATH}，请先创建账号清单`);
     }
     return JSON.parse(readFileSync(SOURCES_PATH, 'utf8'));
-}
-
-// ---------- Instagram ----------
-
-// 并发池：限制同时进行的异步任务数量
-async function mapWithConcurrency(items, limit, fn) {
-    const results = new Array(items.length);
-    let index = 0;
-    const workers = Array.from({ length: Math.min(limit, items.length) }, async () => {
-        while (index < items.length) {
-            const i = index++;
-            try {
-                results[i] = await fn(items[i]);
-            } catch {
-                results[i] = null;
-            }
-        }
-    });
-    await Promise.all(workers);
-    return results;
 }
 
 async function collectInstagram(page, context, handle, type, knownUrls = new Set()) {
@@ -90,26 +69,35 @@ async function collectInstagram(page, context, handle, type, knownUrls = new Set
         info(`  Instagram @${handle}: 新帖 ${newUrls.length} 条（跳过已采集 ${candidates.length - newUrls.length} 条）`);
     }
 
-    // 并发在浏览器标签页里打开帖子页，从 DOM 的 og 标签取文案/图片/日期
-    // （IG 的 og 标签由 JS 渲染，直接用 HTTP 抓原始 HTML 拿不到）
-    const parsed = await mapWithConcurrency(newUrls, POST_FETCH_CONCURRENCY, async (postUrl) => {
-        const tab = await context.newPage();
-        try {
-            await tab.goto(postUrl, { waitUntil: 'domcontentloaded', timeout: 30_000 });
-            await tab.waitForTimeout(2000);
-            const data = await tab.evaluate(() => {
-                const meta = (property) => {
-                    const el = document.querySelector(`meta[property="${property}"]`);
-                    return el ? el.getAttribute('content') || '' : '';
-                };
-                const timeEl = document.querySelector('time');
-                return {
-                    ogTitle: meta('og:title'),
-                    ogImage: meta('og:image'),
-                    ogDescription: meta('og:description'),
-                    time: timeEl ? timeEl.getAttribute('datetime') || '' : ''
-                };
-            });
+    // 只对新增帖子逐条读取（单标签页顺序访问，行为更接近真人浏览，降低风控风险）
+    // 并按日期早停：从第 4 条起遇到超过 7 天的旧帖即停止（主页按时间倒序，置顶最多 3 条）
+    const cutoffDate = new Date(Date.now() - RETENTION_DAYS * 24 * 60 * 60 * 1000).toISOString().slice(0, 10);
+    const items = [];
+    const tab = await context.newPage();
+    try {
+        for (let i = 0; i < newUrls.length; i++) {
+            const postUrl = newUrls[i];
+            let data = null;
+            try {
+                await tab.goto(postUrl, { waitUntil: 'domcontentloaded', timeout: 30_000 });
+                await tab.waitForTimeout(1500);
+                data = await tab.evaluate(() => {
+                    const meta = (property) => {
+                        const el = document.querySelector(`meta[property="${property}"]`);
+                        return el ? el.getAttribute('content') || '' : '';
+                    };
+                    const timeEl = document.querySelector('time');
+                    return {
+                        ogTitle: meta('og:title'),
+                        ogImage: meta('og:image'),
+                        ogDescription: meta('og:description'),
+                        time: timeEl ? timeEl.getAttribute('datetime') || '' : ''
+                    };
+                });
+            } catch {
+                continue; // 单条失败跳过
+            }
+
             // og:title 形如 'Instagram 用户 arsenal : "正文"'，取引号内文案
             let text = '';
             const quoted = data.ogTitle.match(/:\s*"([\s\S]*)"\s*$/);
@@ -117,8 +105,15 @@ async function collectInstagram(page, context, handle, type, knownUrls = new Set
             else text = data.ogTitle.split(':').slice(1).join(':').trim();
             const dateFromDesc = (data.ogDescription.match(/(January|February|March|April|May|June|July|August|September|October|November|December)\s+\d{1,2},\s+\d{4}/) || [])[0];
             const dateRaw = data.time.slice(0, 10) || (dateFromDesc ? new Date(dateFromDesc).toISOString().slice(0, 10) : '');
-            if (!text && !dateRaw) return null;
-            return {
+
+            // 日期早停（置顶区 0-2 位除外）
+            if (i >= 3 && dateRaw && dateRaw < cutoffDate) {
+                info(`  Instagram @${handle}: 遇 ${dateRaw} 旧帖（超 7 天窗口），停止读取`);
+                break;
+            }
+            if (!text && !dateRaw) continue;
+
+            items.push({
                 id: itemId(postUrl),
                 platform: 'Instagram',
                 type,
@@ -126,15 +121,12 @@ async function collectInstagram(page, context, handle, type, knownUrls = new Set
                 url: postUrl,
                 date: dateRaw || new Date().toISOString().slice(0, 10),
                 imageUrl: data.ogImage || null
-            };
-        } catch {
-            return null;
-        } finally {
-            await tab.close();
+            });
         }
-    });
+    } finally {
+        await tab.close();
+    }
 
-    const items = parsed.filter(Boolean);
     info(`  Instagram @${handle}: ${items.length} 条`);
     return items;
 }
