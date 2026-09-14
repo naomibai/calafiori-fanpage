@@ -5,7 +5,12 @@
   "description": "API-Football proxy and cache for the Calafiori fanpage",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js"
+    "start": "node server.js",
+    "video": "node scripts/process-video.mjs",
+    "fetch-fixtures": "node scripts/fetch-fixtures.mjs",
+    "fetch-news": "node scripts/fetch-news.mjs",
+    "fetch-data": "npm run fetch-fixtures && npm run fetch-news",
+    "fetch-social": "node scripts/fetch-social.mjs"
   },
   "engines": {
     "node": ">=18"
@@ -13,6 +18,11 @@
   "dependencies": {
     "cors": "^2.8.5",
     "dotenv": "^16.4.7",
-    "express": "^4.21.2"
+    "express": "^4.21.2",
+    "fast-xml-parser": "^4.5.3",
+    "ffmpeg-static": "^5.3.0"
+  },
+  "devDependencies": {
+    "playwright-core": "^1.63.0"
   }
 }

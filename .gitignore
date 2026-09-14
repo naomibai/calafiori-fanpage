@@ -2,3 +2,7 @@ node_modules/
 .env
 .DS_Store
 .wrangler/
+
+# 视频转写流程产生的临时音频
+*.mp3
+*.wav
