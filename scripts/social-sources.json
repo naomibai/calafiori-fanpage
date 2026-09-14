@@ -6,6 +6,10 @@
   ],
   "x": [
     { "handle": "Arsenal", "type": "official", "keywords": ["calafiori"] },
-    { "handle": "Azzurri", "type": "official", "keywords": ["calafiori"] }
+    { "handle": "Azzurri", "type": "official", "keywords": ["calafiori"] },
+    { "handle": "CalafioriFiles", "type": "fan" },
+    { "handle": "bIuezoya", "type": "fan", "keywords": ["calafiori"] },
+    { "handle": "AFC_A06", "type": "fan", "keywords": ["calafiori"] },
+    { "handle": "afc_cat", "type": "fan", "keywords": ["calafiori"] }
   ]
 }
