@@ -20,8 +20,9 @@ const PROFILE_DIR = process.env.USE_REAL_PROFILE === '1'
     : path.join(os.homedir(), '.calafiori-social-profile');
 const RETENTION_DAYS = 30;
 const ITEM_CAP = 60;
-const MAX_POSTS_PER_ACCOUNT = 30;
+const MAX_POSTS_PER_ACCOUNT = 20; // 只取最近的帖子（7 天窗口一般 10 条以内就够）
 const SCROLLS_PER_ACCOUNT = 3;
+const POST_FETCH_CONCURRENCY = 6; // 并发读取帖子页，大幅缩短耗时
 
 const itemId = (url) => crypto.createHash('sha1').update(url).digest('hex').slice(0, 16);
 
@@ -34,50 +35,93 @@ function readSources() {
 
 // ---------- Instagram ----------
 
+// 并发池：限制同时进行的异步任务数量
+async function mapWithConcurrency(items, limit, fn) {
+    const results = new Array(items.length);
+    let index = 0;
+    const workers = Array.from({ length: Math.min(limit, items.length) }, async () => {
+        while (index < items.length) {
+            const i = index++;
+            try {
+                results[i] = await fn(items[i]);
+            } catch {
+                results[i] = null;
+            }
+        }
+    });
+    await Promise.all(workers);
+    return results;
+}
+
 async function collectInstagram(page, context, handle, type) {
     const url = `https://www.instagram.com/${handle}/`;
     info(`Instagram @${handle} …`);
     await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 30_000 });
-    await page.waitForTimeout(2000);
+    await page.waitForTimeout(4000); // 等网格渲染（IG 懒加载，等待太短会采到 0 条）
 
-    // 滚动加载更多帖子
-    for (let i = 0; i < SCROLLS_PER_ACCOUNT; i++) {
+    // 滚动加载更多帖子，直到攒够 20 个链接或达到最大滚动次数
+    for (let i = 0; i < 5; i++) {
+        const count = await page.evaluate(() => document.querySelectorAll('a[href*="/p/"], a[href*="/reel/"]').length);
+        if (count >= 20) break;
         await page.mouse.wheel(0, 1500);
-        await page.waitForTimeout(1200);
+        await page.waitForTimeout(1500);
     }
 
     const postUrls = await page.evaluate(() => {
         const urls = new Set();
         for (const a of document.querySelectorAll('a[href*="/p/"], a[href*="/reel/"]')) {
-            const match = a.href.match(/https:\/\/www\.instagram\.com\/(p|reel)\/[A-Za-z0-9_-]+/);
+            // IG 帖子链接带用户名段，如 /arsenal/reel/DdNHXCMq-NR/
+            const match = a.href.match(/https:\/\/www\.instagram\.com\/[^/]+\/(p|reel|tv)\/[A-Za-z0-9_-]+/);
             if (match) urls.add(match[0]);
         }
         return [...urls].slice(0, 60);
     });
 
-    const items = [];
-    for (const postUrl of postUrls.slice(0, MAX_POSTS_PER_ACCOUNT)) {
+    // 并发在浏览器标签页里打开帖子页，从 DOM 的 og 标签取文案/图片/日期
+    // （IG 的 og 标签由 JS 渲染，直接用 HTTP 抓原始 HTML 拿不到）
+    const parsed = await mapWithConcurrency(postUrls.slice(0, MAX_POSTS_PER_ACCOUNT), POST_FETCH_CONCURRENCY, async (postUrl) => {
+        const tab = await context.newPage();
         try {
-            // 用登录态的请求上下文抓帖子页，从 og 标签里取文案/图片/日期
-            const response = await context.request.get(postUrl, { timeout: 20_000 });
-            if (!response.ok()) continue;
-            const html = await response.text();
-            const text = (html.match(/<meta[^>]*property="og:title"[^>]*content="([^"]*)"/) || [])[1] || '';
-            const imageUrl = (html.match(/<meta[^>]*property="og:image"[^>]*content="([^"]*)"/) || [])[1] || null;
-            const dateRaw = (html.match(/"uploadDate"\s*:\s*"([^"]+)"/) || [])[1] || null;
-            items.push({
+            await tab.goto(postUrl, { waitUntil: 'domcontentloaded', timeout: 30_000 });
+            await tab.waitForTimeout(2000);
+            const data = await tab.evaluate(() => {
+                const meta = (property) => {
+                    const el = document.querySelector(`meta[property="${property}"]`);
+                    return el ? el.getAttribute('content') || '' : '';
+                };
+                const timeEl = document.querySelector('time');
+                return {
+                    ogTitle: meta('og:title'),
+                    ogImage: meta('og:image'),
+                    ogDescription: meta('og:description'),
+                    time: timeEl ? timeEl.getAttribute('datetime') || '' : ''
+                };
+            });
+            // og:title 形如 'Instagram 用户 arsenal : "正文"'，取引号内文案
+            let text = '';
+            const quoted = data.ogTitle.match(/:\s*"([\s\S]*)"\s*$/);
+            if (quoted) text = quoted[1];
+            else text = data.ogTitle.split(':').slice(1).join(':').trim();
+            const dateFromDesc = (data.ogDescription.match(/(January|February|March|April|May|June|July|August|September|October|November|December)\s+\d{1,2},\s+\d{4}/) || [])[0];
+            const dateRaw = data.time.slice(0, 10) || (dateFromDesc ? new Date(dateFromDesc).toISOString().slice(0, 10) : '');
+            if (!text && !dateRaw) return null;
+            return {
                 id: itemId(postUrl),
                 platform: 'Instagram',
                 type,
                 text: text.replace(/&amp;/g, '&').replace(/&quot;/g, '"').slice(0, 500),
                 url: postUrl,
-                date: dateRaw ? dateRaw.slice(0, 10) : new Date().toISOString().slice(0, 10),
-                imageUrl
-            });
+                date: dateRaw || new Date().toISOString().slice(0, 10),
+                imageUrl: data.ogImage || null
+            };
         } catch {
-            // 单条失败跳过
+            return null;
+        } finally {
+            await tab.close();
         }
-    }
+    });
+
+    const items = parsed.filter(Boolean);
     info(`  Instagram @${handle}: ${items.length} 条`);
     return items;
 }
@@ -160,7 +204,8 @@ async function main() {
             '--disable-blink-features=AutomationControlled',
             '--no-first-run',
             '--no-default-browser-check'
-        ]
+        ],
+        ignoreDefaultArgs: ['--enable-automation']
     };
     if (browserCandidates.length > 0) {
         launchOptions.executablePath = browserCandidates[0];
