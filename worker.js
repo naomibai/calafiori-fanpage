@@ -39,9 +39,13 @@ function formatFixture(fixture, teamId) {
 }
 
 async function fetchTeamFixtures(teamId, env) {
+    // 免费版不支持 next 参数，改用 season 拉全赛季后本地过滤未来比赛
+    const now = new Date();
+    const year = now.getFullYear();
+    const season = now.getMonth() + 1 <= 6 ? year - 1 : year;
     const params = new URLSearchParams({
         team: String(teamId),
-        next: '3'
+        season: String(season)
     });
     const response = await fetch(`${API_URL}?${params}`, {
         headers: { 'x-apisports-key': env.API_FOOTBALL_KEY }
@@ -56,7 +60,11 @@ async function fetchTeamFixtures(teamId, env) {
         throw new Error(`API-Football error for team ${teamId}: ${JSON.stringify(payload.errors)}`);
     }
 
-    return payload.response.map(fixture => formatFixture(fixture, teamId));
+    return payload.response
+        .filter(fixture => new Date(fixture.fixture.date) > now)
+        .sort((first, second) => new Date(first.fixture.date) - new Date(second.fixture.date))
+        .slice(0, 3)
+        .map(fixture => formatFixture(fixture, teamId));
 }
 
 function getCacheTTL(matches) {

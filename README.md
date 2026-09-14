@@ -109,7 +109,7 @@ npm run video -- assets/video/interviews/interview-3.mp4
 
 ```
 GitHub Actions (每 6 小时 / 手动触发)
-  ├─ npm run fetch-fixtures → API-Football（season 参数，免费版兼容）→ data/fixtures.json
+  ├─ npm run fetch-fixtures → ESPN 公开接口（无需密钥）→ data/fixtures.json
   ├─ npm run fetch-news     → Google News RSS → 官方/媒体分类 → DeepSeek 翻译标题 → data/news.json
   └─ 数据有变化才 commit+push；抓取失败保留旧数据，workflow 保持绿色
 前端 index.html（cache: no-store + ?v= 时间戳）
@@ -120,10 +120,9 @@ GitHub Actions (每 6 小时 / 手动触发)
 
 ### 首次配置
 
-在 GitHub 仓库设置两个 Secrets（Settings → Secrets and variables → Actions）：
+赛程采集使用 ESPN 公开接口，无需任何密钥。新闻标题中文翻译需要设置一个 Secret（Settings → Secrets and variables → Actions）：
 
 ```bash
-gh secret set API_FOOTBALL_KEY --repo naomibai/calafiori-fanpage   # 必需，赛程
 gh secret set DEEPSEEK_API_KEY --repo naomibai/calafiori-fanpage   # 可选，新闻标题中文翻译
 ```
 
@@ -132,13 +131,13 @@ gh secret set DEEPSEEK_API_KEY --repo naomibai/calafiori-fanpage   # 可选，�
 ### 本地干跑
 
 ```bash
-npm run fetch-fixtures   # 读取 .env 中的 API_FOOTBALL_KEY，生成 data/fixtures.json
+npm run fetch-fixtures   # ESPN 公开接口，无需配置，生成 data/fixtures.json
 npm run fetch-news       # 读取 .env 中的 DEEPSEEK_API_KEY（可选），生成 data/news.json
 ```
 
 ### 数据文件说明
 
-- `data/fixtures.json`：`{version, updatedAt, source, arsenal: [{date, comp, opp, venue, status, isHome, opponentId}], italy: [...]}`，每队最多未来 5 场（页面显示 3 场）。免费版 API-Football 不支持 `next` 参数，脚本用 `season` 参数拉全赛季后本地过滤。
+- `data/fixtures.json`：`{version, updatedAt, source, arsenal: [{date, comp, opp, venue, status, isHome, opponentId}], italy: [...]}`，每队最多未来 5 场（页面显示 3 场）。数据源为 ESPN（英超/欧冠/足总杯 + 欧国联/世界杯/友谊赛多赛事合并，跨赛事去重）。意大利国家队赛程在赛事窗口临近时才会被 ESPN 收录。
 - `data/news.json`：`{version, updatedAt, items: [{id, url, title, titleZh, source, sourceType: "official"|"media", description, publishedAt, imageUrl}]}`。来源为 Google News RSS，`url` 为 Google 跳转链接（可正常打开原文）。官方域名白名单：arsenal.com / figc.it / legaseriea.it（通过 RSS 的出版商域名识别）。保留 7 天、上限 100 条。
 - `data/social.json`（**仅手动维护**，脚本不会写它）：`{version, items: [{id, platform, text, url, date}]}`。创建这个文件并 push 后，页面会出现 "From The Stands" 区块；删除或清空则区块隐藏。
 

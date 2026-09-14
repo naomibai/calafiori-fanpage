@@ -33,8 +33,6 @@ jobs:
 
       - name: Fetch fixtures
         run: npm run fetch-fixtures
-        env:
-          API_FOOTBALL_KEY: ${{ secrets.API_FOOTBALL_KEY }}
 
       - name: Fetch news
         run: npm run fetch-news
