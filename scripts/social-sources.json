@@ -1,11 +1,11 @@
 {
   "instagram": [
     { "handle": "riccardocalafiori", "type": "official" },
-    { "handle": "arsenal", "type": "official" },
-    { "handle": "azzurri", "type": "official" }
+    { "handle": "arsenal", "type": "official", "keywords": ["calafiori"] },
+    { "handle": "azzurri", "type": "official", "keywords": ["calafiori"] }
   ],
   "x": [
-    { "handle": "Arsenal", "type": "official" },
-    { "handle": "Azzurri", "type": "official" }
+    { "handle": "Arsenal", "type": "official", "keywords": ["calafiori"] },
+    { "handle": "Azzurri", "type": "official", "keywords": ["calafiori"] }
   ]
 }

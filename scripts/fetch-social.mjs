@@ -166,18 +166,32 @@ async function main() {
         });
     }
 
+    // 按账号配置的关键词过滤：配置了 keywords 的账号只保留命中关键词的帖子
+    // （例如 Arsenal 大号只收提到 calafiori 的；本人账号不配置则全部收录）
+    const filterByKeywords = (items, source) => {
+        if (!source.keywords || source.keywords.length === 0) return items;
+        const keywords = source.keywords.map(k => k.toLowerCase());
+        const filtered = items.filter(item => keywords.some(k => item.text.toLowerCase().includes(k)));
+        if (filtered.length < items.length) {
+            info(`  ${source.handle}: 关键词过滤 ${items.length} → ${filtered.length} 条`);
+        }
+        return filtered;
+    };
+
     let collected = [];
     try {
         for (const source of igSources) {
             try {
-                collected.push(...await collectInstagram(page, context, source.handle, source.type));
+                const items = await collectInstagram(page, context, source.handle, source.type);
+                collected.push(...filterByKeywords(items, source));
             } catch (error) {
                 warn(`Instagram @${source.handle} 采集失败（${error.message}），检查是否已登录`);
             }
         }
         for (const source of xSources) {
             try {
-                collected.push(...await collectX(page, source.handle, source.type));
+                const items = await collectX(page, source.handle, source.type);
+                collected.push(...filterByKeywords(items, source));
             } catch (error) {
                 warn(`X @${source.handle} 采集失败（${error.message}），检查是否已登录`);
             }
