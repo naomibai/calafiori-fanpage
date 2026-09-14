@@ -100,7 +100,13 @@ async function collectX(page, handle, type) {
             const href = statusLink.href.split('?')[0];
             if (seen.has(href)) continue;
             seen.add(href);
-            const text = (article.innerText || '').split('\n').slice(0, 6).join(' ').slice(0, 400);
+            // 过滤掉点赞数/浏览量（纯数字行）和时间标签等 UI 噪声
+            const text = (article.innerText || '')
+                .split('\n')
+                .filter(line => !/^\d[\d.,]*(K|M)?$/.test(line) && !/^\d+[hm]$/.test(line))
+                .slice(0, 5)
+                .join(' ')
+                .slice(0, 400);
             const timeEl = article.querySelector('time');
             const date = timeEl?.getAttribute('datetime')?.slice(0, 10) || null;
             const img = article.querySelector('img[src*="media"]');
