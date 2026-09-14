@@ -138,7 +138,7 @@ npm run fetch-news       # 读取 .env 中的 DEEPSEEK_API_KEY（可选），生
 ### 数据文件说明
 
 - `data/fixtures.json`：`{version, updatedAt, source, arsenal: [{date, comp, opp, venue, status, isHome, opponentId}], italy: [...]}`，每队最多未来 5 场（页面显示 3 场）。数据源为 ESPN（英超/欧冠/足总杯 + 欧国联/世界杯/友谊赛多赛事合并，跨赛事去重）。意大利国家队赛程在赛事窗口临近时才会被 ESPN 收录。
-- `data/news.json`：`{version, updatedAt, items: [{id, url, title, titleZh, source, sourceType: "official"|"media", description, publishedAt, imageUrl}]}`。来源为 Google News RSS，`url` 为 Google 跳转链接（可正常打开原文）。官方域名白名单：arsenal.com / figc.it / legaseriea.it（通过 RSS 的出版商域名识别）。保留 14 天、上限 100 条。
+- `data/news.json`：`{version, updatedAt, items: [{id, url, title, titleZh, source, sourceType: "official"|"media", description, publishedAt, imageUrl}]}`。来源为 Google News RSS，`url` 为 Google 跳转链接（可正常打开原文）。官方域名白名单：arsenal.com / figc.it / legaseriea.it（通过 RSS 的出版商域名识别）。保留 7 天、上限 100 条。
 - `data/social.json`（**仅手动维护**，脚本不会写它）：`{version, items: [{id, platform, text, url, date}]}`。创建这个文件并 push 后，页面会出现 "From The Stands" 区块；删除或清空则区块隐藏。
 
 ## 安全注意事项

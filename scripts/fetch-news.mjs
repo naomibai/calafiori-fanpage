@@ -22,8 +22,7 @@ const QUERIES = [
     { q: '"Calafiori" Nazionale when:14d' }     // 意大利国家队相关（意大利文关键词）
 ];
 const OFFICIAL_DOMAINS = ['arsenal.com', 'figc.it', 'legaseriea.it'];
-// 国家队赛事周期慢（一个月才一两场比赛），14 天窗口保证意大利相关新闻不被过早剔除
-const RETENTION_DAYS = 14;
+const RETENTION_DAYS = 7;
 const ITEM_CAP = 100;
 const DEEPSEEK_URL = 'https://api.deepseek.com/chat/completions';
 const TRANSLATE_BATCH = 25;
