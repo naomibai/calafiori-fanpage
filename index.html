@@ -1121,10 +1121,15 @@ window.VIDEO_DATA = {
             items.forEach(item => {
                 const li = document.createElement('li');
                 li.className = 'border-b border-gray-100 pb-6';
+                const typeBadge = item.type === 'official'
+                    ? '<span class="text-[9px] font-bold tracking-[0.15em] uppercase px-2 py-0.5 border border-red-600 text-red-600 ml-3">Official</span>'
+                    : (item.type === 'fan'
+                        ? '<span class="text-[9px] font-bold tracking-[0.15em] uppercase px-2 py-0.5 border border-gray-300 text-gray-500 ml-3">Fan</span>'
+                        : '');
                 const linkOpen = item.url ? `<a href="${esc(item.url)}" target="_blank" rel="noopener noreferrer">` : '';
                 const linkClose = item.url ? '</a>' : '';
                 li.innerHTML = `
-                    <p class="text-[10px] font-bold tracking-[0.2em] uppercase text-gray-400 mb-2">${esc(item.platform)}${item.date ? ' · ' + esc(item.date) : ''}</p>
+                    <p class="text-[10px] font-bold tracking-[0.2em] uppercase text-gray-400 mb-2">${esc(item.platform)}${item.date ? ' · ' + esc(item.date) : ''}${typeBadge}</p>
                     ${linkOpen}
                     <p class="font-serif text-lg leading-relaxed text-gray-800 hover:text-gray-500 transition-colors duration-300">${esc(item.text)}</p>
                     ${linkClose}

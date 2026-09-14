@@ -133,7 +133,20 @@ gh secret set DEEPSEEK_API_KEY --repo naomibai/calafiori-fanpage   # 可选，�
 ```bash
 npm run fetch-fixtures   # ESPN 公开接口，无需配置，生成 data/fixtures.json
 npm run fetch-news       # 读取 .env 中的 DEEPSEEK_API_KEY（可选），生成 data/news.json
+npm run fetch-social     # 本地登录态采集 X / Instagram 动态（见下）
 ```
+
+## 社交动态采集（X / Instagram）
+
+用你本机已登录的浏览器会话采集动态，不依赖任何 API、不需要把账号密码交给脚本：
+
+1. 编辑 `scripts/social-sources.json` 添加要监测的账号（`type` 为 `official` 或 `fan`）
+2. 运行 `npm run fetch-social` —— 会打开一个独立登录档案的 Edge 窗口
+3. 首次运行：在弹出的窗口里登录 Instagram 和 X，回到终端按回车（之后保持登录）
+4. 脚本抓取各账号最近动态（链接/文案/图片/日期）→ 合并进 `data/social.json`（按链接去重、保留 30 天、上限 60 条）
+5. `git add data/social.json && git commit && git push` 后，页面「From The Stands」区块展示（官方红标 / 粉丝灰标）
+
+说明：X 和 Instagram 会不定期改版，采集选择器失效时运行会报对应账号采集失败并跳过（不影响其他账号）；届时修脚本即可。
 
 ### 数据文件说明
 
