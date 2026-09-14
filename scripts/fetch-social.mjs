@@ -13,7 +13,10 @@ import { info, warn, readJsonOr, writeJsonIfChanged } from './lib/json-store.mjs
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const OUT_PATH = path.join(ROOT, 'data', 'social.json');
 const SOURCES_PATH = path.join(ROOT, 'scripts', 'social-sources.json');
-const PROFILE_DIR = path.join(os.homedir(), '.calafiori-social-profile');
+// USE_REAL_PROFILE=1 时使用你日常 Edge 的登录态（需先关闭所有 Edge 窗口）
+const PROFILE_DIR = process.env.USE_REAL_PROFILE === '1'
+    ? path.join(process.env.LOCALAPPDATA, 'Microsoft', 'Edge', 'User Data')
+    : path.join(os.homedir(), '.calafiori-social-profile');
 const RETENTION_DAYS = 30;
 const ITEM_CAP = 60;
 const MAX_POSTS_PER_ACCOUNT = 30;
@@ -141,11 +144,39 @@ async function main() {
     }
 
     info('启动浏览器（首次运行请在弹出的窗口里登录 Instagram 和 X，之后会自动保持登录）…');
-    const context = await chromium.launchPersistentContext(PROFILE_DIR, {
-        channel: 'msedge',
+    // 优先用本机 Edge 的绝对路径（避免 channel 查找失败）；不存在则回退 Chrome，再回退 Playwright 内置 Chromium
+    const browserCandidates = [
+        'C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe',
+        'C:\\Program Files\\Microsoft\\Edge\\Application\\msedge.exe',
+        'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe'
+    ].filter(p => existsSync(p));
+    const launchOptions = {
         headless: false,
         viewport: { width: 1280, height: 900 },
-        locale: 'en-US'
+        locale: 'en-US',
+        // 降低自动化特征，避免 Instagram 登录页反复跳转
+        args: [
+            '--disable-blink-features=AutomationControlled',
+            '--no-first-run',
+            '--no-default-browser-check'
+        ]
+    };
+    if (browserCandidates.length > 0) {
+        launchOptions.executablePath = browserCandidates[0];
+        info(`使用浏览器: ${browserCandidates[0]}`);
+    }
+    let context;
+    try {
+        context = await chromium.launchPersistentContext(PROFILE_DIR, launchOptions);
+    } catch (error) {
+        if (process.env.USE_REAL_PROFILE === '1') {
+            throw new Error('无法打开 Edge 档案：请先关闭所有 Edge 窗口，再重新运行（真实档案模式下 Edge 必须完全退出）');
+        }
+        throw error;
+    }
+    // 隐藏 webdriver 标记（在后续页面加载前生效）
+    await context.addInitScript(() => {
+        Object.defineProperty(navigator, 'webdriver', { get: () => undefined });
     });
     const page = context.pages()[0] || await context.newPage();
 
