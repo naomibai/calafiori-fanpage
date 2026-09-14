@@ -54,7 +54,7 @@ async function mapWithConcurrency(items, limit, fn) {
     return results;
 }
 
-async function collectInstagram(page, context, handle, type) {
+async function collectInstagram(page, context, handle, type, knownUrls = new Set()) {
     const url = `https://www.instagram.com/${handle}/`;
     info(`Instagram @${handle} …`);
     await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 30_000 });
@@ -78,9 +78,21 @@ async function collectInstagram(page, context, handle, type) {
         return [...urls].slice(0, 60);
     });
 
+    // 增量采集：只对【新增】帖子开标签页读文案（老帖子早就采过了，直接跳过）
+    // 前 5 条都已采集过 → 说明没有新帖（IG 主页按时间倒序，置顶最多 3 条，第 4-5 位是最新常规帖）
+    const candidates = postUrls.slice(0, MAX_POSTS_PER_ACCOUNT);
+    const newUrls = candidates.filter(postUrl => !knownUrls.has(postUrl));
+    if (candidates.length >= 5 && candidates.slice(0, 5).every(postUrl => knownUrls.has(postUrl))) {
+        info(`  Instagram @${handle}: 无新帖（前 5 条均已采集），跳过`);
+        return [];
+    }
+    if (newUrls.length < candidates.length) {
+        info(`  Instagram @${handle}: 新帖 ${newUrls.length} 条（跳过已采集 ${candidates.length - newUrls.length} 条）`);
+    }
+
     // 并发在浏览器标签页里打开帖子页，从 DOM 的 og 标签取文案/图片/日期
     // （IG 的 og 标签由 JS 渲染，直接用 HTTP 抓原始 HTML 拿不到）
-    const parsed = await mapWithConcurrency(postUrls.slice(0, MAX_POSTS_PER_ACCOUNT), POST_FETCH_CONCURRENCY, async (postUrl) => {
+    const parsed = await mapWithConcurrency(newUrls, POST_FETCH_CONCURRENCY, async (postUrl) => {
         const tab = await context.newPage();
         try {
             await tab.goto(postUrl, { waitUntil: 'domcontentloaded', timeout: 30_000 });
@@ -266,11 +278,15 @@ async function main() {
         return filtered;
     };
 
+    // 已采集过的 URL 集合，供增量采集跳过老帖
+    const existingForDedupe = readJsonOr(OUT_PATH, { version: 1, items: [] });
+    const knownUrls = new Set((existingForDedupe.items || []).map(item => item.url));
+
     let collected = [];
     try {
         for (const source of igSources) {
             try {
-                const items = await collectInstagram(page, context, source.handle, source.type);
+                const items = await collectInstagram(page, context, source.handle, source.type, knownUrls);
                 collected.push(...filterByKeywords(items, source));
             } catch (error) {
                 warn(`Instagram @${source.handle} 采集失败（${error.message}），检查是否已登录`);
