@@ -13,10 +13,11 @@ const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const OUT_PATH = path.join(ROOT, 'data', 'news.json');
 
 const UA = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36';
-const RSS_URL = (q) => `https://news.google.com/rss/search?q=${encodeURIComponent(q)}&hl=en-US&gl=US&ceid=US:en`;
+// Bing News RSS：返回条目直接带出版商原文链接（apiclick 的 url 参数），无需破解解码协议
+const RSS_URL = (q) => `https://www.bing.com/news/search?q=${encodeURIComponent(q)}&format=rss&setlang=en`;
 const QUERIES = [
-    { q: '"Calafiori" when:3d' },
-    { q: 'site:arsenal.com OR site:figc.it OR site:legaseriea.it "Calafiori" when:14d' }
+    { q: '"Calafiori"' },
+    { q: '"Riccardo Calafiori"' }
 ];
 const OFFICIAL_DOMAINS = ['arsenal.com', 'figc.it', 'legaseriea.it'];
 const RETENTION_DAYS = 7;
@@ -60,33 +61,39 @@ async function fetchRss(query, retries = 1) {
     }
 }
 
+// Bing News RSS 的 link 是 apiclick 点击统计地址，真实原文链接在其 url= 查询参数里
+function extractRealUrl(link) {
+    try {
+        const u = new URL(link);
+        if (u.hostname.endsWith('bing.com')) {
+            const real = u.searchParams.get('url');
+            if (real) return decodeURIComponent(real);
+        }
+    } catch {}
+    return link;
+}
+
 function parseRssItems(xmlText) {
     const parsed = xmlParser.parse(xmlText);
     const items = parsed?.rss?.channel?.item || [];
     const result = [];
     for (const item of items) {
-        let title = stripTags(item.title || '');
-        const link = String(item.link || '').trim();
+        const title = stripTags(item.title || '');
+        const rawLink = String(item.link || '').trim();
         const pubDate = item.pubDate ? new Date(item.pubDate) : null;
+        const sourceName = stripTags(item['News:Source'] || '');
+        const description = stripTags(item.description || '');
+        const imageUrl = String(item['News:Image'] || '').trim().replace(/^http:/, 'https:');
 
-        // fast-xml-parser 把 <source url="...">Name</source> 解析成 { "#text", "@_url" }
-        const sourceObj = item.source;
-        const sourceName = stripTags(typeof sourceObj === 'string' ? sourceObj : (sourceObj?.['#text'] || sourceObj?.cdata || ''));
-        const sourceUrl = typeof sourceObj === 'object' ? (sourceObj['@_url'] || '') : '';
-
-        if (!title || !link || !pubDate || Number.isNaN(pubDate.getTime())) continue;
+        if (!title || !rawLink || !pubDate || Number.isNaN(pubDate.getTime())) continue;
         if (!title.toLowerCase().includes('calafiori')) continue;
 
-        // Google News 标题通常带 " - 来源名" 后缀，去掉更干净
-        if (sourceName && title.endsWith(' - ' + sourceName)) {
-            title = title.slice(0, -(3 + sourceName.length));
-        }
-
         result.push({
-            url: link, // Google News 跳转链接（可正常打开原文；解码协议已失效且未公开）
+            url: extractRealUrl(rawLink),
             title,
             source: sourceName,
-            sourceUrl,
+            description,
+            imageUrl: imageUrl || null,
             publishedAt: pubDate.toISOString()
         });
     }
@@ -251,9 +258,10 @@ async function main() {
             title: item.title,
             titleZh: item.titleZh ?? null,
             source: item.source || 'Unknown',
-            sourceType: sourceTypeOf(item.sourceUrl || item.url),
+            sourceType: sourceTypeOf(item.url),
+            description: item.description || null,
             publishedAt: item.publishedAt,
-            imageUrl: null
+            imageUrl: item.imageUrl
         })),
         ...kept
     ].sort((a, b) => new Date(b.publishedAt) - new Date(a.publishedAt)).slice(0, ITEM_CAP);

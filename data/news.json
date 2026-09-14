@@ -1,106 +1,50 @@
 {
   "version": 1,
-  "updatedAt": "2026-09-13T13:07:23.404Z",
+  "updatedAt": "2026-09-14T05:43:23.091Z",
   "items": [
     {
-      "id": "314d90f5bcdfbae2",
-      "url": "https://news.google.com/rss/articles/CBMioAFBVV95cUxPeXphVUhiNEZpR3VWVXBmVGY0enRDd3hETzFqVmNiYlRSOUNvZzlaazlqT0pEM1ZMREtUSGZvaTVzQ1NiRWdIcE1VbUJOTG5vUlRsdHFpVk44VG1fNVlkR0NxOUZfQVlleWZ4bkd3WjRnaDZvVFJCcVJwV1VaNGdyRFJtREctM3VQRktCcExOMUpnU0RlclZZYkUxUktkamY5?oc=5",
-      "title": "Team news: Havertz and Calafiori return against Sunderland",
-      "titleZh": "球队新闻：哈弗茨和卡拉菲奥里对阵桑德兰复出",
-      "source": "Arsenal.com",
-      "sourceType": "official",
-      "publishedAt": "2026-09-12T18:09:17.000Z",
-      "imageUrl": null
-    },
-    {
-      "id": "83e3b43d66cc82b1",
-      "url": "https://news.google.com/rss/articles/CBMie0FVX3lxTE9faThiOHl5UUl2Rng2STcwSGZTS1JOR2xabFNzNXJMOWM3aE5rRTJwU1ZCMlJoeXNNS2l4MnY1LWpZT2dkd0I2UkJMQzU3Y2ZrNEtLTUJNdE5MblBJU1R0aFI1OFJmMUFTUUtBQjRXN0RXcExNaXpEaFRDbw?oc=5",
-      "title": "FPL Price Changes: Calafiori, Palmer and Ødegaard Rise",
-      "titleZh": "FPL价格变动：卡拉菲奥里、帕尔默和厄德高上涨",
-      "source": "Fantasy Football Fix",
+      "id": "a159811aa6d1a5c5",
+      "url": "https://www.arsenalinsider.com/news/mikel-arteta-reveals-why-riccardo-calafiori-is-the-only-arsenal-player-whos-given-full-freedom/",
+      "title": "Mikel Arteta reveals why Riccardo Calafiori is the only Arsenal player who’s given full freedom",
+      "titleZh": "阿尔特塔揭秘为何卡拉菲奥里是阿森纳唯一拥有完全自由的球员",
+      "source": "Arsenal Insider",
       "sourceType": "media",
-      "publishedAt": "2026-09-10T23:18:15.000Z",
-      "imageUrl": null
+      "description": "On TNT Sports before Arsenal’s win over Sunderland, Karen Carney asked Arteta why he gives Calafiori freedom to move anywhere but not to anyone else. He replied: “Because he is a free bird.",
+      "publishedAt": "2026-09-13T11:01:00.000Z",
+      "imageUrl": "https://www.bing.com/th?id=ONUT.105y6JR3XU_Z3_2yt9AXhw&pid=News"
     },
     {
-      "id": "662327c146a80584",
-      "url": "https://news.google.com/rss/articles/CBMiwAFBVV95cUxOX2ZmNnVEZnZfMDVYZTNzQUx5RzVtSEYyMVN1VUJ3S05aV2x0NER0YlNWdXNBR3hHamR0Zm16b052VFYycnVxZEFMbU9YVm1feDllQkN2N3V1dzR6eXBVeHcwbmcxd0tVRWo3YWRxS01GLTVySVQ2QkpmZFN6Y0ZEYmNFSDNoTF8wRzU1T3dab0dBY3dMSDRZRk9qS1VzNjgzZW14T01oZF9lLTk1ODZoUGd0Zmdpc0JnbklRRWxzU24?oc=5",
-      "title": "Mikel Arteta to make four Arsenal changes vs Sunderland as Riccardo Calafiori returns",
-      "titleZh": "阿尔特塔对阵桑德兰将做四处调整，卡拉菲奥里回归",
-      "source": "ArsenalNews.co.uk",
-      "sourceType": "media",
-      "publishedAt": "2026-09-10T21:13:26.000Z",
-      "imageUrl": null
-    },
-    {
-      "id": "3c391515d213c36f",
-      "url": "https://news.google.com/rss/articles/CBMisgFBVV95cUxOa3psUmRmeTBDMkZ3RElJdFJNVVNEeVlIR01kdXBZZFpGdzJTOEtuR1FSMnVoNzVSb1Awa09ST0VldjhPeXZydjhYekl5cmVxazd5UFk0R0JoVXVvTW5GSUFDOGExdC1RMUEtdW9peG5xSURzTDRGcElleEV1TFFuc2xudGdGLUJJXzRpc2lfdzZ4dEJyS1RIYmFXTXJ0UU81S3RKUDYzVEF0N09GOTNlOTJR?oc=5",
-      "title": "FPL notes: Calafiori rested, Gakpo, Barcola + White injury updates",
-      "titleZh": "FPL笔记：卡拉菲奥里轮休，加克波、巴尔科拉和怀特伤情更新",
-      "source": "fantasyfootballscout.co.uk",
-      "sourceType": "media",
-      "publishedAt": "2026-09-10T17:50:02.000Z",
-      "imageUrl": null
-    },
-    {
-      "id": "77e0bfbd5825dc73",
-      "url": "https://news.google.com/rss/articles/CBMimwFBVV95cUxQQU94cHZ6MVN0Q2NHN0xTMnpMSUItZC1ZdEhlNHl3SWZURENydnpiRmp1SFlUQ1hiV2pBS29yQ3pPcVo0b1BaVTNXSXV2TkJCdnljNVJaT0o5ZlFqR0w1TEV0Q0VsZ0dPbUZfOG5SQS1jdUJwMWJOUWFZbEJJQVlPTmtUM1dsRlBNSjNCUTJkNFFQbGdjenlaWDBLVQ?oc=5",
+      "id": "1b3817e12a6cfe9a",
+      "url": "https://www.nowarsenal.com/latest-news/riccardo-calafiori-officially-named-player-of-the-month/",
       "title": "Riccardo Calafiori officially named Player of the Month",
       "titleZh": "卡拉菲奥里正式当选月度最佳球员",
       "source": "now.arsenal",
       "sourceType": "media",
-      "publishedAt": "2026-09-10T14:31:12.000Z",
-      "imageUrl": null
+      "description": "Riccardo Calafiori officially named Player of the Month for August after one goal and two assists, plus a clean sheet in all three games.",
+      "publishedAt": "2026-09-10T07:23:00.000Z",
+      "imageUrl": "https://www.bing.com/th?id=ONUT.3qcg23GyvOCnOEUH4hNk7A&pid=News"
     },
     {
-      "id": "598133acfa6f2b1c",
-      "url": "https://news.google.com/rss/articles/CBMiuwFBVV95cUxOMi14LWpLVGhqTXctRG1wQ3E0WG5qZmxBQ01YaTBITGJ3OUlDbzhtc2N2b01oWHctOVNiVUoxQjROS1F5VzVaWFNTR0x1WnMtZ0FlS3ZkeDgtcmtOXzJKbDkyYmFFRkpwbWdjY0ZaZFExNWpjTTBMUm1UeFVCUVRSQUdGeVRjRFNTRU5lTjg2YmxFX252dVJOTWFkVzFVU3Y0eURFbjNNaklhV2cxaWo3ZU9WNDlUampwMlhJ?oc=5",
-      "title": "Riccardo Calafiori’s use of space is opening up a completely different dimension for Arsenal",
-      "titleZh": "卡拉菲奥里的空间利用为阿森纳开辟全新维度",
-      "source": "FotMob",
+      "id": "762e8e4621191905",
+      "url": "https://www.thesun.co.uk/sport/40312956/arsenal-riccardo-calafiori-backpacking-trip-world-cup/",
+      "title": "Inside Arsenal star Riccardo Calafiori’s incredible summer backpacking trip to get over World Cup heartbreak",
+      "titleZh": "阿森纳球星卡拉菲奥里背包旅行度过世界杯心碎之夏",
+      "source": "The Sun",
       "sourceType": "media",
-      "publishedAt": "2026-09-10T13:15:08.000Z",
-      "imageUrl": null
+      "description": "RICCARDO CALAFIORI went backpacking this summer to get over the pain of missing out on the World Cup. Italy failed to qualify for football’s biggest party for the third tournament in a row and the ...",
+      "publishedAt": "2026-09-08T15:16:00.000Z",
+      "imageUrl": "https://www.bing.com/th?id=ONUT.wlZOEJtAfdbvtom-jdT0wQ&pid=News"
     },
     {
-      "id": "016f445c07d4bc8d",
-      "url": "https://news.google.com/rss/articles/CBMilgFBVV95cUxQY3dkd0lfRVYyNzBfQ1JtSnJOeERSTGV6U3VrUnNCM2hsbXdNQ0VLUzFqZnVyV2hmVzRLLXMyS1ZZMlBDbFdISHRBVTduN1hxTFpQWmdTQm91dWtHZWU3Y0xtSGw0ZEVRcmJ3N2dfUm5aVzZ4NVN5ZDYwdDVGMklUdjAxOTlESktlUXE5QmNHRVJOQVdndFE?oc=5",
-      "title": "Riccardo Calafiori named men's Player of the Month",
-      "titleZh": "卡拉菲奥里当选男足月度最佳球员",
-      "source": "Arsenal.com",
-      "sourceType": "official",
-      "publishedAt": "2026-09-09T12:26:33.000Z",
-      "imageUrl": null
-    },
-    {
-      "id": "903077a1303e24c3",
-      "url": "https://news.google.com/rss/articles/CBMiiAFBVV95cUxQRTlLNGtUVkVvdXN1S1psZTJfSDBQOWRJcDRmYmd1ejNhVGxNVVUxM19fSkNGa0V0Z3B3VkR4T0JObURDVHBjTDhyT19XMG5LaC1oc1JQRHI4VWZRa1JuOEZVQTNMV3oxdkpOYW1wR0t5MXkxWXgzb0ZNamJIZncxRGZqNzZ4eko5?oc=5",
-      "title": "Player of the Month: Riccardo Calafiori",
-      "titleZh": "月度最佳球员：卡拉菲奥里",
-      "source": "Arsenal.com",
-      "sourceType": "official",
-      "publishedAt": "2026-09-09T11:59:00.000Z",
-      "imageUrl": null
-    },
-    {
-      "id": "4439bb60dcf87f98",
-      "url": "https://news.google.com/rss/articles/CBMiiAFBVV95cUxQWk1LNjNhUjcyLTRkQmMySU5ub3NHaW9vZl9Idkk3bFNXV2xmZUlDbmZER0lOWDJUY0pZZ0xpcHh6ZF91UTVmLWNNWF95eW5QaU4tbHZNR0RKUmkzNC1XYnFtX21NVEp5WlM0QXpUZWt6aFQ3X3Z6NWZGSmc2T18xdGZGT3RKNGQw?oc=5",
-      "title": "In-form Calafiori relishing Napoli test",
-      "titleZh": "状态正佳的卡拉菲奥里期待那不勒斯考验",
-      "source": "Arsenal.com",
-      "sourceType": "official",
-      "publishedAt": "2026-09-08T20:49:13.000Z",
-      "imageUrl": null
-    },
-    {
-      "id": "97ef013868251645",
-      "url": "https://news.google.com/rss/articles/CBMiigFBVV95cUxPSFIzbkFiOWltZU5fQlo4V2JxY2pJbXl2Tzl4dWdvaU5hV0Y3MzU0ZU1DRXl5Y3pZRm9GdE5MWFFuVkJ6bS04UVlBc29XbUZpSHp5aGRXSEktbnBsdzNVa2VsUG9jTnA5ZG5GVTNuc1FSc1VDREw0YVM2MHE3VjJJekRQYk9DdHhPd3c?oc=5",
-      "title": "Calafiori looking forward to UCL return",
-      "titleZh": "卡拉菲奥里期待重返欧冠",
-      "source": "Arsenal.com",
-      "sourceType": "official",
-      "publishedAt": "2026-09-08T20:44:55.000Z",
-      "imageUrl": null
+      "id": "dabbd28c2f3e4cb7",
+      "url": "https://www.cbssports.com/soccer/news/arsenal-napoli-champions-league-live-stream-riccardo-calafiori/",
+      "title": "Riccardo Calafiori redefines fullback role as Arsenal defender returns to Italy for Champions League action",
+      "titleZh": "卡拉菲奥里重新定义边后卫角色，随阿森纳回意大利出战欧冠",
+      "source": "CBS Sports",
+      "sourceType": "media",
+      "description": "The Italian defender returns to his homeland with Arsenal having evolved far beyond a traditional inverted left back under Mikel Arteta.",
+      "publishedAt": "2026-09-08T14:04:00.000Z",
+      "imageUrl": "https://www.bing.com/th?id=ONUT.Hu-1JfZUH0DlmqJ0TXlfLg&pid=News"
     }
   ]
 }
