@@ -1114,7 +1114,7 @@ window.VIDEO_DATA = {
         // ---------- Social (Fan Sources, 手动维护 data/social.json) ----------
 
         function renderSocial(data) {
-            const items = (data.items || []).filter(item => item.text);
+            const items = data.items || [];
             if (items.length === 0) return;
             const list = document.getElementById('social-list');
             list.innerHTML = '';
@@ -1131,7 +1131,7 @@ window.VIDEO_DATA = {
                 li.innerHTML = `
                     <p class="text-[10px] font-bold tracking-[0.2em] uppercase text-gray-400 mb-2">${esc(item.platform)}${item.date ? ' · ' + esc(item.date) : ''}${typeBadge}</p>
                     ${linkOpen}
-                    <p class="font-serif text-lg leading-relaxed text-gray-800 hover:text-gray-500 transition-colors duration-300">${esc(item.text)}</p>
+                    <p class="font-serif text-lg leading-relaxed text-gray-800 hover:text-gray-500 transition-colors duration-300">${esc(item.text || '（无文案）')}</p>
                     ${linkClose}
                 `;
                 list.appendChild(li);

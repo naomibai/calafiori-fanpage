@@ -18,7 +18,8 @@ const SOURCES_PATH = path.join(ROOT, 'scripts', 'social-sources.json');
 const PROFILE_DIR = process.env.USE_REAL_PROFILE === '1'
     ? path.join(process.env.LOCALAPPDATA, 'Microsoft', 'Edge', 'User Data')
     : path.join(os.homedir(), '.calafiori-social-profile');
-const RETENTION_DAYS = 30;
+// 产品定位是「最新消息采集器」：只保留最近 7 天发布的内容，过期直接下掉
+const RETENTION_DAYS = 7;
 const ITEM_CAP = 60;
 const MAX_POSTS_PER_ACCOUNT = 20; // 只取最近的帖子（7 天窗口一般 10 条以内就够）
 const SCROLLS_PER_ACCOUNT = 3;
@@ -292,12 +293,13 @@ async function main() {
         return;
     }
 
-    // 去重合并：按 url 去重，30 天保留，上限 60 条
+    // 去重合并：按 url 去重；新旧数据一视同仁，超过 7 天的直接下掉
     const existing = readJsonOr(OUT_PATH, { version: 1, items: [] });
     const cutoff = new Date(Date.now() - RETENTION_DAYS * 24 * 60 * 60 * 1000).toISOString().slice(0, 10);
     const kept = (existing.items || []).filter(item => (item.date || '9999') >= cutoff);
     const seen = new Set(kept.map(item => item.url));
     const fresh = collected.filter(item => {
+        if ((item.date || '') < cutoff) return false; // 新采到的过期帖子也不入库
         if (seen.has(item.url)) return false;
         seen.add(item.url);
         return true;
