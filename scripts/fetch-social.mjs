@@ -5,7 +5,8 @@
 import crypto from 'node:crypto';
 import os from 'node:os';
 import path from 'node:path';
-import { existsSync, readFileSync } from 'node:fs';
+import { execSync } from 'node:child_process';
+import { existsSync, readFileSync, rmSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { chromium } from 'playwright-core';
 import { info, warn, readJsonOr, writeJsonIfChanged } from './lib/json-store.mjs';
@@ -165,14 +166,24 @@ async function main() {
         launchOptions.executablePath = browserCandidates[0];
         info(`使用浏览器: ${browserCandidates[0]}`);
     }
+    // 真实档案模式下 Edge 必须完全退出；若被占用（如 Edge 启动增强偷偷复活），自动强关后重试一次
     let context;
-    try {
-        context = await chromium.launchPersistentContext(PROFILE_DIR, launchOptions);
-    } catch (error) {
-        if (process.env.USE_REAL_PROFILE === '1') {
-            throw new Error('无法打开 Edge 档案：请先关闭所有 Edge 窗口，再重新运行（真实档案模式下 Edge 必须完全退出）');
+    for (let attempt = 0; attempt < 2; attempt++) {
+        try {
+            context = await chromium.launchPersistentContext(PROFILE_DIR, launchOptions);
+            break;
+        } catch (error) {
+            if (process.env.USE_REAL_PROFILE !== '1' || attempt === 1) {
+                if (process.env.USE_REAL_PROFILE === '1') {
+                    throw new Error('无法打开 Edge 档案：Edge 进程无法完全退出，请手动关闭 Edge 后重试');
+                }
+                throw error;
+            }
+            warn('Edge 仍占用档案，自动强制关闭后重试…');
+            try { execSync('taskkill /F /IM msedge.exe', { stdio: 'ignore' }); } catch {}
+            await new Promise(resolve => setTimeout(resolve, 3000));
+            try { rmSync(path.join(PROFILE_DIR, 'lockfile'), { force: true }); } catch {}
         }
-        throw error;
     }
     // 隐藏 webdriver 标记（在后续页面加载前生效）
     await context.addInitScript(() => {
