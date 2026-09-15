@@ -136,8 +136,23 @@ async function collectInstagram(page, context, handle, type, knownUrls = new Set
 async function collectX(page, handle, type) {
     const url = `https://x.com/${handle}`;
     info(`X @${handle} …`);
-    await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 30_000 });
-    await page.waitForTimeout(3000);
+    // X 对无头浏览器偶发拦截，间隔重试通常能过
+    let loaded = false;
+    for (let attempt = 0; attempt < 3; attempt++) {
+        try {
+            await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 30_000 });
+            await page.waitForTimeout(3000);
+            loaded = true;
+            break;
+        } catch (error) {
+            warn(`  X @${handle} 第 ${attempt + 1} 次加载失败（${error.message.split('\n')[0]}），5 秒后重试`);
+            await new Promise(resolve => setTimeout(resolve, 5000));
+        }
+    }
+    if (!loaded) {
+        warn(`X @${handle} 多次加载失败，跳过`);
+        return [];
+    }
 
     for (let i = 0; i < SCROLLS_PER_ACCOUNT; i++) {
         await page.mouse.wheel(0, 2000);
@@ -200,8 +215,9 @@ async function main() {
         'C:\\Program Files\\Microsoft\\Edge\\Application\\msedge.exe',
         'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe'
     ].filter(p => existsSync(p));
+    // 默认弹窗模式（X 封锁无头浏览器，弹窗才能正常采 X）；HEADLESS=1 时静默（仅 IG 可用）
     const launchOptions = {
-        headless: false,
+        headless: process.env.HEADLESS === '1',
         viewport: { width: 1280, height: 900 },
         locale: 'en-US',
         // 降低自动化特征，避免 Instagram 登录页反复跳转
