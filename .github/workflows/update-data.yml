@@ -43,11 +43,12 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git pull --rebase origin main
           git add data/
           if git diff --cached --quiet; then
             echo "No data changes; skipping commit."
           else
             git commit -m "chore: refresh fixtures/news data"
+            # 提交后工作区是干净的，此时 pull --rebase 才可能成功
+            git pull --rebase origin main
             git push
           fi
