@@ -1,23 +1,14 @@
 {
   "version": 1,
-  "updatedAt": "2026-09-14T06:16:40.728Z",
+  "updatedAt": "2026-09-18T12:26:57.208Z",
   "source": "espn",
   "arsenal": [
-    {
-      "date": "2026-09-15T19:00Z",
-      "comp": "EFL Cup",
-      "opp": "Ipswich Town",
-      "venue": "Portman Road",
-      "status": "Scheduled",
-      "isHome": false,
-      "opponentId": 373
-    },
     {
       "date": "2026-09-19T14:00Z",
       "comp": "Premier League",
       "opp": "Brighton & Hove Albion",
       "venue": "American Express Stadium",
-      "status": "Scheduled",
+      "status": null,
       "isHome": false,
       "opponentId": 331
     },
@@ -26,7 +17,7 @@
       "comp": "Premier League",
       "opp": "Leeds United",
       "venue": "Emirates Stadium",
-      "status": "Scheduled",
+      "status": null,
       "isHome": true,
       "opponentId": 357
     },
@@ -35,7 +26,7 @@
       "comp": "Champions League",
       "opp": "Lille",
       "venue": "Emirates Stadium",
-      "status": "Scheduled",
+      "status": null,
       "isHome": true,
       "opponentId": 166
     },
@@ -44,9 +35,18 @@
       "comp": "Premier League",
       "opp": "Nottingham Forest",
       "venue": "The City Ground",
-      "status": "Scheduled",
+      "status": null,
       "isHome": false,
       "opponentId": 393
+    },
+    {
+      "date": "2026-10-21T19:00Z",
+      "comp": "Champions League",
+      "opp": "Bayern Munich",
+      "venue": "Allianz Arena",
+      "status": null,
+      "isHome": false,
+      "opponentId": 132
     }
   ],
   "italy": [
@@ -55,7 +55,7 @@
       "comp": "Nations League",
       "opp": "Belgium",
       "venue": "Olimpico",
-      "status": "Scheduled",
+      "status": null,
       "isHome": true,
       "opponentId": 459
     },
@@ -64,7 +64,7 @@
       "comp": "Nations League",
       "opp": "Türkiye",
       "venue": "Yüzüncü Yil Atatürk Stadyumu",
-      "status": "Scheduled",
+      "status": null,
       "isHome": false,
       "opponentId": 465
     },
@@ -73,7 +73,7 @@
       "comp": "Nations League",
       "opp": "France",
       "venue": "Stade de France",
-      "status": "Scheduled",
+      "status": null,
       "isHome": false,
       "opponentId": 478
     },
@@ -82,9 +82,18 @@
       "comp": "Nations League",
       "opp": "Türkiye",
       "venue": "Renato Dall'Ara",
-      "status": "Scheduled",
+      "status": null,
       "isHome": true,
       "opponentId": 465
+    },
+    {
+      "date": "2026-11-12T19:45Z",
+      "comp": "Nations League",
+      "opp": "France",
+      "venue": "San Siro",
+      "status": null,
+      "isHome": true,
+      "opponentId": 478
     }
   ]
 }
