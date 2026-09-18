@@ -1,7 +1,40 @@
 {
   "version": 1,
-  "updatedAt": "2026-09-14T06:36:08.985Z",
+  "updatedAt": "2026-09-18T12:22:38.114Z",
   "items": [
+    {
+      "id": "ab13bab8216ed65b",
+      "url": "https://news.google.com/rss/articles/CBMimAFBVV95cUxQV2FCRDZVaGJCZS1YWndjT1dZMUIwcFZoMEk0OU9yaW5oaGZrTlRWNVk3Mk9vRUxJbmlJcFMxWmxWQlFUQ19zXzBHQlVXWVNrZndpNlVLN1JlNlUzek5oTHo4bkN5TTdVUnpxUW0weG5TU3YtVlBtdDFJdG9MbGc2SzBpS2l2VjVhSHdVV2RmZmwwNGpNMUN1Ug?oc=5",
+      "title": "Italy international Riccardo Calafiori shames Arsenal team-mate for putting KETCHUP on his pasta",
+      "titleZh": "意大利国脚卡拉菲奥里吐槽阿森纳队友往意面加番茄酱",
+      "source": "thesun.co.uk",
+      "sourceType": "media",
+      "description": "Italy international Riccardo Calafiori shames Arsenal team-mate for putting KETCHUP on his pasta&nbsp;&nbsp;thesun.co.uk",
+      "publishedAt": "2026-09-18T07:53:00.000Z",
+      "imageUrl": null
+    },
+    {
+      "id": "482ca18f4b55de9f",
+      "url": "https://news.google.com/rss/articles/CBMilAFBVV95cUxPVXpVQzVjbnhDOGhrU2RlVDd2YjFMeHZYRnB2MGszVWo3Z3g1OEFJNHhWVlF3ZUFvbGZzby1aWS1NWnd6WFBLQXp4VlNXT3NGQ0NCaXA0dmxrRk5yN2JrT2t4bTJ2ek9TX1o3VmE5eExValE5NEFmVGJoamY0Y2l5XzJlMGJoNHJEMGxXclJhbWNUWlNv0gGaAUFVX3lxTE9RWHlRcl9DUmR3OU85T21Fck5zUmhXY0lTcmRCdHlTV0NKN2NnX0ZWdUtfdVF5RVlNSGc4NGloSFNGbV9CUXVJamc0UDIwWC0wUWNkb3M5NmNxVE9UNUVXYXR5THh3N2NjcDdnZU1pbUs4RVNCVk9GeVROQkE3NXgxb1ZXOHB5aWVMVmxyeWFqVk9YbXJvMXNfS1E?oc=5",
+      "title": "Riccardo Calafiori films Kai Havertz putting ketchup on pasta as Arsenal fans cry culinary crime",
+      "titleZh": "卡拉菲奥里拍下哈弗茨往意面加番茄酱 阿森纳球迷直呼 culinary 犯罪",
+      "source": "Tribuna.com",
+      "sourceType": "media",
+      "description": "Riccardo Calafiori films Kai Havertz putting ketchup on pasta as Arsenal fans cry culinary crime&nbsp;&nbsp;Tribuna.com",
+      "publishedAt": "2026-09-17T16:55:23.000Z",
+      "imageUrl": null
+    },
+    {
+      "id": "6ed73f07f5102d6a",
+      "url": "https://news.google.com/rss/articles/CBMiekFVX3lxTE44NTUxaFFLMkVCUjV0d2N5Z3pCQlRvYUJrOWZVWUZGcENPQmZycko2d2VMM1RXNHM1eUZ4S1dzVDY1MXpXTHZNWVhZQkY3eUJXSTBxa05mMDJRcHpqazNwWndoQkxfWTdXVFZKUmVLbjR2WkdSU3VEWEF30gF_QVVfeXFMT2NWRTE5dEFpUWJaamxKdEhpaEs0NTZNZVFRNXNzVG80RVoyLUo3Q2c3V1k5dThELU9KQzlZcGtVTHdGSFRQTGZlV1Fxc3JqaURDSmlzNmMzWnByUkxadXNRRHpOMTJYU0ZCZUhoY3hhNDJEZGNkMVp4RHJfZGtudw?oc=5",
+      "title": "How Riccardo Calafiori is becoming one of the best full-backs in Europe",
+      "titleZh": "卡拉菲奥里如何成为欧洲最佳边后卫之一",
+      "source": "football-italia.net",
+      "sourceType": "media",
+      "description": "How Riccardo Calafiori is becoming one of the best full-backs in Europe&nbsp;&nbsp;football-italia.net",
+      "publishedAt": "2026-09-15T14:10:00.000Z",
+      "imageUrl": null
+    },
     {
       "id": "ae36858921fac0a7",
       "url": "https://news.google.com/rss/articles/CBMiywFBVV95cUxNYnRRenhhdFJhM1Ztamx6SXJCaGs1R19iVjJOdUllMFNqUVR0OC04WE4tcUZDNzBnZVI4WHQxV0xxVEgzVVdEZmhlR1REX1dQV1RiT0w0YlFRTWV0U1pxMnpjM011bk9icVFzcVZlODRmcEswTzFsYnJaVnZVMC1BN3VnbW9OWi1rMG1jUGJmQ2pkX2lBaUY3bEIteXhLTjNqMjFpVHhRQXNNdVRBQ1lvQzR5TGlWN201MG03TlRka3pqb1JsNkJOZWV2dw?oc=5",
@@ -22,72 +55,6 @@
       "sourceType": "official",
       "description": "Team news: Havertz and Calafiori return against Sunderland&nbsp;&nbsp;Arsenal.com",
       "publishedAt": "2026-09-12T18:09:17.000Z",
-      "imageUrl": null
-    },
-    {
-      "id": "28f235c13c4df165",
-      "url": "https://news.google.com/rss/articles/CBMiX0FVX3lxTE5QVy13MGF3ZWlPSmJON05vOWdhWWQ1ai16MlZzWldINGRqQUVPSkVCN29JOUR0VUgydk9TazRabDNkV0NpRjFvZHl6SEJQYWFSQVJ3NFJnRmg4Vy0yUF9j?oc=5",
-      "title": "Player of the Month: Riccardo Calafiori",
-      "titleZh": "月度最佳球员：卡拉菲奥里",
-      "source": "Arsenal.com",
-      "sourceType": "official",
-      "description": "Player of the Month: Riccardo Calafiori&nbsp;&nbsp;Arsenal.com",
-      "publishedAt": "2026-09-09T16:56:52.000Z",
-      "imageUrl": null
-    },
-    {
-      "id": "016f445c07d4bc8d",
-      "url": "https://news.google.com/rss/articles/CBMilgFBVV95cUxQY3dkd0lfRVYyNzBfQ1JtSnJOeERSTGV6U3VrUnNCM2hsbXdNQ0VLUzFqZnVyV2hmVzRLLXMyS1ZZMlBDbFdISHRBVTduN1hxTFpQWmdTQm91dWtHZWU3Y0xtSGw0ZEVRcmJ3N2dfUm5aVzZ4NVN5ZDYwdDVGMklUdjAxOTlESktlUXE5QmNHRVJOQVdndFE?oc=5",
-      "title": "Riccardo Calafiori named men's Player of the Month",
-      "titleZh": "卡拉菲奥里当选男足月度最佳球员",
-      "source": "Arsenal.com",
-      "sourceType": "official",
-      "description": "Riccardo Calafiori named men's Player of the Month&nbsp;&nbsp;Arsenal.com",
-      "publishedAt": "2026-09-09T12:26:33.000Z",
-      "imageUrl": null
-    },
-    {
-      "id": "4439bb60dcf87f98",
-      "url": "https://news.google.com/rss/articles/CBMiiAFBVV95cUxQWk1LNjNhUjcyLTRkQmMySU5ub3NHaW9vZl9Idkk3bFNXV2xmZUlDbmZER0lOWDJUY0pZZ0xpcHh6ZF91UTVmLWNNWF95eW5QaU4tbHZNR0RKUmkzNC1XYnFtX21NVEp5WlM0QXpUZWt6aFQ3X3Z6NWZGSmc2T18xdGZGT3RKNGQw?oc=5",
-      "title": "In-form Calafiori relishing Napoli test",
-      "titleZh": "状态火热的卡拉菲奥里期待迎战那不勒斯",
-      "source": "Arsenal.com",
-      "sourceType": "official",
-      "description": "In-form Calafiori relishing Napoli test&nbsp;&nbsp;Arsenal.com",
-      "publishedAt": "2026-09-08T20:49:13.000Z",
-      "imageUrl": null
-    },
-    {
-      "id": "97ef013868251645",
-      "url": "https://news.google.com/rss/articles/CBMiigFBVV95cUxPSFIzbkFiOWltZU5fQlo4V2JxY2pJbXl2Tzl4dWdvaU5hV0Y3MzU0ZU1DRXl5Y3pZRm9GdE5MWFFuVkJ6bS04UVlBc29XbUZpSHp5aGRXSEktbnBsdzNVa2VsUG9jTnA5ZG5GVTNuc1FSc1VDREw0YVM2MHE3VjJJekRQYk9DdHhPd3c?oc=5",
-      "title": "Calafiori looking forward to UCL return",
-      "titleZh": "卡拉菲奥里期待重返欧冠赛场",
-      "source": "Arsenal.com",
-      "sourceType": "official",
-      "description": "Calafiori looking forward to UCL return&nbsp;&nbsp;Arsenal.com",
-      "publishedAt": "2026-09-08T20:44:55.000Z",
-      "imageUrl": null
-    },
-    {
-      "id": "59177da4be0c677a",
-      "url": "https://news.google.com/rss/articles/CBMipAJBVV95cUxQcTN0VWJXSTZNVGd3Q1JYREJJVVpqdGFFNF82cWotbGRsLUZjQWVCRFhNLXVrNGdhZUo0azg0SThPcVd5MjdHRXlJT1ZKaFlvb0FKSGwyWVVUZHRtMmtmQkh3UjlXeUhlWFQtZ2x1MGZwYWFfRENlSEgtSjVPVFlkSTdCNEdZQUJKaFl2aVpmVUhnTW05enZ3UkFJU3laeFhFcUdxMWpGbXA5SGQzbzd3a2NBVkZ3LU50WEV4cFV1MGpUT0gtVnFMb1FRUDI1b2gxbFhqOC1acHRaYWVrY2lqM2JxaVoxX2NPZURQT3FGMUk2bkhzQzI2UVdBYlRQOG9UV2hld1lVMHllTGNkQlZFaElnMWdoQm5aWU44cTZHZVNwcFU2?oc=5",
-      "title": "Riccardo Calafiori redefines fullback role as Arsenal defender returns to Italy for Champions League action",
-      "titleZh": "卡拉菲奥里重新定义边后卫，随阿森纳回意大利战欧冠",
-      "source": "thepress.net",
-      "sourceType": "media",
-      "description": "Riccardo Calafiori redefines fullback role as Arsenal defender returns to Italy for Champions League action&nbsp;&nbsp;thepress.net",
-      "publishedAt": "2026-09-08T20:04:35.000Z",
-      "imageUrl": null
-    },
-    {
-      "id": "23ec06449b28d4cf",
-      "url": "https://news.google.com/rss/articles/CBMizgFBVV95cUxNbmYtcEtYQnd5ZkVNNTFxR205dlRha2pLdkJiS0J2TFpzd1NHMVVyYTM3S3dtT0F3Q1MyNlVNUTRmWDQySjZHc3EtWVVfd3BkWlUxcGtqbW9faC1sQk5LY1dQTEY0clpidC03MEVKSl9OQzNrOTBVRXk5QXdfXzNrT3dhbUhTNmIxNHUtdW9mQ1ltbDh6dHVPbXJFV1JLWkRUdEt4am5hREJwOFJtSzdPd29NWjNqODR3NmNVUDNPb0JrdkRNR0hzMjhMVm9PUQ?oc=5",
-      "title": "How Riccardo Calafiori Is Transforming Arsenal Under Mikel Arteta",
-      "titleZh": "卡拉菲奥里如何改变阿尔特塔的阿森纳",
-      "source": "LiveScore",
-      "sourceType": "media",
-      "description": "How Riccardo Calafiori Is Transforming Arsenal Under Mikel Arteta&nbsp;&nbsp;LiveScore",
-      "publishedAt": "2026-09-08T19:24:52.000Z",
       "imageUrl": null
     }
   ]
