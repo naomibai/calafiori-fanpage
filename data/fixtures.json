@@ -1,17 +1,8 @@
 {
   "version": 1,
-  "updatedAt": "2026-09-18T12:26:57.208Z",
+  "updatedAt": "2026-09-19T18:12:24.466Z",
   "source": "espn",
   "arsenal": [
-    {
-      "date": "2026-09-19T14:00Z",
-      "comp": "Premier League",
-      "opp": "Brighton & Hove Albion",
-      "venue": "American Express Stadium",
-      "status": null,
-      "isHome": false,
-      "opponentId": 331
-    },
     {
       "date": "2026-10-10T11:30Z",
       "comp": "Premier League",
@@ -47,6 +38,15 @@
       "status": null,
       "isHome": false,
       "opponentId": 132
+    },
+    {
+      "date": "2026-10-24T14:00Z",
+      "comp": "Premier League",
+      "opp": "Everton",
+      "venue": "Emirates Stadium",
+      "status": null,
+      "isHome": true,
+      "opponentId": 368
     }
   ],
   "italy": [

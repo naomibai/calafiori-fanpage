@@ -1,7 +1,18 @@
 {
   "version": 1,
-  "updatedAt": "2026-09-18T12:22:38.114Z",
+  "updatedAt": "2026-09-19T18:12:25.995Z",
   "items": [
+    {
+      "id": "0bbee68aa5f8ac97",
+      "url": "https://news.google.com/rss/articles/CBMijwFBVV95cUxPNC1uVllPOTBXRGZOZmMzZ0pnWnRUREZ4UXBLZG9nZVNpTk9DWkwxQzRacDluRXB6ZGtyZ21QeXEtaWJhMi1idWhfd2M2RG5pZEdtaDdHRnBKRjZuNTVIQzcyYXpNbUtrUWMtQVN5eGVGbVI2SkM5UDlJUXJjbVlKM1otMUo2MzZCdjFpTGNLMA?oc=5",
+      "title": "🚨 Brighton-Arsenal XIs: Tzolis, Calafiori... Arteta rings changes!",
+      "titleZh": null,
+      "source": "Yahoo Sports",
+      "sourceType": "media",
+      "description": "🚨 Brighton-Arsenal XIs: Tzolis, Calafiori... Arteta rings changes!&nbsp;&nbsp;Yahoo Sports",
+      "publishedAt": "2026-09-19T12:47:00.000Z",
+      "imageUrl": null
+    },
     {
       "id": "ab13bab8216ed65b",
       "url": "https://news.google.com/rss/articles/CBMimAFBVV95cUxQV2FCRDZVaGJCZS1YWndjT1dZMUIwcFZoMEk0OU9yaW5oaGZrTlRWNVk3Mk9vRUxJbmlJcFMxWmxWQlFUQ19zXzBHQlVXWVNrZndpNlVLN1JlNlUzek5oTHo4bkN5TTdVUnpxUW0weG5TU3YtVlBtdDFJdG9MbGc2SzBpS2l2VjVhSHdVV2RmZmwwNGpNMUN1Ug?oc=5",
@@ -44,17 +55,6 @@
       "sourceType": "media",
       "description": "Mikel Arteta reveals why Riccardo Calafiori is the only Arsenal player who's given full freedom&nbsp;&nbsp;arsenalinsider.com",
       "publishedAt": "2026-09-13T17:01:07.000Z",
-      "imageUrl": null
-    },
-    {
-      "id": "314d90f5bcdfbae2",
-      "url": "https://news.google.com/rss/articles/CBMioAFBVV95cUxPeXphVUhiNEZpR3VWVXBmVGY0enRDd3hETzFqVmNiYlRSOUNvZzlaazlqT0pEM1ZMREtUSGZvaTVzQ1NiRWdIcE1VbUJOTG5vUlRsdHFpVk44VG1fNVlkR0NxOUZfQVlleWZ4bkd3WjRnaDZvVFJCcVJwV1VaNGdyRFJtREctM3VQRktCcExOMUpnU0RlclZZYkUxUktkamY5?oc=5",
-      "title": "Team news: Havertz and Calafiori return against Sunderland",
-      "titleZh": "哈弗茨和卡拉菲奥里复出战桑德兰",
-      "source": "Arsenal.com",
-      "sourceType": "official",
-      "description": "Team news: Havertz and Calafiori return against Sunderland&nbsp;&nbsp;Arsenal.com",
-      "publishedAt": "2026-09-12T18:09:17.000Z",
       "imageUrl": null
     }
   ]
