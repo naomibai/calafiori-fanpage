@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-09-26T00:14:45.380Z",
+  "updatedAt": "2026-09-29T00:16:48.763Z",
   "source": "espn",
   "arsenal": [
     {
@@ -50,15 +50,6 @@
     }
   ],
   "italy": [
-    {
-      "date": "2026-09-28T18:45Z",
-      "comp": "Nations League",
-      "opp": "Türkiye",
-      "venue": "Yüzüncü Yil Atatürk Stadyumu",
-      "status": null,
-      "isHome": false,
-      "opponentId": 465
-    },
     {
       "date": "2026-10-02T18:45Z",
       "comp": "Nations League",
