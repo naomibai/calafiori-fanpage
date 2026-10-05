@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-10-02T21:52:59.099Z",
+  "updatedAt": "2026-10-05T23:48:06.678Z",
   "source": "espn",
   "arsenal": [
     {
@@ -50,15 +50,6 @@
     }
   ],
   "italy": [
-    {
-      "date": "2026-10-05T18:45Z",
-      "comp": "Nations League",
-      "opp": "Türkiye",
-      "venue": "Renato Dall'Ara",
-      "status": null,
-      "isHome": true,
-      "opponentId": 465
-    },
     {
       "date": "2026-11-12T19:45Z",
       "comp": "Nations League",
