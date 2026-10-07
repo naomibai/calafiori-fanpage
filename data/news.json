@@ -1,7 +1,29 @@
 {
   "version": 1,
-  "updatedAt": "2026-10-07T12:45:33.132Z",
+  "updatedAt": "2026-10-07T22:48:39.356Z",
   "items": [
+    {
+      "id": "a243f4ebb945133b",
+      "url": "https://news.google.com/rss/articles/CBMiiwFBVV95cUxPSlZzZ3hrblhWaW55VWtla2VhQzVqVzhwZTE2YW9ZNTdscU1uREdZQUZqNFU4RFRSOG8tUTBzbEtEVXd4YW1MYTlNS0RZNE5hQWdfN29USTZvcU5fdHVtbFVZczJLejIyUm8wUUVYek1teF9HU1gzQ1BUQW41cHkxdWNKVjQwWWE3MkhR0gGQAUFVX3lxTE9Ja0Y5amRSYzlQYVFmZUZJajAzelpodjhlcHFHQXpBNC1mbkJWRnR2WnVDN1B5LURNY3NFT1lySVR3SmJ4cW0xUDJ2QURvMWVzd3V0MU1ORWpDNVRSb1B6bmxBRjJCXzk3VUhvZFNkZmp4V0F3UmlzbWIzSUdYT0lTTVQ4VjZsdzdrRFcxSDFaYg?oc=5",
+      "title": "How Arteta is helping Calafiori thrive in attack",
+      "titleZh": null,
+      "source": "Just Arsenal News",
+      "sourceType": "media",
+      "description": "How Arteta is helping Calafiori thrive in attack&nbsp;&nbsp;Just Arsenal News",
+      "publishedAt": "2026-10-07T17:00:00.000Z",
+      "imageUrl": null
+    },
+    {
+      "id": "28c6e8e0360b9ff2",
+      "url": "https://news.google.com/rss/articles/CBMilgFBVV95cUxQS3FiSmdvVmFOcndGNVNsQnRScVpGcXdWa1g3LXFUWkJrejZ4WFFNMzB0bnlsUks1QURadnE3Q0dkUndZcDBXWGltcnZ3b21JaHZGNDZFX2pfN2FxNkd4YXhld3pDUHZHUS1tY1lDZHNzSW0xVlhBMTBidjNUZzhlbGE4c2xIYVRodGFrWmlxNVVvREtOc0E?oc=5",
+      "title": "[Oct 6] Konsa injury, Calafiori first Italy goal, Kim Little record, and more",
+      "titleZh": null,
+      "source": "Buttondown",
+      "sourceType": "media",
+      "description": "[Oct 6] Konsa injury, Calafiori first Italy goal, Kim Little record, and more&nbsp;&nbsp;Buttondown",
+      "publishedAt": "2026-10-06T21:20:48.000Z",
+      "imageUrl": null
+    },
     {
       "id": "4e77a47d91be1b62",
       "url": "https://news.google.com/rss/articles/CBMivwFBVV95cUxNVUFJWEFMSjBYUTE0N0ZrbjV4V2dWZW9LTDNkWHBoX1Yyb0lWM2JVclQzVnRJX21JZ3huRjJ0TFZKaTZYbFZ2dEZoZFdwU2dIVVp5c3BLdnJNTDZiSHhGbW9FM2lNNk5QUjNlQ2Y2bGZsN0t5ZjFFbDNucS1wNkRUdFZwS3J2UVBVNzhObHMyZDdGVmxqQVNCWjdwLTN3dVFvdmdCRDhDd0U5SzVGWmg4YnMxTlFIMHdjS1NnZnl0VdIBxAFBVV95cUxQeFA5djNzbHRBb1NSbF9GanpqYkptcS1uZ1pfV1NXMUswdmI4WEF2SWpqdVlzaEw3ZC1mb0Zma1A4M3pTdm5oN3oxczZtSzVwMWwwRk82RHI5dnhuaXZpSFdITk1kU2tIWUxHd29yWnZDa1RyZVU2VFlQTG5sVXNoeHN4dnRhYkR2MXA5X0dpN3RUNWpTVWxIS1RQYVAwUmVmOVRJU0l2cGQycGhkSWJzZEVKMTV1a3RnNlFBckxiRjdHd1d5?oc=5",
@@ -11,6 +33,17 @@
       "sourceType": "media",
       "description": "'He is a leader': Italy boss Roberto Mancini hints at key role for Riccardo Calafiori&nbsp;&nbsp;Tribuna.com",
       "publishedAt": "2026-10-06T21:02:40.000Z",
+      "imageUrl": null
+    },
+    {
+      "id": "0037c9d4230317e3",
+      "url": "https://news.google.com/rss/articles/CBMivgFBVV95cUxPZ0tLXzUzR2NHRXV4c2xadnB5dTlZTUVVUVU0VGdVcWNCeUlGWjZURGRya0EtVGQ4NlplaFc0MmpIVDU3MGtBTFJ4X2dGX2ZNWmwwOHJsRFlYaENhSC15LTZWeHgyOUZ4eXpSWWt1Y2FlQkVQdjlQdlZzZDhadzlIZnRycUNEb2VIOXRfWlZ4dVhOTXNoYjY2VFgxRFNCbGpET1VXWkYzUlhvYzlEajNrNlB2LXdERzBOWEJxYlpR?oc=5",
+      "title": "Calafiori, a Roma fan: \"As a child, I was crazy about Osvaldo and Lamela.\" - We Are Roma",
+      "titleZh": null,
+      "source": "Siamo la Roma",
+      "sourceType": "media",
+      "description": "Calafiori, a Roma fan: \"As a child, I was crazy about Osvaldo and Lamela.\" - We Are Roma&nbsp;&nbsp;Siamo la Roma",
+      "publishedAt": "2026-10-06T20:27:00.000Z",
       "imageUrl": null
     },
     {
@@ -407,17 +440,6 @@
       "sourceType": "media",
       "description": "The bold Riccardo Calafiori decision that Mikel Arteta could be forced into&nbsp;&nbsp;Pain in the Arsenal",
       "publishedAt": "2026-10-02T11:01:45.000Z",
-      "imageUrl": null
-    },
-    {
-      "id": "f3dd57dfcde0cebe",
-      "url": "https://news.google.com/rss/articles/CBMi-wFBVV95cUxQYUNFamlmRFVvbGhVZW12Q3ZLT2ZhVUF2NXU2VFdPNVNKTmU2QmZSZlozRTFaaG15VnlfWjVBZ0xhN1Zjd2VOdzZsS3NhRkN1WUZ6LXdjLTVtSFB0a2VJdXRrVHR6cnZFdGxGMXUwT0VvNWd4ZHhwdklieFhjbVUtbExXWUNIQTItaWpLLVRNcFRkMk1pNW1ZQURvR3RSOWhUYWlqMmxVb1liRURTN2VrTlQxQi05aGJKbURYRGtob0QxSHE2WHVNR2VUeTFNZ0ZQMFBtWElmUXpWRVRTX213elhrRmI2a3hrX1Q0d0Ftcl8tYjZvelNqcF9tZw?oc=5",
-      "title": "Italy, controversy over Calafiori after the video in which he gives his shirt to a child. His response: “You scare me”",
-      "titleZh": null,
-      "source": "LiveScore",
-      "sourceType": "media",
-      "description": "Italy, controversy over Calafiori after the video in which he gives his shirt to a child. His response: “You scare me”&nbsp;&nbsp;LiveScore",
-      "publishedAt": "2026-09-30T16:25:05.000Z",
       "imageUrl": null
     }
   ]
