@@ -1,17 +1,8 @@
 {
   "version": 1,
-  "updatedAt": "2026-10-05T23:48:06.678Z",
+  "updatedAt": "2026-10-10T12:00:03.646Z",
   "source": "espn",
   "arsenal": [
-    {
-      "date": "2026-10-10T11:30Z",
-      "comp": "Premier League",
-      "opp": "Leeds United",
-      "venue": "Emirates Stadium",
-      "status": null,
-      "isHome": true,
-      "opponentId": 357
-    },
     {
       "date": "2026-10-13T19:00Z",
       "comp": "Champions League",
@@ -47,6 +38,15 @@
       "status": null,
       "isHome": true,
       "opponentId": 368
+    },
+    {
+      "date": "2026-10-27T20:00Z",
+      "comp": "EFL Cup",
+      "opp": "Fleetwood Town",
+      "venue": "Highbury Stadium",
+      "status": null,
+      "isHome": false,
+      "opponentId": 3891
     }
   ],
   "italy": [
