@@ -1,17 +1,8 @@
 {
   "version": 1,
-  "updatedAt": "2026-10-13T22:20:49.055Z",
+  "updatedAt": "2026-10-18T20:10:16.164Z",
   "source": "espn",
   "arsenal": [
-    {
-      "date": "2026-10-18T15:30Z",
-      "comp": "Premier League",
-      "opp": "Nottingham Forest",
-      "venue": "The City Ground",
-      "status": null,
-      "isHome": false,
-      "opponentId": 393
-    },
     {
       "date": "2026-10-21T19:00Z",
       "comp": "Champions League",
@@ -47,6 +38,15 @@
       "status": null,
       "isHome": false,
       "opponentId": 364
+    },
+    {
+      "date": "2026-11-04T20:00Z",
+      "comp": "Champions League",
+      "opp": "Slavia Prague",
+      "venue": "Fortuna Arena",
+      "status": null,
+      "isHome": false,
+      "opponentId": 494
     }
   ],
   "italy": [
