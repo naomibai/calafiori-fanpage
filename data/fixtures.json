@@ -1,17 +1,8 @@
 {
   "version": 1,
-  "updatedAt": "2026-10-18T20:10:16.164Z",
+  "updatedAt": "2026-10-21T21:18:43.375Z",
   "source": "espn",
   "arsenal": [
-    {
-      "date": "2026-10-21T19:00Z",
-      "comp": "Champions League",
-      "opp": "Bayern Munich",
-      "venue": "Allianz Arena",
-      "status": null,
-      "isHome": false,
-      "opponentId": 132
-    },
     {
       "date": "2026-10-24T14:00Z",
       "comp": "Premier League",
@@ -47,6 +38,15 @@
       "status": null,
       "isHome": false,
       "opponentId": 494
+    },
+    {
+      "date": "2026-11-07T15:00Z",
+      "comp": "Premier League",
+      "opp": "Hull City",
+      "venue": "Emirates Stadium",
+      "status": null,
+      "isHome": true,
+      "opponentId": 306
     }
   ],
   "italy": [
