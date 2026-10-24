@@ -1,17 +1,8 @@
 {
   "version": 1,
-  "updatedAt": "2026-10-21T21:18:43.375Z",
+  "updatedAt": "2026-10-24T15:28:19.066Z",
   "source": "espn",
   "arsenal": [
-    {
-      "date": "2026-10-24T14:00Z",
-      "comp": "Premier League",
-      "opp": "Everton",
-      "venue": "Emirates Stadium",
-      "status": null,
-      "isHome": true,
-      "opponentId": 368
-    },
     {
       "date": "2026-10-27T20:00Z",
       "comp": "EFL Cup",
@@ -47,6 +38,15 @@
       "status": null,
       "isHome": true,
       "opponentId": 306
+    },
+    {
+      "date": "2026-11-21T17:30Z",
+      "comp": "Premier League",
+      "opp": "Newcastle United",
+      "venue": "St. James' Park",
+      "status": null,
+      "isHome": false,
+      "opponentId": 361
     }
   ],
   "italy": [
