@@ -1,17 +1,8 @@
 {
   "version": 1,
-  "updatedAt": "2026-10-27T21:52:07.626Z",
+  "updatedAt": "2026-11-01T21:44:42.225Z",
   "source": "espn",
   "arsenal": [
-    {
-      "date": "2026-11-01T16:30Z",
-      "comp": "Premier League",
-      "opp": "Liverpool",
-      "venue": "Anfield",
-      "status": null,
-      "isHome": false,
-      "opponentId": 364
-    },
     {
       "date": "2026-11-04T20:00Z",
       "comp": "Champions League",
@@ -47,6 +38,15 @@
       "status": null,
       "isHome": true,
       "opponentId": 124
+    },
+    {
+      "date": "2026-11-29T16:30Z",
+      "comp": "Premier League",
+      "opp": "Manchester City",
+      "venue": "Emirates Stadium",
+      "status": null,
+      "isHome": true,
+      "opponentId": 382
     }
   ],
   "italy": [
