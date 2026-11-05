@@ -1,7 +1,29 @@
 {
   "version": 1,
-  "updatedAt": "2026-11-05T14:05:37.112Z",
+  "updatedAt": "2026-11-05T23:19:26.475Z",
   "items": [
+    {
+      "id": "0526deff5a015e79",
+      "url": "https://news.google.com/rss/articles/CBMiuwFBVV95cUxOeFdjRS1lYTJEbTRZSFJSU1NyQmpTRVBIeENfZFZkUHRISzY4MnBkSzVPVTFRRkJMeHpKOFVBZFktNndLTUpIaXhUeENIOHlGRVh2Y1NJRWdrTFotNnZGMFNMX09pOVY5U0V1NzFiejBTT1dyM3VfQnFYcWFyLS1lQ05qVEVwTjRmNkIwakZyUkhmVTBxblNUS1B0R3NpZ0JKZnUtT0FDMGFrZTRsM2l4WWtTSm0xQmhZVjVN?oc=5",
+      "title": "Havertz, Tzolis And Calafiori To Start | 4-2-3-1 Arsenal Predicted Lineup Vs Hull City",
+      "titleZh": null,
+      "source": "The 4th Official",
+      "sourceType": "media",
+      "description": "Havertz, Tzolis And Calafiori To Start | 4-2-3-1 Arsenal Predicted Lineup Vs Hull City&nbsp;&nbsp;The 4th Official",
+      "publishedAt": "2026-11-05T20:30:40.000Z",
+      "imageUrl": null
+    },
+    {
+      "id": "e2d52811fa35344d",
+      "url": "https://news.google.com/rss/articles/CBMi4gFBVV95cUxOUHJBc0U4VDJwZnFxY3BtSGFKYm1HeU1MOFJ2MWdHc0ZVajNVYW5Rc2U2UGY1aVJDeDhISFNETS1ORHlBRkdIejRVcTBtRDlRNmlTQ1FxUVY1azVOSVVOeXI1cDA1ZDg3SGI4aWZTVUlVZnRDYnl2RnBhcjVTTGlBa0s0Z1JnNVhmV3dLRUNBRm8xNlQ3T2d3bkdZY0Y3NFpWeEhFNHZmMF9vNFNsWVFlUS05MWhIelBlSjhjdDZETC01VmlVREh5b1JpdFJQT3RsV3ZRb09UbjFnWHhGcEtNcXNn?oc=5",
+      "title": "Arsenal release Love Actually-inspired Christmas advert! Ft. Colin Firth, Gabriel, Calafiori and Russo!",
+      "titleZh": null,
+      "source": "Sky Sports",
+      "sourceType": "media",
+      "description": "Arsenal release Love Actually-inspired Christmas advert! Ft. Colin Firth, Gabriel, Calafiori and Russo!&nbsp;&nbsp;Sky Sports",
+      "publishedAt": "2026-11-05T19:07:53.000Z",
+      "imageUrl": null
+    },
     {
       "id": "d0ad133481102358",
       "url": "https://news.google.com/rss/articles/CBMirgFBVV95cUxQOGZUX1ZzLVFtQTg1alJKSi1IMHhsdV9BQzZVSk5SLXdGSG56blNWLTNQc1hXTzRJWHNIbEF3QWZfZkJRbmtnVXYybGxNTUU4WF9wY25fQy1CVzdQcFplTTJPRm9wTEl6NzVxbXkycmFjZ1FqLVlSOUx6OGNua0lRZTR2dm9sQVJ1dEdSRmk5NF9lV2hIbFNqeFJlTjVtVk9BN2xybVBCc0VZQWUwaWc?oc=5",
@@ -440,39 +462,6 @@
       "sourceType": "media",
       "description": "FPL Price Changes: Evanilson Rises as Calafiori and Havertz Fall&nbsp;&nbsp;Fantasy Football Fix",
       "publishedAt": "2026-10-30T00:18:08.000Z",
-      "imageUrl": null
-    },
-    {
-      "id": "e822627799376e2a",
-      "url": "https://news.google.com/rss/articles/CBMi0wFBVV95cUxQTXVMYXlEY1FXb0Z1aVZ0dl9QQXROY0hvb0dlSEV1SEZSbXlsQ3R6eVVmck0xalEyQWQ3NGRBVG5HQVloeVFiVzZuLVRORUc2ekxET1MydVgtcWo4Xy1SSmcxdEFaSXB2UzVQT2JNU29uWUJUbF9Nek5KakVJQjEzTXBJWmcxOGsxeXNyTjN1c2pzS09ZQ0VCR0lOV0ZBNy1DekxrZjd4Uk9IM29XSW00Z0J0QjhHUlNPenJ5M1FhdnlDWnROSExYaHVSb1d3LXktaUxn?oc=5",
-      "title": "Calafiori and Konsa reveal Arteta’s furious reaction to Arsenal defeat and explain defensive success",
-      "titleZh": null,
-      "source": "ArsenalNews.co.uk",
-      "sourceType": "media",
-      "description": "Calafiori and Konsa reveal Arteta’s furious reaction to Arsenal defeat and explain defensive success&nbsp;&nbsp;ArsenalNews.co.uk",
-      "publishedAt": "2026-10-29T17:44:28.000Z",
-      "imageUrl": null
-    },
-    {
-      "id": "1fa4489f0a93d752",
-      "url": "https://news.google.com/rss/articles/CBMilwFBVV95cUxPZDZlSy11SG1ITzVkRm1TXzJQcWlab0NjSmcwNGVDQUk1LTR6M1NkYzhoaHBmcFR6bl9wTFA1S2U5YTNQWGlNXzBJVktobF8tQW81TEhqaTYzSFp1WU5VZXpDVnlGVXpZZTF2ZmxvNkpJZ2EtdzhBS2UxWkVKbERiNXc1eFJPekgtOE9QVDhKU3B4cWpNYjlv0gGcAUFVX3lxTFBqTTcwb1UxRVVlSmRJQ3hYOUhhVHFUNlRKbG5KSkRfWmRiYS0za0lTeHBEbTA0V08yNGNhUzNmcUhOd2t4LTVGZXY0eVV3UWFGbnVJN2pHbjJOZG54ZUt5MnBnam9QZEpKXzN0Slo5SjNtbDdGeFZ5WEE2R2VZSUY1M243UnpNUXR3UVhwYUFleFNQVFoxUHRRMTV4Ug?oc=5",
-      "title": "Calafiori, Rice, Madueke - Arsenal injury news ahead of Liverpool",
-      "titleZh": null,
-      "source": "Football London",
-      "sourceType": "media",
-      "description": "Calafiori, Rice, Madueke - Arsenal injury news ahead of Liverpool&nbsp;&nbsp;Football London",
-      "publishedAt": "2026-10-29T17:05:33.000Z",
-      "imageUrl": null
-    },
-    {
-      "id": "f5e85da0f70b08fd",
-      "url": "https://news.google.com/rss/articles/CBMilAFBVV95cUxNSW9sbVY5Y1NnaWpWNEd6SjBqZUlzV1ItVmFaMkpZNDJ0Z054RUZjZVFNSGtHNmYyOGxoR3d5ZzFrNzliQy0xeVJzUjRrcEw2VERBNnFFeExqd3pwdDFfQU1yaWhvNkE4V2J0SG01eUpCSU93QXVHUjh4dmMxMF83Mko5RGRJTUwxc1pvSE5DeU5sM25J0gGaAUFVX3lxTE5reFRybnJ5VUNfaGMzR2l6QkNlUW1CbnF5Nm83Qnp5MTNZNGYtWmtsYW9GNUNMTE1DWWtJM1hGaDNmYU1vV0NHM182SURMRUpUd3NsaHJHTC1kN0M0M2ttcmdDaDktNl9nMXNRYzA2T054bmtfOTNPSDRjeFVHbTJ4cUtfSFBDdTE0ZE9wXzFXNlJ0U3RaT29SZXc?oc=5",
-      "title": "Eight Arsenal changes for Liverpool as Mikel Arteta makes Riccardo Calafiori and Kai Havertz calls",
-      "titleZh": null,
-      "source": "Football London",
-      "sourceType": "media",
-      "description": "Eight Arsenal changes for Liverpool as Mikel Arteta makes Riccardo Calafiori and Kai Havertz calls&nbsp;&nbsp;Football London",
-      "publishedAt": "2026-10-29T15:04:42.000Z",
       "imageUrl": null
     }
   ]
