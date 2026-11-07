@@ -1,17 +1,8 @@
 {
   "version": 1,
-  "updatedAt": "2026-11-04T23:16:22.272Z",
+  "updatedAt": "2026-11-07T21:29:41.047Z",
   "source": "espn",
   "arsenal": [
-    {
-      "date": "2026-11-07T15:00Z",
-      "comp": "Premier League",
-      "opp": "Hull City",
-      "venue": "Emirates Stadium",
-      "status": null,
-      "isHome": true,
-      "opponentId": 306
-    },
     {
       "date": "2026-11-21T17:30Z",
       "comp": "Premier League",
@@ -47,6 +38,15 @@
       "status": null,
       "isHome": false,
       "opponentId": 337
+    },
+    {
+      "date": "2026-12-06T16:30Z",
+      "comp": "Premier League",
+      "opp": "Tottenham Hotspur",
+      "venue": "Tottenham Hotspur Stadium",
+      "status": null,
+      "isHome": false,
+      "opponentId": 367
     }
   ],
   "italy": [
