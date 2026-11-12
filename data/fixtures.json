@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-11-07T21:29:41.047Z",
+  "updatedAt": "2026-11-12T23:15:37.088Z",
   "source": "espn",
   "arsenal": [
     {
@@ -50,15 +50,6 @@
     }
   ],
   "italy": [
-    {
-      "date": "2026-11-12T19:45Z",
-      "comp": "Nations League",
-      "opp": "France",
-      "venue": "San Siro",
-      "status": null,
-      "isHome": true,
-      "opponentId": 478
-    },
     {
       "date": "2026-11-15T19:45Z",
       "comp": "Nations League",
