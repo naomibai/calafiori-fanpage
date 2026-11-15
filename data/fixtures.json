@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-11-12T23:15:37.088Z",
+  "updatedAt": "2026-11-15T22:31:37.806Z",
   "source": "espn",
   "arsenal": [
     {
@@ -49,15 +49,5 @@
       "opponentId": 367
     }
   ],
-  "italy": [
-    {
-      "date": "2026-11-15T19:45Z",
-      "comp": "Nations League",
-      "opp": "Belgium",
-      "venue": "King Baudouin Stadium",
-      "status": null,
-      "isHome": false,
-      "opponentId": 459
-    }
-  ]
+  "italy": []
 }
