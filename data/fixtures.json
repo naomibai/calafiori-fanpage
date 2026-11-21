@@ -1,17 +1,8 @@
 {
   "version": 1,
-  "updatedAt": "2026-11-15T22:31:37.806Z",
+  "updatedAt": "2026-11-21T22:49:16.987Z",
   "source": "espn",
   "arsenal": [
-    {
-      "date": "2026-11-21T17:30Z",
-      "comp": "Premier League",
-      "opp": "Newcastle United",
-      "venue": "St. James' Park",
-      "status": null,
-      "isHome": false,
-      "opponentId": 361
-    },
     {
       "date": "2026-11-24T20:00Z",
       "comp": "Champions League",
@@ -47,6 +38,15 @@
       "status": null,
       "isHome": false,
       "opponentId": 367
+    },
+    {
+      "date": "2026-12-09T20:00Z",
+      "comp": "Champions League",
+      "opp": "Real Madrid",
+      "venue": "Emirates Stadium",
+      "status": null,
+      "isHome": true,
+      "opponentId": 86
     }
   ],
   "italy": []
