@@ -1,17 +1,8 @@
 {
   "version": 1,
-  "updatedAt": "2026-11-21T22:49:16.987Z",
+  "updatedAt": "2026-11-25T01:57:05.653Z",
   "source": "espn",
   "arsenal": [
-    {
-      "date": "2026-11-24T20:00Z",
-      "comp": "Champions League",
-      "opp": "Borussia Dortmund",
-      "venue": "Emirates Stadium",
-      "status": null,
-      "isHome": true,
-      "opponentId": 124
-    },
     {
       "date": "2026-11-29T16:30Z",
       "comp": "Premier League",
@@ -47,6 +38,15 @@
       "status": null,
       "isHome": true,
       "opponentId": 86
+    },
+    {
+      "date": "2026-12-13T14:00Z",
+      "comp": "Premier League",
+      "opp": "AFC Bournemouth",
+      "venue": "Emirates Stadium",
+      "status": null,
+      "isHome": true,
+      "opponentId": 349
     }
   ],
   "italy": []

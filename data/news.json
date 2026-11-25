@@ -1,7 +1,18 @@
 {
   "version": 1,
-  "updatedAt": "2026-11-24T17:02:08.876Z",
+  "updatedAt": "2026-11-25T01:57:07.189Z",
   "items": [
+    {
+      "id": "8153778521fb922f",
+      "url": "https://news.google.com/rss/articles/CBMiowFBVV95cUxPWlBIZGZiSTJJM1lIcGc1ZUhIMGpWQ0YzUjUwZ2paZFlRX2FfSVpkRXdEMzVmSlRXRTdIdUJZVnRRei1VV01jWHFkSzFOSm9tdi1FY19pb1ctR1ltMjBHVmdCQWk1OUkwcFpuQWRVcjRFQlBicE9pOFFZUlF0bVVVWVc5eGVnUE1zMm56NmxxNWpSZ1ExN2s5QVdPckxnTXhfUnhv?oc=5",
+      "title": "Calafiori starts on the bench for Arsenal against Dortmund",
+      "titleZh": null,
+      "source": "Tu Futbolero",
+      "sourceType": "media",
+      "description": "Calafiori starts on the bench for Arsenal against Dortmund&nbsp;&nbsp;Tu Futbolero",
+      "publishedAt": "2026-11-24T19:17:01.000Z",
+      "imageUrl": null
+    },
     {
       "id": "21651761e4392daa",
       "url": "https://news.google.com/rss/articles/CBMiyAFBVV95cUxPemhoZ21vTnlKOGNhQWhuMi1DSUJKLTNlUFhWTFdoYkVacTFoYUcxQnZjSTZLUW5vUlp1a09ybE1TVkxGc2E2M29CS2RiOEx2S09VUlotZTlncmFoQnNWRUtJU2FXMnJsQk1odHdlX3kwdUlEbE5wZHZSdTg0cTRRdUFtQlNaT1hPUzlLLXZCNHRsUmZiVmhUd2FhUDlkSTM5ZW51R2h5TTE3N2YwLVdpQjZRbHlERElFZk5VZXZJYlprMThxY2s1V9IBzgFBVV95cUxQNHhhZFIxbUwyYjU3NkhZYVg5anFqWmRkMTUwUEdDendHVU9vZU1EMDlnNC1IMmptS0o2OXBOOFNSdjlwMlZrMWJZWG9YNWZFQnZZVG8wQVVxdkpicmRZak5hem8tSDB5dGExNjBCWFRwMWEwbFlQeXRGdkFBbzN3V3Mzdk1BaGJ3N0lQY0VBUmtHYldSa1UtQ3BTQzJ5TnU0ZUVpZTAzMDV4N3ZsZVNiUGNOWFZKeUh4cGtLZ25rSmdjOEh0ajk2Z28xbmpVQQ?oc=5",
@@ -121,83 +132,6 @@
       "sourceType": "media",
       "description": "Confirmed: Four new contracts at Arsenal – with Odegaard and Calafiori to follow&nbsp;&nbsp;FootballTransfers.com",
       "publishedAt": "2026-11-18T08:39:00.000Z",
-      "imageUrl": null
-    },
-    {
-      "id": "a2c4a983ae518442",
-      "url": "https://news.google.com/rss/articles/CBMilwFBVV95cUxPaU1aekwwbFUtaGhzOWl6R0xMcndVM2Iyblk5eGJoV2drenRCbk5uWWRWSUtHclZGUDhqaGVlX3dLX0x1MXZyVWVFMFh2ZFNEMGY5aHQzb1o3bi1vUWxQbVU2dnd3Mkp6ZEVOdkVEU1pqYkRhRk5rcXQzLVUyd2VTeEZua01RLUZCNnVVd1pQanhhM3UzRzg0?oc=5",
-      "title": "Italie - Calafiori : \"Le meilleur moment de ma carrière\"",
-      "titleZh": null,
-      "source": "OneFootball",
-      "sourceType": "media",
-      "description": "Italie - Calafiori : \"Le meilleur moment de ma carrière\"&nbsp;&nbsp;OneFootball",
-      "publishedAt": "2026-11-17T23:19:36.000Z",
-      "imageUrl": null
-    },
-    {
-      "id": "c2954733f7dac609",
-      "url": "https://news.google.com/rss/articles/CBMikAFBVV95cUxPSU9zMkYwd1N0SWR4c2h1MncxS1ZnaXFzQ0s3SlBFdm9vZDRCTGZpcDFURG5sekI1VXlHeHNQRUswbXg0VzFDbmluN2NiZ0lqNGFHQkFQRC1ZRVBlTVRZNmxjRnNjeVRsVmRnY2lYekJoZU82UDd0aC1Rd0dnUWMwNnRRWEpnYmtGemJwNC1hajU?oc=5",
-      "title": "Riccardo Calafiori Receives Award From Rome Mayor, Hails Arsenal Spell as 'Best Moment of My Career'",
-      "titleZh": null,
-      "source": "Yahoo Sports",
-      "sourceType": "media",
-      "description": "Riccardo Calafiori Receives Award From Rome Mayor, Hails Arsenal Spell as 'Best Moment of My Career'&nbsp;&nbsp;Yahoo Sports",
-      "publishedAt": "2026-11-17T22:39:53.000Z",
-      "imageUrl": null
-    },
-    {
-      "id": "95b3ef4e6edc986b",
-      "url": "https://news.google.com/rss/articles/CBMirwFBVV95cUxNTEEwSW1zSVFCRkpQZlY2MTJJSUozcVFqNFV4cllMV0NaWXpTNzNOQzNvNlJUbWFlMU9lYjlBLU1Ob25WLURXOHd4VVJRNTNyT25kaUJsNlhrT2pyYVVFYU0tSFFrdGFSaEc1UzhiZW1RQ2FrNF9DOUNwcDRISzVWcGJrS2l5LVZ1NnEzbGxQaW9LY294NktEMUs1aDBTUkxOM1Y5eDhEMnB3dkR3MG1J?oc=5",
-      "title": "Calafiori: \"Me siento un líder, pero no soy un tipo que hable demasiado\"",
-      "titleZh": null,
-      "source": "OneFootball",
-      "sourceType": "media",
-      "description": "Calafiori: \"Me siento un líder, pero no soy un tipo que hable demasiado\"&nbsp;&nbsp;OneFootball",
-      "publishedAt": "2026-11-17T21:34:53.000Z",
-      "imageUrl": null
-    },
-    {
-      "id": "6229f2ef471971f9",
-      "url": "https://news.google.com/rss/articles/CBMiywFBVV95cUxOZGF0VmdnbzVTVWgyQ0s3dUxmRTZrN0FqSjFESzA1WHZjeEpXVVNoNGxkQm5EYnF2U3JxREFrRHExOGdRVWxPUTZvM0tZQTNBNUxtaTlUZVNDOEZCTzktSVBLaDNkY3pHeHg5MDRhUnBZQVA3aWRLUmxldWRDOFktR3pxVFRmaDlPZXNBbV9UdjUyWUdUNG8tV3Z5X09WX2JmTkI3OTVZNktVN3hpQ29vSjBGM2w3blpQQTBJWUczU2NId2Nva01WVWJRRQ?oc=5",
-      "title": "Calafiori in 'best moment of my career' at Arsenal",
-      "titleZh": null,
-      "source": "beIN SPORTS",
-      "sourceType": "media",
-      "description": "Calafiori in 'best moment of my career' at Arsenal&nbsp;&nbsp;beIN SPORTS",
-      "publishedAt": "2026-11-17T18:50:02.000Z",
-      "imageUrl": null
-    },
-    {
-      "id": "d9bae90848723b72",
-      "url": "https://news.google.com/rss/articles/CBMiyAFBVV95cUxOWXlLdG5RSXpNai1vbC1FbWpWRzR0VmpsNlBnaTZMOUNUYjZMemVQMHZoUGY1NDQxUGE3Mi1LRm5UMUxGSUF4SzExRTkwd0I2YTBpYlhDUG96eElJeUpRWl85TmVDUlFyTFFGRXE2Z19yaDJGaFNENjFuYzIzVl9ZX3F0eTh4QTlZWko0WDdfN25qTnFCNmsyd0g5cng1RmlVZ2dPU05FbjdtQXdwLXprT3RQS2xVS1lGVUZkSVZqME1IV1JVRnFycQ?oc=5",
-      "title": "Calafiori enjoying 'best moment of my career' at Arsenal",
-      "titleZh": null,
-      "source": "beIN SPORTS",
-      "sourceType": "media",
-      "description": "Calafiori enjoying 'best moment of my career' at Arsenal&nbsp;&nbsp;beIN SPORTS",
-      "publishedAt": "2026-11-17T18:50:02.000Z",
-      "imageUrl": null
-    },
-    {
-      "id": "f360182961d45719",
-      "url": "https://news.google.com/rss/articles/CBMitgFBVV95cUxPUXNxaXF1VTMxOE43cHR0eEJKdXh1a0dZMmw1N21tNlAzWEtrc3BzaVhsNXBPT29EeUxUUHBXOTN3MjkzWGJkZ0tfZlBlYU90V0ZVVGhpSU1wQno2cHNlRGdsOFMzWnRicHVsLWk3ZkdNVTNjRldpa1otZGk5VEtuYTVhWHlNRW10dmZtcklIQW82Z0ZmWHBqU3FRLUs2VnFHT29lVmR4ZDZnNlQ1aml2dlRFOHpVUQ?oc=5",
-      "title": "Arsenal star Riccardo Calafiori honoured in Rome after Premier League triumph",
-      "titleZh": null,
-      "source": "ArsenalNews.co.uk",
-      "sourceType": "media",
-      "description": "Arsenal star Riccardo Calafiori honoured in Rome after Premier League triumph&nbsp;&nbsp;ArsenalNews.co.uk",
-      "publishedAt": "2026-11-17T18:29:33.000Z",
-      "imageUrl": null
-    },
-    {
-      "id": "d5fe5c231bfb001e",
-      "url": "https://news.google.com/rss/articles/CBMixwFBVV95cUxQVzI4Tl9NUFlJUDVDZEVaTjdoNFR2X20wOWI2X3dPQThBQm5HWG9XVkx3c1RHTGpwUFQtLXNlMWxfYXppOGNjTGRjSnM1a1RKYS1JRGJpcGZ3azJyb1ZXV1l0NWxtdlRORjh5SllTYVBCc2o2d29QQWpsUmI0SFlWX3plb3pKM2xxdzlGZ0h4R3IyZkEyNFV3eHdRUHNEbmhDdnRsd19nR1pWMFBubDE5cG1IaWt2ZWd3cUs4c2Y4R0lhTDAyVGQw?oc=5",
-      "title": "Calafiori: The defeat against Belgium was harsh an… | Yalla Shoot",
-      "titleZh": null,
-      "source": "YSscores",
-      "sourceType": "media",
-      "description": "Calafiori: The defeat against Belgium was harsh an… | Yalla Shoot&nbsp;&nbsp;YSscores",
-      "publishedAt": "2026-11-17T17:28:47.000Z",
       "imageUrl": null
     }
   ]
